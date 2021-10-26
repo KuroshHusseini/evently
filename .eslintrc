@@ -12,6 +12,6 @@
   },
   "rules": {
     "react/prop-types": "off",
-    "quotes": ["error", "single"]
+    "quotes": ["error", "double"]
   }
 }

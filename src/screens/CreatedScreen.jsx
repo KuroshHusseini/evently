@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
+import { theme } from "./../theme/index";
 
 import EventList from "../components/EventList";
+import { events } from "./../../DummyData";
 
-
-const CreatedScreen = ({event}) => {
-console.log("🚀 ~ file: CreatedScreen.jsx ~ line 8 ~ CreatedScreen ~ event", event)
+const CreatedScreen = () => {
+  const [event, setEvent] = useState(events);
   const [search, setSearchQuery] = useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
-  
+
   const onSearchHandler = () => console.log(search);
 
   return (
@@ -27,7 +28,7 @@ console.log("🚀 ~ file: CreatedScreen.jsx ~ line 8 ~ CreatedScreen ~ event", e
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgrey",
+    backgroundColor: theme.colors.main.grey,
   },
 });
 

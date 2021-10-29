@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
+import { theme } from "./../theme/index";
+
 import { FAB } from "react-native-paper";
 
 import EventList from "../components/EventList";
+import { events } from "./../../DummyData";
 
-const HomeScreen = ({ event, navigation }) => {
-console.log("🚀 ~ file: HomeScreen.jsx ~ line 8 ~ HomeScreen ~ navigation", navigation)
-  console.log("🚀 ~ file: HomeScreen.jsx ~ line 7 ~ HomeScreen ~ event", event);
+const HomeScreen = ({ navigation }) => {
+  const [event, setEvent] = useState(events);
   const [search, setSearchQuery] = useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -39,14 +41,14 @@ console.log("🚀 ~ file: HomeScreen.jsx ~ line 8 ~ HomeScreen ~ navigation", na
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgrey",
+    backgroundColor: theme.colors.main.grey,
   },
   fab: {
     position: "absolute",
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: "black",
+    backgroundColor: theme.colors.main.secondary,
   },
 });
 

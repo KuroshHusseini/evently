@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { FlatList, SafeAreaView, View, StyleSheet } from "react-native";
+import { theme } from "../theme";
 
 import EventCard from "./EventCard";
 import SearchBar from "./SearchBar";
@@ -35,10 +36,10 @@ const EventList = ({ event, value, onChangeSearch, onSearchPress }) => {
 
 const styles = StyleSheet.create({
   flatListContainer:{
-    margin: 5
+    margin: theme.space[0]
   },
   separator: {
-    height: 10,
+    height: theme.space[1],
   },
 });
 

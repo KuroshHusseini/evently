@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 
 import EventList from "../components/EventList";
+import { theme } from "./../theme/index";
+import { events } from "./../../DummyData";
 
-const CartScreen = ({event}) => {
+const CartScreen = () => {
+  const [event, setEvent] = useState(events);
   const [search, setSearchQuery] = useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -25,7 +28,7 @@ const CartScreen = ({event}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgrey",
+    backgroundColor: theme.colors.main.grey,
   },
 });
 

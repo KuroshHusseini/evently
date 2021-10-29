@@ -2,18 +2,19 @@
 
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import Navigator from "./src/navigation/Navigator";
+import { events } from "./DummyData";
 
 export default function App() {
-
+  const [event, setEvent] = useState(events);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Navigator />
+    <View style={styles.container}>
+      <Navigator  />
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </View>
   );
 }
 

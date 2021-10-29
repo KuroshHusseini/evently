@@ -16,8 +16,11 @@ const Navigator = () => {
       <Tab.Navigator>
         <Tab.Screen
           name="HomeScreen"
-          options={{ headerShown: false }}
           component={HomeNavigator}
+          options={{
+            headerShown: false,
+        
+          }}
         />
         <Tab.Screen
           name="CartScreen"

@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Subheading, Caption, Title } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
+import { theme } from "../theme";
 
 const EventCard = ({ event }) => {
   return (
@@ -30,11 +31,11 @@ const EventCard = ({ event }) => {
 
 const styles = StyleSheet.create({
   cardInsideContainer: {
-    margin: 5,
-    borderRadius: 5,
+    margin: theme.space[0],
+    borderRadius: theme.space[0],
   },
   cardCover: {
-    borderRadius: 5,
+    borderRadius: theme.radius[0],
   },
   cardTitle: {
     flexDirection: "row",
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   cardTitleRapper: {
-    paddingRight: 10,
+    paddingRight: theme.space[1],
   },
 });
 

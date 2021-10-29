@@ -1,6 +1,7 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
 import { Searchbar } from "react-native-paper";
+import { theme } from "./../theme/index";
 
 const SearchBar = ({ onChangeSearch, searchQuery, onSearchPress }) => {
   return (
@@ -18,7 +19,7 @@ const SearchBar = ({ onChangeSearch, searchQuery, onSearchPress }) => {
 
 const styles = StyleSheet.create({
   searchBarContainer: {
-    marginBottom: 5,
+    marginBottom: theme.space[0],
   },
 });
 

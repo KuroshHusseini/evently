@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import * as ImagePicker from "expo-image-picker";
+
 import {
   View,
   Platform,
@@ -7,18 +9,25 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { theme } from "./../theme/index";
-import { TextInput } from "react-native-paper";
 
-import * as ImagePicker from "expo-image-picker";
 import UploadImage from "../components/UploadImage";
+import CustomTextInput from "../components/CustomTextInput";
+import DateTimePicker from "./../components/DateTimePicker";
+
+
+//TODO): CONTINUE IMPLEMENTING THE CREATE MODAL AND CLEAN IT AFTER
 
 const CreateEventModal = () => {
   const [image, setImage] = useState(null);
+  const [isDateTimePickerVisible, setDateTimePickerVisibility] =
+    useState(false);
+
   console.log(
     "🚀 ~ file: CreateEventModal.jsx ~ line 7 ~ CreateEventModal ~ image",
     image
   );
 
+  //* imagePicker
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -44,35 +53,59 @@ const CreateEventModal = () => {
     }
   };
 
+  //* date picker
+  const showDateTimePicker = () => {
+    setDateTimePickerVisibility(true);
+  };
+
+  const hideDateTimePicker = () => {
+    setDateTimePickerVisibility(false);
+  };
+
+  const handleStartDateTimeConfirm = (date) => {
+    console.log("A date has been picked: ", date);
+    hideDateTimePicker();
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         <UploadImage image={image} addImage={pickImage} />
         <View style={styles.inputContainer}>
-          <TextInput
+          <CustomTextInput
             label="Title"
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-          <TextInput
+          <CustomTextInput
             label="Description"
-            multiline
             keyboardAppearance="dark"
-            numberOfLines={3}
-            maxHeight={200}
+            multiline
             underlineColor={theme.colors.main.secondary}
           />
-          <TextInput
+          <CustomTextInput
             label="Location"
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-          <TextInput
+          <CustomTextInput
             label="Organization"
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
+          <DateTimePicker
+            isDateTimePickerVisible={isDateTimePickerVisible}
+            showDateTimePicker={showDateTimePicker}
+            hideDateTimePicker={hideDateTimePicker}
+            handleConfirm={handleStartDateTimeConfirm}
+          />
         </View>
+        <DateTimePicker
+          isDateTimePickerVisible={isDateTimePickerVisible}
+          showDateTimePicker={showDateTimePicker}
+          hideDateTimePicker={hideDateTimePicker}
+          handleConfirm={handleStartDateTimeConfirm}
+        />
       </View>
     </TouchableWithoutFeedback>
   );

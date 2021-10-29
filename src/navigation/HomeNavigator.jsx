@@ -24,7 +24,18 @@ const HomeNavigator = () => {
           },
         }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
+      <Stack.Group
+        screenOptions={{
+          presentation: "modal",
+          headerStyle: {
+            backgroundColor: theme.colors.main.secondary,
+          },
+          headerTintColor: theme.colors.main.primary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
         <Stack.Screen name="Create" component={CreateEventModal} />
       </Stack.Group>
     </Stack.Navigator>

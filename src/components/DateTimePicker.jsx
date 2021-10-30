@@ -1,22 +1,28 @@
 import React from "react";
-import { Button, View } from "react-native-paper";
+import { Button } from "react-native-paper";
+
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 const DateTimePicker = ({
+  title,
+  value,
   handleConfirm,
   hideDateTimePicker,
   showDateTimePicker,
   isDateTimePickerVisible,
 }) => {
   return (
-    <View>
-      <Button onPress={showDateTimePicker}>Show Date Picker</Button>
+    <>
+      <Button mode="contained"icon="clock" dark={true} color="#000" onPress={showDateTimePicker}>
+        {value === null ? title : value}
+      </Button>
       <DateTimePickerModal
         isVisible={isDateTimePickerVisible}
         mode="datetime"
         onConfirm={handleConfirm}
         onCancel={hideDateTimePicker}
       />
-    </View>
+    </>
   );
 };
 

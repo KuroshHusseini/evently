@@ -6,10 +6,11 @@ const CustomTextInput = (props) => {
   return (
     <TextInput
       label={props.title}
+      dark={true}
       keyboardAppearance="dark"
       underlineColor={theme.colors.main.secondary}
       onChangeText={props.onChange}
-      value={props.input}
+      value={props.inputValue}
       {...props}
     />
   );

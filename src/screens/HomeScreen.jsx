@@ -8,6 +8,7 @@ import { events } from "./../../DummyData";
 
 const HomeScreen = () => {
   const [event, setEvent] = useState(events);
+  console.log("🚀 ~ file: HomeScreen.jsx ~ line 11 ~ HomeScreen ~ event", event)
   const [search, setSearchQuery] = useState("");
 
   const onChangeSearch = (query) => setSearchQuery(query);

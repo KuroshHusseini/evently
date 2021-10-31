@@ -16,6 +16,7 @@ import UploadImage from "../components/UploadImage";
 import CustomTextInput from "../components/CustomTextInput";
 import DateTimePicker from "./../components/DateTimePicker";
 import CustomButton from "../components/CustomButton";
+import { events } from "./../../DummyData";
 
 //TODO): CONTINUE IMPLEMENTING THE CREATE MODAL AND CLEAN IT AFTER
 
@@ -94,7 +95,8 @@ const CreateEventModal = ({ navigation }) => {
       attending: [],
       userID: uuidv4,
     };
-    console.log("Data", data);
+    events.unshift(data);
+    navigation.navigate("Home");
   };
 
   return (

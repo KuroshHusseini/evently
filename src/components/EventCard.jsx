@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Subheading, Caption, Title } from "react-native-paper";
+import { Card, Subheading, Caption } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { theme } from "../theme";
 

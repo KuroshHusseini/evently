@@ -11,9 +11,8 @@ import { theme } from "./../theme/index";
 const Stack = createStackNavigator();
 
 const HomeNavigator = ({ navigation }) => {
-  
   const onCreateEventHandler = () => navigation.navigate("Create");
-
+  const onCancelHandler = () => navigation.navigate("Home");
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -45,6 +44,13 @@ const HomeNavigator = ({ navigation }) => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerLeft: () => (
+            <CustomButton
+              onPressHandler={onCancelHandler}
+              title="Cancel"
+              color="#fff"
+            />
+          ),
         }}
       >
         <Stack.Screen name="Create" component={CreateEventModal} />

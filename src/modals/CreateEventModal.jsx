@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import * as ImagePicker from "expo-image-picker";
 import {
   View,
+  Keyboard,
   Platform,
   StyleSheet,
-  Keyboard,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
 } from "react-native";
 import moment from "moment";
 import { theme } from "./../theme/index";
@@ -13,11 +15,11 @@ import { theme } from "./../theme/index";
 import UploadImage from "../components/UploadImage";
 import CustomTextInput from "../components/CustomTextInput";
 import DateTimePicker from "./../components/DateTimePicker";
-import { Button } from "react-native-paper";
+import CustomButton from "../components/CustomButton";
 
 //TODO): CONTINUE IMPLEMENTING THE CREATE MODAL AND CLEAN IT AFTER
 
-const CreateEventModal = () => {
+const CreateEventModal = ({ navigation }) => {
   const [image, setImage] = useState(null);
   //* string data
   const [title, setTitle] = useState("");
@@ -81,6 +83,7 @@ const CreateEventModal = () => {
   //* save
   const onSaveHandler = () => {
     const data = {
+      id: uuidv4(),
       title,
       desc,
       location,
@@ -88,15 +91,20 @@ const CreateEventModal = () => {
       amount,
       startDateTime,
       endDateTime,
+      attending: [],
+      userID: uuidv4,
     };
     console.log("Data", data);
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <UploadImage image={image} addImage={pickImage} />
-        <View style={styles.inputContainer}>
+        <View InputScrollView style={styles.inputContainer}>
           <CustomTextInput
             label="Title"
             inputValue={title}
@@ -104,14 +112,15 @@ const CreateEventModal = () => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
+
           <CustomTextInput
-            multiline
             label="Description"
             inputValue={desc}
             onChange={onDescChangeHandler}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
+
           <CustomTextInput
             label="Location"
             inputValue={location}
@@ -134,35 +143,39 @@ const CreateEventModal = () => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-
-          <DateTimePicker
-            title="start date and time"
-            value={startDateTime}
-            isDateTimePickerVisible={isStartPickerVisible}
-            showDateTimePicker={showStartDateTimePicker}
-            hideDateTimePicker={hideStartDateTimePicker}
-            handleConfirm={handleStartDateTimeConfirm}
-          />
-          <DateTimePicker
-            title="end date and time"
-            value={endDateTime}
-            isDateTimePickerVisible={isEndPickerVisible}
-            showDateTimePicker={showEndDateTimePicker}
-            hideDateTimePicker={hideEndDateTimePicker}
-            handleConfirm={handleEndDateTimeConfirm}
-          />
+          <View style={styles.buttonContainer}>
+            <View style={styles.dateTimeButtons}>
+              <DateTimePicker
+                title="start date and time"
+                value={startDateTime}
+                isDateTimePickerVisible={isStartPickerVisible}
+                showDateTimePicker={showStartDateTimePicker}
+                hideDateTimePicker={hideStartDateTimePicker}
+                handleConfirm={handleStartDateTimeConfirm}
+              />
+            </View>
+            <View style={styles.dateTimeButtons}>
+              <DateTimePicker
+                title="end date and time"
+                value={endDateTime}
+                isDateTimePickerVisible={isEndPickerVisible}
+                showDateTimePicker={showEndDateTimePicker}
+                hideDateTimePicker={hideEndDateTimePicker}
+                handleConfirm={handleEndDateTimeConfirm}
+              />
+            </View>
+          </View>
         </View>
         <View style={styles.inputContainer}>
-          <Button
+          <CustomButton
+            title="Save"
             mode="contained"
             dark={true}
             color={theme.colors.main.secondary}
-            onPress={onSaveHandler}
-          >
-            Save
-          </Button>
+            onPressHandler={onSaveHandler}
+          />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
 };
@@ -172,10 +185,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: theme.colors.main.lightGray,
   },
   inputContainer: {
     width: "90%",
     marginTop: theme.space[1],
+  },
+  buttonContainer: {
+    justifyContent: "center",
+  },
+  dateTimeButtons: {
+    marginTop: theme.space[0],
   },
 });
 

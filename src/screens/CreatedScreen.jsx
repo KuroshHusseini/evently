@@ -28,7 +28,7 @@ const CreatedScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.main.grey,
+    backgroundColor:  theme.colors.main.lightGray,
   },
 });
 

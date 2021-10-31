@@ -10,18 +10,23 @@ const EventCard = ({ event }) => {
         <Card.Cover style={styles.cardCover} source={{ uri: event?.image }} />
         <Card.Content>
           <View style={styles.cardTitle}>
-            <View style={styles.cardTitleRapper}>
-              <Title>{event?.title}</Title>
+            <View style={styles.cardTitleWrapper}>
+              <Subheading>{event?.title}</Subheading>
             </View>
             <View>
-              <Subheading>{event?.start_date_time}</Subheading>
+              <Subheading>{event?.startTimeDate}</Subheading>
             </View>
           </View>
           <View>
             <Caption>{event?.description}</Caption>
           </View>
-          <View>
-            <Subheading>{event?.location}</Subheading>
+          <View style={styles.loWrapper}>
+            <View>
+              <Subheading>{event?.location}</Subheading>
+            </View>
+            <View>
+              <Subheading>{event?.organization}</Subheading>
+            </View>
           </View>
         </Card.Content>
       </View>
@@ -42,8 +47,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  cardTitleRapper: {
+  cardTitleWrapper: {
+    maxHeight: 40,
     paddingRight: theme.space[1],
+  },
+
+  loWrapper: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

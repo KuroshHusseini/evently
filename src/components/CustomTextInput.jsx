@@ -7,8 +7,14 @@ const CustomTextInput = (props) => {
     <TextInput
       label={props.title}
       dark={true}
+      mode="outlined"
+      theme={{
+        colors: {
+          primary: theme.colors.main.grey,
+          underlineColor: "transparent",
+        },
+      }}
       keyboardAppearance="dark"
-      underlineColor={theme.colors.main.secondary}
       onChangeText={props.onChange}
       value={props.inputValue}
       {...props}

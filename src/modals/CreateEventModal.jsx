@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import moment from "moment";
 import { theme } from "./../theme/index";
+import SegmentedControl from "@react-native-segmented-control/segmented-control";
 
 import UploadImage from "../components/UploadImage";
 import CustomTextInput from "../components/CustomTextInput";
@@ -26,8 +27,13 @@ const CreateEventModal = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [location, setLocation] = useState("");
-  const [organization, setOrganization] = useState("");
   const [amount, setAmount] = useState("");
+
+  //* event type
+  const values = ["Campus", "Party", "Other"];
+  const [eventType, setEventType] = useState(values[1]);
+  console.log("🚀 ~ file: CreateEventModal.jsx ~ line 34 ~ CreateEventModal ~ eventType", eventType)
+
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(null);
@@ -62,8 +68,11 @@ const CreateEventModal = ({ navigation }) => {
   const onTitleChangeHandler = (value) => setTitle(value);
   const onDescChangeHandler = (value) => setDesc(value);
   const onLocationChangeHandler = (value) => setLocation(value);
-  const onOrganizationChangeHandler = (value) => setOrganization(value);
   const onAmountChangeHandler = (value) => setAmount(value);
+
+  //* type of event handler
+  const onSegmentChangeHandler = (event) =>
+    setEventType(event.nativeEvent.value);
 
   //* start date
   const showStartDateTimePicker = () => setStartPickerVisible(true);
@@ -85,15 +94,16 @@ const CreateEventModal = ({ navigation }) => {
   const onSaveHandler = () => {
     const data = {
       id: uuidv4(),
+      image,
       title,
-      desc,
+      description: desc,
       location,
-      organization,
+      eventType: eventType,
       amount,
-      startDateTime,
-      endDateTime,
+      startTimeDate: startDateTime,
+      endTimeDate: endDateTime,
       attending: [],
-      userID: uuidv4,
+      userID: uuidv4(),
     };
     events.unshift(data);
     navigation.navigate("Home");
@@ -131,13 +141,14 @@ const CreateEventModal = ({ navigation }) => {
             underlineColor={theme.colors.main.secondary}
           />
 
-          <CustomTextInput
-            label="Organization"
-            inputValue={organization}
-            onChange={onOrganizationChangeHandler}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
+          <SegmentedControl
+            style={styles.segmentStyle}
+            appearance="light"
+            values={values}
+            selectedIndex={eventType}
+            onChange={onSegmentChangeHandler}
           />
+
           <CustomTextInput
             label="Amount"
             inputValue={amount}
@@ -192,6 +203,10 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "90%",
     marginTop: theme.space[1],
+  },
+  segmentStyle: {
+    height: 60,
+    marginTop: theme.space[0],
   },
   buttonContainer: {
     justifyContent: "center",

@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { View, StyleSheet } from "react-native";
 
 import Navigator from "./src/navigation/Navigator";
+import { EventContext } from "./src/utils/EvenContext";
 import { events } from "./DummyData";
 
 export default function App() {
@@ -12,7 +13,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Navigator  />
+      <EventContext.Provider value={event}>
+        <Navigator />
+      </EventContext.Provider>
       <StatusBar style="auto" />
     </View>
   );

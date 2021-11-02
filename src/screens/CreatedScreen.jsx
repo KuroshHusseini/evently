@@ -1,25 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { theme } from "./../theme/index";
 
 import EventList from "../components/EventList";
-import { events } from "./../../DummyData";
+import { EventContext } from "./../utils/EvenContext";
 
 const CreatedScreen = () => {
-  const [event, setEvent] = useState(events);
+  const event = useContext(EventContext);
+
+  //* filter
+  const values = ["All", "Party", "Organization"];
+  const [selected, setSelected] = useState(values[0]);
+  const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
+
+
+  //* search
   const [search, setSearchQuery] = useState("");
-
   const onChangeSearch = (query) => setSearchQuery(query);
-
-  const onSearchHandler = () => console.log(search);
+  const filterEvent = event
+    .map((values) => values)
+    .filter((value) => value.title.includes(search));
 
   return (
     <SafeAreaView style={styles.container}>
       <EventList
-        event={event}
+        event={filterEvent}
         value={search}
         onChangeSearch={onChangeSearch}
-        onSearchPress={onSearchHandler}
+        segmentValue={values}
+        segmentSelected={selected}
+        onSegmentChange={onSegmentChange}
       />
     </SafeAreaView>
   );
@@ -28,7 +38,7 @@ const CreatedScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:  theme.colors.main.lightGray,
+    backgroundColor: theme.colors.main.lightGray,
   },
 });
 

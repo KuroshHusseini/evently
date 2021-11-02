@@ -1,9 +1,13 @@
 /* eslint-disable react/no-children-prop */
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {
+  createStackNavigator,
+  TransitionPresets,
+} from "@react-navigation/stack";
 
 import HomeScreen from "../screens/HomeScreen";
 import CreateEventModal from "./../modals/CreateEventModal";
+import SingleEventModal from "./../modals/SingleEventModal";
 import CustomButton from "./../components/CustomButton";
 
 import { theme } from "./../theme/index";
@@ -35,8 +39,31 @@ const HomeNavigator = ({ navigation }) => {
           ),
         }}
       />
+      <Stack.Screen
+        name="Detail"
+        component={SingleEventModal}
+        options={{
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+          headerStyle: {
+            backgroundColor: theme.colors.main.secondary,
+          },
+          headerTintColor: theme.colors.main.primary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerLeft: () => (
+            <CustomButton
+              onPressHandler={onCancelHandler}
+              title="Back"
+              color="#fff"
+            />
+          ),
+        }}
+      />
+
       <Stack.Group
         screenOptions={{
+          ...TransitionPresets.ModalSlideFromBottomIOS,
           headerStyle: {
             backgroundColor: theme.colors.main.secondary,
           },

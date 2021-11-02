@@ -3,10 +3,12 @@ import { Card, Subheading, Caption } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { theme } from "../theme";
 
-const EventCard = ({ event }) => {
+const EventCard = ({event}) => {
   return (
     <Card>
-      <View style={styles.cardInsideContainer}>
+      <View
+        style={styles.cardInsideContainer}
+      >
         <Card.Cover style={styles.cardCover} source={{ uri: event?.image }} />
         <Card.Content>
           <View style={styles.cardTitle}>
@@ -36,7 +38,7 @@ const EventCard = ({ event }) => {
 
 const styles = StyleSheet.create({
   cardInsideContainer: {
-    margin: theme.space[0],
+    margin: theme.space[2],
     borderRadius: theme.space[0],
   },
   cardCover: {
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
     maxHeight: 40,
     paddingRight: theme.space[1],
   },
-
   loWrapper: {
     flex: 1,
     flexDirection: "row",

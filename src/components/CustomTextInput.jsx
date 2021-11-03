@@ -8,6 +8,7 @@ const CustomTextInput = (props) => {
       label={props.title}
       dark={true}
       mode="outlined"
+      style={{ height: 45 }}
       theme={{
         colors: {
           primary: theme.colors.main.grey,

@@ -7,24 +7,31 @@ import { EventContext } from "./../utils/EvenContext";
 
 const CreatedScreen = () => {
   const event = useContext(EventContext);
-
   //* filter
-  const values = ["All", "Party", "Organization"];
+  const values = ["All", "Party", "Campus"];
   const [selected, setSelected] = useState(values[0]);
   const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
-
-
+  const filterEvent = event
+  .map((values) => values)
+  .filter((value) => {
+    if (selected === "All") {
+      return value;
+    } else {
+      return value.type.includes(selected);
+    }
+  });
   //* search
   const [search, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
-  const filterEvent = event
+
+  const searchEvent = filterEvent
     .map((values) => values)
     .filter((value) => value.title.includes(search));
 
   return (
     <SafeAreaView style={styles.container}>
       <EventList
-        event={filterEvent}
+        event={searchEvent}
         value={search}
         onChangeSearch={onChangeSearch}
         segmentValue={values}

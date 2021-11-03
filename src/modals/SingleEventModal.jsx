@@ -27,8 +27,10 @@ const SingleEventModal = ({ route, navigation }) => {
               <Paragraph>{event.startTimeDate}</Paragraph>
               <Title>End date and time</Title>
               <Paragraph>{event.endTimeDate}</Paragraph>
+              <Title>Host</Title>
+              <Paragraph>{event.host}</Paragraph>
               <Title>Location</Title>
-              <Paragraph>{event.startTimeDate}</Paragraph>
+              <Paragraph>{event.location}</Paragraph>
               <Title>Ticket</Title>
               <Paragraph>{event.amount}</Paragraph>
             </View>

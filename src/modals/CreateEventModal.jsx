@@ -25,14 +25,18 @@ const CreateEventModal = ({ navigation }) => {
   const [image, setImage] = useState(null);
   //* string data
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [host, setHost] = useState("");
+  const [details, setDetails] = useState("");
   const [location, setLocation] = useState("");
   const [amount, setAmount] = useState("");
 
   //* event type
   const values = ["Campus", "Party", "Other"];
   const [eventType, setEventType] = useState(values[1]);
-  console.log("🚀 ~ file: CreateEventModal.jsx ~ line 34 ~ CreateEventModal ~ eventType", eventType)
+  console.log(
+    "🚀 ~ file: CreateEventModal.jsx ~ line 34 ~ CreateEventModal ~ eventType",
+    eventType
+  );
 
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
@@ -64,9 +68,10 @@ const CreateEventModal = ({ navigation }) => {
     !result.cancelled && setImage(result.uri);
   };
 
-  //* title, desc, location, organization, amount
+  //* title, Details, location, organization, amount
   const onTitleChangeHandler = (value) => setTitle(value);
-  const onDescChangeHandler = (value) => setDesc(value);
+  const onDetailsChangeHandler = (value) => setDetails(value);
+  const onHostChangeHandler = (value) => setHost(value);
   const onLocationChangeHandler = (value) => setLocation(value);
   const onAmountChangeHandler = (value) => setAmount(value);
 
@@ -96,7 +101,7 @@ const CreateEventModal = ({ navigation }) => {
       id: uuidv4(),
       image,
       title,
-      description: desc,
+      details,
       location,
       eventType: eventType,
       amount,
@@ -124,11 +129,18 @@ const CreateEventModal = ({ navigation }) => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
+          <CustomTextInput
+            label="Host"
+            inputValue={host}
+            onChange={onHostChangeHandler}
+            keyboardAppearance="dark"
+            underlineColor={theme.colors.main.secondary}
+          />
 
           <CustomTextInput
-            label="Description"
-            inputValue={desc}
-            onChange={onDescChangeHandler}
+            label="Details"
+            inputValue={details}
+            onChange={onDetailsChangeHandler}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
@@ -150,7 +162,7 @@ const CreateEventModal = ({ navigation }) => {
           />
 
           <CustomTextInput
-            label="Amount"
+            label="Cost"
             inputValue={amount}
             onChange={onAmountChangeHandler}
             keyboardAppearance="dark"
@@ -205,7 +217,7 @@ const styles = StyleSheet.create({
     marginTop: theme.space[1],
   },
   segmentStyle: {
-    height: 60,
+    height: 45,
     marginTop: theme.space[0],
   },
   buttonContainer: {

@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import { theme } from "../theme";
 
 const EventCard = ({event}) => {
+console.log("🚀 ~ file: EventCard.jsx ~ line 7 ~ EventCard ~ event", event)
   return (
     <Card>
       <View
@@ -20,14 +21,14 @@ const EventCard = ({event}) => {
             </View>
           </View>
           <View>
-            <Caption>{event?.description}</Caption>
+            <Caption>{event?.details}</Caption>
           </View>
           <View style={styles.loWrapper}>
             <View>
               <Subheading>{event?.location}</Subheading>
             </View>
             <View>
-              <Subheading>{event?.organization}</Subheading>
+              <Subheading>{event?.host}</Subheading>
             </View>
           </View>
         </Card.Content>

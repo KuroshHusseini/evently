@@ -2,7 +2,6 @@
 import React from "react";
 import {
   FlatList,
-  SafeAreaView,
   View,
   StyleSheet,
   TouchableOpacity,
@@ -23,7 +22,7 @@ const EventList = ({
   navigation,
 }) => {
   return (
-    <SafeAreaView style={styles.flatListContainer}>
+    <View style={styles.flatListContainer}>
       <FlatList
         data={event}
         ItemSeparatorComponent={ItemSeparator}
@@ -49,7 +48,7 @@ const EventList = ({
           </TouchableOpacity>
         )}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

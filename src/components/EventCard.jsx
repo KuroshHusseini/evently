@@ -4,7 +4,6 @@ import { View, StyleSheet } from "react-native";
 import { theme } from "../theme";
 
 const EventCard = ({event}) => {
-console.log("🚀 ~ file: EventCard.jsx ~ line 7 ~ EventCard ~ event", event)
   return (
     <Card>
       <View

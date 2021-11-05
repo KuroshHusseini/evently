@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     elevation: 2,
-    height: "30%",
+    height: "25%",
     width: "90%",
     backgroundColor: theme.colors.main.primary,
     borderRadius:  theme.radius[0],

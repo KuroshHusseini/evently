@@ -2,18 +2,18 @@ import React from "react";
 import { Button } from "react-native-paper";
 import { StyleSheet } from "react-native";
 
-const CustomButton = ({ title,icon, onPressHandler }) => {
+const CustomButton = (props) => {
   return (
     <Button
       mode="contained"
       dense={true}
-      icon={icon}
+      icon={props.icon}
       dark={true}
       color="#000"
       contentStyle={styles.buttonStyle}
-      onPress={onPressHandler}
+      onPress={props.onPressHandler}
     >
-      {title}
+      {props.title}
     </Button>
   );
 };

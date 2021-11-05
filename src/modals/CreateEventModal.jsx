@@ -19,8 +19,6 @@ import DateTimePicker from "./../components/DateTimePicker";
 import CustomButton from "../components/CustomButton";
 import { events } from "./../../DummyData";
 
-//TODO): CONTINUE IMPLEMENTING THE CREATE MODAL AND CLEAN IT AFTER
-
 const CreateEventModal = ({ navigation }) => {
   const [image, setImage] = useState(null);
   //* string data
@@ -28,16 +26,10 @@ const CreateEventModal = ({ navigation }) => {
   const [host, setHost] = useState("");
   const [details, setDetails] = useState("");
   const [location, setLocation] = useState("");
-  const [amount, setAmount] = useState("");
-
+  const [cost, setCost] = useState("");
   //* event type
   const values = ["Campus", "Party", "Other"];
   const [eventType, setEventType] = useState(values[1]);
-  console.log(
-    "🚀 ~ file: CreateEventModal.jsx ~ line 34 ~ CreateEventModal ~ eventType",
-    eventType
-  );
-
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(null);
@@ -68,12 +60,12 @@ const CreateEventModal = ({ navigation }) => {
     !result.cancelled && setImage(result.uri);
   };
 
-  //* title, Details, location, organization, amount
+  // //* title, Details, location, organization, Cost
   const onTitleChangeHandler = (value) => setTitle(value);
   const onDetailsChangeHandler = (value) => setDetails(value);
   const onHostChangeHandler = (value) => setHost(value);
   const onLocationChangeHandler = (value) => setLocation(value);
-  const onAmountChangeHandler = (value) => setAmount(value);
+  const onCostChangeHandler = (value) => setCost(value);
 
   //* type of event handler
   const onSegmentChangeHandler = (event) =>
@@ -101,16 +93,18 @@ const CreateEventModal = ({ navigation }) => {
       id: uuidv4(),
       image,
       title,
+      host,
       details,
       location,
       eventType: eventType,
-      amount,
+      cost,
       startTimeDate: startDateTime,
       endTimeDate: endDateTime,
       attending: [],
       userID: uuidv4(),
     };
     events.unshift(data);
+
     navigation.navigate("Home");
   };
 
@@ -124,31 +118,39 @@ const CreateEventModal = ({ navigation }) => {
         <View InputScrollView style={styles.inputContainer}>
           <CustomTextInput
             label="Title"
-            inputValue={title}
-            onChange={onTitleChangeHandler}
+            value={title}
+            onChangeText={onTitleChangeHandler}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
           <CustomTextInput
             label="Host"
-            inputValue={host}
-            onChange={onHostChangeHandler}
+            value={host}
+            onChangeText={onHostChangeHandler}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
 
           <CustomTextInput
             label="Details"
-            inputValue={details}
-            onChange={onDetailsChangeHandler}
+            value={details}
+            onChangeText={onDetailsChangeHandler}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
 
           <CustomTextInput
             label="Location"
-            inputValue={location}
-            onChange={onLocationChangeHandler}
+            value={location}
+            onChangeText={onLocationChangeHandler}
+            keyboardAppearance="dark"
+            underlineColor={theme.colors.main.secondary}
+          />
+
+          <CustomTextInput
+            label="Cost"
+            value={cost}
+            onChangeText={onCostChangeHandler}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
@@ -161,13 +163,6 @@ const CreateEventModal = ({ navigation }) => {
             onChange={onSegmentChangeHandler}
           />
 
-          <CustomTextInput
-            label="Cost"
-            inputValue={amount}
-            onChange={onAmountChangeHandler}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
           <View style={styles.buttonContainer}>
             <View style={styles.dateTimeButtons}>
               <DateTimePicker
@@ -210,14 +205,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: theme.colors.main.lightGray,
   },
   inputContainer: {
     width: "90%",
-    marginTop: theme.space[1],
+    marginTop: theme.space[0],
   },
   segmentStyle: {
-    height: 45,
+    height: 40,
     marginTop: theme.space[0],
   },
   buttonContainer: {

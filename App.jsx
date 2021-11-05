@@ -2,28 +2,30 @@
 
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { View, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 import Navigator from "./src/navigation/Navigator";
-import { EventContext } from "./src/utils/EvenContext";
+
+import { EventContext } from "./src/context/EvenContext";
 import { events } from "./DummyData";
+import { theme } from "./src/theme/index";
 
 export default function App() {
   const [event, setEvent] = useState(events);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <EventContext.Provider value={event}>
         <Navigator />
       </EventContext.Provider>
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: theme.colors.main.secondary,
   },
 });

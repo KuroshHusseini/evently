@@ -47,7 +47,6 @@ const SingleEventModal = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.main.lightGray,
     justifyContent: "center",
   },
   card: {

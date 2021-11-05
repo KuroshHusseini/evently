@@ -1,9 +1,8 @@
 import React, { useState, useContext } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
-import { theme } from "./../theme/index";
+import { View, StyleSheet } from "react-native";
 
 import EventList from "../components/EventList";
-import { EventContext } from "./../utils/EvenContext";
+import { EventContext } from "./../context/EvenContext";
 
 const CreatedScreen = () => {
   const event = useContext(EventContext);
@@ -12,14 +11,10 @@ const CreatedScreen = () => {
   const [selected, setSelected] = useState(values[0]);
   const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
   const filterEvent = event
-  .map((values) => values)
-  .filter((value) => {
-    if (selected === "All") {
-      return value;
-    } else {
-      return value.type.includes(selected);
-    }
-  });
+    .map((values) => values)
+    .filter((value) =>
+      selected === "All" ? value : value?.type.includes(selected)
+    );
   //* search
   const [search, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -29,7 +24,7 @@ const CreatedScreen = () => {
     .filter((value) => value.title.includes(search));
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <EventList
         event={searchEvent}
         value={search}
@@ -38,14 +33,13 @@ const CreatedScreen = () => {
         segmentSelected={selected}
         onSegmentChange={onSegmentChange}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.main.lightGray,
   },
 });
 

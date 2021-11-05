@@ -1,34 +1,31 @@
 import React, { useContext, useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { theme } from "./../theme/index";
 
 import EventList from "../components/EventList";
-import { EventContext } from "./../utils/EvenContext";
+import { EventContext } from "./../context/EvenContext";
 
 const HomeScreen = ({ navigation }) => {
   const event = useContext(EventContext);
   //* filter
   const values = ["All", "Party", "Campus"];
-  const [selected, setSelected] = useState("All");
+  const [selected, setSelected] = useState("");
+
   const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
   const filterEvent = event
     .map((values) => values)
-    .filter((value) => {
-      if (selected === "All") {
-        return value;
-      } else {
-        return value.type.includes(selected);
-      }
-    });
+    .filter((value) =>
+      selected === "All" ? value : value?.type.includes(selected)
+    );
   //* search
   const [search, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
   const searchEvent = filterEvent
     .map((values) => values)
-    .filter((value) => value.title.includes(search));
+    .filter((value) => value?.title.includes(search));
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <EventList
         event={searchEvent}
         value={search}
@@ -38,14 +35,13 @@ const HomeScreen = ({ navigation }) => {
         segmentSelected={selected}
         onSegmentChange={onSegmentChange}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.main.lightGray,
   },
   segmentStyle: {
     height: 40,

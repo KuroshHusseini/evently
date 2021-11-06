@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "react-native-paper";
 import { StyleSheet } from "react-native";
+import { theme } from "./../theme/index";
 
 const CustomButton = (props) => {
   return (
@@ -9,7 +10,7 @@ const CustomButton = (props) => {
       dense={true}
       icon={props.icon}
       dark={true}
-      color="#000"
+      color={theme.colors.main.secondary}
       contentStyle={styles.buttonStyle}
       onPress={props.onPressHandler}
     >

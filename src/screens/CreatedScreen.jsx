@@ -1,16 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
 import EventList from "../components/EventList";
-import { EventContext } from "./../context/EvenContext";
+import { events } from "./../../DummyData";
 
 const CreatedScreen = () => {
-  const event = useContext(EventContext);
-  //* filter
   const values = ["All", "Party", "Campus"];
   const [selected, setSelected] = useState(values[0]);
   const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
-  const filterEvent = event
+  const filterEvent = events
     .map((values) => values)
     .filter((value) =>
       selected === "All" ? value : value?.type.includes(selected)

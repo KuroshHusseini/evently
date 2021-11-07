@@ -15,12 +15,7 @@ import "firebase/compat/firestore";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC8lYdI-WENzS-vZsCor8Xpn57vwExwPnY",
-  authDomain: "bash-app-6ab17.firebaseapp.com",
-  projectId: "bash-app-6ab17",
-  storageBucket: "bash-app-6ab17.appspot.com",
-  messagingSenderId: "59029377677",
-  appId: "1:59029377677:web:a74bacc2ae51f4112388c4",
+
 };
 
 if (!firebase.apps.length) {

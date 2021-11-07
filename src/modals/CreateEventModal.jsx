@@ -60,13 +60,6 @@ const CreateEventModal = ({ navigation }) => {
     !result.cancelled && setImage(result.uri);
   };
 
-  // //* title, Details, location, organization, Cost
-  const onTitleChangeHandler = (value) => setTitle(value);
-  const onDetailsChangeHandler = (value) => setDetails(value);
-  const onHostChangeHandler = (value) => setHost(value);
-  const onLocationChangeHandler = (value) => setLocation(value);
-  const onCostChangeHandler = (value) => setCost(value);
-
   //* type of event handler
   const onSegmentChangeHandler = (event) =>
     setEventType(event.nativeEvent.value);
@@ -119,14 +112,14 @@ const CreateEventModal = ({ navigation }) => {
           <CustomTextInput
             label="Title"
             value={title}
-            onChangeText={onTitleChangeHandler}
+            onChangeText={(t) => setTitle(t)}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
           <CustomTextInput
             label="Host"
             value={host}
-            onChangeText={onHostChangeHandler}
+            onChangeText={(h) => setHost(h)}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
@@ -134,7 +127,7 @@ const CreateEventModal = ({ navigation }) => {
           <CustomTextInput
             label="Details"
             value={details}
-            onChangeText={onDetailsChangeHandler}
+            onChangeText={(d) => setDetails(d)}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
@@ -142,7 +135,7 @@ const CreateEventModal = ({ navigation }) => {
           <CustomTextInput
             label="Location"
             value={location}
-            onChangeText={onLocationChangeHandler}
+            onChangeText={(l) => setLocation(l)}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
@@ -150,7 +143,7 @@ const CreateEventModal = ({ navigation }) => {
           <CustomTextInput
             label="Cost"
             value={cost}
-            onChangeText={onCostChangeHandler}
+            onChangeText={(c) => setCost(c)}
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />

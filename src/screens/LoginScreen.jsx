@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet } from "react-native";
-import CustomButton from "../components/CustomButton";
-import CustomText from "../components/CustomText";
-import { AuthenticationContext } from "../context/AuthenticationContext";
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 
+import CustomButton from "../components/CustomButton";
 import CustomTextInput from "./../components/CustomTextInput";
+import CustomText from "../components/CustomText";
+
+import { AuthenticationContext } from "../context/AuthenticationContext";
 import { theme } from "./../theme/index";
 
 const LoginScreen = ({ navigation }) => {
@@ -12,30 +13,26 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("admin123");
   const { onLogin, error } = useContext(AuthenticationContext);
 
-  const onEmailChangeHandler = (email) => {
-    setEmail(email);
-  };
-
-  const onPasswordChangeHandler = (password) => {
-    setPassword(password);
-  };
-
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
       <CustomText title="Login" />
       <View style={styles.innerContainer}>
         <CustomTextInput
           label="Email"
           value={email}
           placeholder="Enter your email"
-          onChangeText={onEmailChangeHandler}
+          onChangeText={(e) => setEmail(e)}
         />
         <CustomTextInput
           label="Password"
           value={password}
           placeholder="Enter your password"
-          errorLabel={error && "Wrong password or email"}
-          onChangeText={onPasswordChangeHandler}
+          errorLabel={error}
+          secureTextEntry
+          onChangeText={(p) => setPassword(p)}
         />
         <View style={styles.buttonContainer}>
           <CustomButton
@@ -50,7 +47,7 @@ const LoginScreen = ({ navigation }) => {
           />
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

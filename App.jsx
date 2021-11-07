@@ -5,24 +5,21 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { theme } from "./src/theme/index";
 
-import { events } from "./DummyData";
-import Navigator from "./src/navigation/Navigator";
-import AuthenticationContextProvider from "./src/context/AuthenticationContext";
-
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
+import apiKeys from "./config/keys";
 
-const firebaseConfig = {
+import Navigator from "./src/navigation/Navigator";
+import AuthenticationContextProvider from "./src/context/AuthenticationContext";
 
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
 export default function App() {
-  const [event, setEvent] = useState(events);
+  
+  if (!firebase.apps.length) {
+    firebase.initializeApp(apiKeys.firebaseConfig);
+    console.log("Connected to Firebase");
+  }
 
   return (
     <SafeAreaView style={styles.container}>

@@ -2,6 +2,7 @@ import React, { useState, createContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { Alert } from "react-native";
 
 import {
   loginRequest,
@@ -27,41 +28,31 @@ const AuthenticationContextProvider = ({ children }) => {
 
   const onLogin = (email, password) => {
     setIsLoading(true);
-    loginRequest(email, password)
-      .then((user) => {
-        setUser(user);
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        setError("Wrong password or email!");
-        console.log(
-          "🚀 ~ file: AuthenticationContext.jsx ~ line 20 ~ onLogin ~ e",
-          e
-        );
-      });
-  };
 
-  const onLogout = () => {
-    setUser(null);
-    firebase.auth().signOut();
-  };
-
-  const onRegister = (email, password, repeatedPassword) => {
-    setIsLoading(true);
-    if (password !== repeatedPassword) {
-      setError("Password do not match!");
-      return;
+    try {
+      loginRequest(email, password);
+      setUser(user);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error);
     }
-    registerRequest(email, password)
-      .then((user) => {
-        setUser(user);
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        setError(e.toString());
-      });
+  };
+
+  const onLogout = async () => {
+    try {
+      await firebase.auth().signOut();
+      setUser(null);
+    } catch (err) {
+      Alert.alert("There is something wrong!", err.message);
+    }
+  };
+
+  const onRegister = (firstName, lastName, number, email, password) => {
+    try {
+      registerRequest(email, password, firstName, lastName, number);
+    } catch (err) {
+      Alert.alert("There is something wrong!!!!", err.message);
+    }
   };
 
   return (

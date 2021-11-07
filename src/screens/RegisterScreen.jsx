@@ -3,29 +3,47 @@ import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import { theme } from "./../theme/index";
 
 import CustomButton from "../components/CustomButton";
-import CustomText from "../components/CustomText";
+// import CustomText from "../components/CustomText";
 import CustomTextInput from "../components/CustomTextInput";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
 const RegisterScreen = () => {
-  const [email, setEmail] = useState("admin1@gmail.com");
+  const [firstName, setFirstName] = useState("Kurosh");
+  const [lastName, setLastName] = useState("Husseini");
+  const [number, setNumber] = useState("0456925222");
+  const [email, setEmail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("admin123");
-  const [repeatPassword, setRepeatPassword] = useState("admin1223");
-  const { onRegister, error } = useContext(AuthenticationContext);
+  const [repeatPassword, setRepeatPassword] = useState("admin123");
+
+  const { onRegister } = useContext(AuthenticationContext);
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <>
-        <CustomText title="Register" />
-      </>
+      {/* <CustomText title="Register" /> */}
       <View style={styles.innerContainer}>
-        {/* <CustomTextInput label="First name" />
-        <CustomTextInput label="Last name" />
-        <CustomTextInput label="Phone number" /> */}
+        <CustomTextInput
+          label="First name"
+          placeholder="Enter your first name"
+          value={firstName}
+          onChangeText={(f) => setFirstName(f)}
+        />
+        <CustomTextInput
+          label="Last name"
+          placeholder="Enter your last name"
+          value={lastName}
+          onChangeText={(l) => setLastName(l)}
+        />
+        <CustomTextInput
+          label="Phone number"
+          placeholder="Enter your number"
+          value={number}
+          keyboardType="numeric"
+          onChangeText={(n) => setNumber(n)}
+        />
         <CustomTextInput
           label="Email"
           value={email}
@@ -42,7 +60,6 @@ const RegisterScreen = () => {
           label="Confirm password"
           value={repeatPassword}
           placeholder="Repeat your password"
-          errorLabel={error}
           secureTextEntry
           onChangeText={(rp) => setRepeatPassword(rp)}
         />
@@ -50,7 +67,9 @@ const RegisterScreen = () => {
         <View style={styles.buttonContainer}>
           <CustomButton
             title="register"
-            onPressHandler={() => onRegister(email, password, repeatPassword)}
+            onPressHandler={() =>
+              onRegister(firstName, lastName, number, email, password)
+            }
           />
         </View>
       </View>
@@ -61,11 +80,12 @@ const RegisterScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
   innerContainer: {
     width: "90%",
+    marginBottom: 20,
   },
   buttonContainer: {
     marginTop: theme.space[1],

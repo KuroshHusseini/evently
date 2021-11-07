@@ -11,7 +11,7 @@ import { theme } from "./../theme/index";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("admin123");
-  const { onLogin, error } = useContext(AuthenticationContext);
+  const { onLogin } = useContext(AuthenticationContext);
 
   return (
     <KeyboardAvoidingView
@@ -30,7 +30,6 @@ const LoginScreen = ({ navigation }) => {
           label="Password"
           value={password}
           placeholder="Enter your password"
-          errorLabel={error}
           secureTextEntry
           onChangeText={(p) => setPassword(p)}
         />

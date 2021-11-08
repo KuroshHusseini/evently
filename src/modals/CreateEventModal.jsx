@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import * as ImagePicker from "expo-image-picker";
 import {
   View,
@@ -17,7 +17,8 @@ import UploadImage from "../components/UploadImage";
 import CustomTextInput from "../components/CustomTextInput";
 import DateTimePicker from "./../components/DateTimePicker";
 import CustomButton from "../components/CustomButton";
-import { events } from "./../../DummyData";
+import { createEvent } from "../services/eventServices";
+// import { events } from "./../../DummyData";
 
 const CreateEventModal = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -29,7 +30,7 @@ const CreateEventModal = ({ navigation }) => {
   const [cost, setCost] = useState("");
   //* event type
   const values = ["Campus", "Party", "Other"];
-  const [eventType, setEventType] = useState(values[1]);
+  const [type, setType] = useState(values[0]);
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(null);
@@ -61,43 +62,33 @@ const CreateEventModal = ({ navigation }) => {
   };
 
   //* type of event handler
-  const onSegmentChangeHandler = (event) =>
-    setEventType(event.nativeEvent.value);
+  const onSegmentChangeHandler = (event) => setType(event.nativeEvent.value);
 
   //* start date
-  const showStartDateTimePicker = () => setStartPickerVisible(true);
-  const hideStartDateTimePicker = () => setStartPickerVisible(false);
   const handleStartDateTimeConfirm = (startDate) => {
     setStartDateTime(moment(startDate).format("LL HH:mm").toString());
-    hideStartDateTimePicker();
+    setStartPickerVisible(false);
   };
 
   //* end date
-  const showEndDateTimePicker = () => setEndPickerVisible(true);
-  const hideEndDateTimePicker = () => setEndPickerVisible(false);
   const handleEndDateTimeConfirm = (endDate) => {
     setEndDateTime(moment(endDate).format("LL HH:mm").toString());
-    hideEndDateTimePicker();
+    setEndPickerVisible(false);
   };
 
   //* save
   const onSaveHandler = () => {
-    const data = {
-      id: uuidv4(),
+    createEvent(
       image,
       title,
       host,
       details,
       location,
-      eventType: eventType,
+      type,
       cost,
-      startTimeDate: startDateTime,
-      endTimeDate: endDateTime,
-      attending: [],
-      userID: uuidv4(),
-    };
-    events.unshift(data);
-
+      startDateTime,
+      endDateTime
+    );
     navigation.navigate("Home");
   };
 
@@ -152,7 +143,7 @@ const CreateEventModal = ({ navigation }) => {
             style={styles.segmentStyle}
             appearance="light"
             values={values}
-            selectedIndex={eventType}
+            selectedIndex={type}
             onChange={onSegmentChangeHandler}
           />
 
@@ -162,8 +153,8 @@ const CreateEventModal = ({ navigation }) => {
                 title="start date and time"
                 value={startDateTime}
                 isDateTimePickerVisible={isStartPickerVisible}
-                showDateTimePicker={showStartDateTimePicker}
-                hideDateTimePicker={hideStartDateTimePicker}
+                showDateTimePicker={() => setStartPickerVisible(true)}
+                hideDateTimePicker={() => setStartPickerVisible(false)}
                 handleConfirm={handleStartDateTimeConfirm}
               />
             </View>
@@ -172,8 +163,8 @@ const CreateEventModal = ({ navigation }) => {
                 title="end date and time"
                 value={endDateTime}
                 isDateTimePickerVisible={isEndPickerVisible}
-                showDateTimePicker={showEndDateTimePicker}
-                hideDateTimePicker={hideEndDateTimePicker}
+                showDateTimePicker={() => setEndPickerVisible(true)}
+                hideDateTimePicker={() => setEndPickerVisible(false)}
                 handleConfirm={handleEndDateTimeConfirm}
               />
             </View>

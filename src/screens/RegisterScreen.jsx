@@ -1,13 +1,16 @@
 import React, { useState, useContext } from "react";
+
 import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import { theme } from "./../theme/index";
 
 import CustomButton from "../components/CustomButton";
-// import CustomText from "../components/CustomText";
 import CustomTextInput from "../components/CustomTextInput";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
+
+//TODO: Add react native skeleton for loading
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState("Kurosh");
   const [lastName, setLastName] = useState("Husseini");
@@ -16,9 +19,11 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("admin123");
   const [repeatPassword, setRepeatPassword] = useState("admin123");
 
-  const { onRegister } = useContext(AuthenticationContext);
+  const { onRegister, isLoading } = useContext(AuthenticationContext);
 
-  return (
+  return isLoading ? (
+    <ActivityIndicator size="large" Colors={theme.colors.main.secondary} />
+  ) : (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}

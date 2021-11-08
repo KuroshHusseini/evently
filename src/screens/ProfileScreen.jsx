@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
+
 import { View, StyleSheet } from "react-native";
+
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import CustomButton from "./../components/CustomButton";
 
 const ProfileScreen = () => {
   const { onLogout } = useContext(AuthenticationContext);
+
 
   return (
     <View style={styles.container}>

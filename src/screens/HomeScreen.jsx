@@ -6,7 +6,6 @@ import EventList from "../components/EventList";
 import { events } from "./../../DummyData";
 
 const HomeScreen = ({ navigation }) => {
-  //* filter
   const values = ["All", "Party", "Campus"];
   const [selected, setSelected] = useState("");
 

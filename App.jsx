@@ -13,13 +13,19 @@ import apiKeys from "./config/keys";
 
 import Navigator from "./src/navigation/Navigator";
 import AuthenticationContextProvider from "./src/context/AuthenticationContext";
+import { useEffect } from "react";
+import { getEvents } from "./src/services/eventServices";
 
 export default function App() {
-  
+  const [events, setEvents] = useState([]);
   if (!firebase.apps.length) {
     firebase.initializeApp(apiKeys.firebaseConfig);
     console.log("Connected to Firebase");
   }
+
+  useEffect(() => {
+    console.log(getEvents());
+  });
 
   return (
     <SafeAreaView style={styles.container}>

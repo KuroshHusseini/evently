@@ -28,7 +28,6 @@ const AuthenticationContextProvider = ({ children }) => {
 
   const onLogin = (email, password) => {
     setIsLoading(true);
-
     try {
       loginRequest(email, password);
       setUser(user);
@@ -38,20 +37,22 @@ const AuthenticationContextProvider = ({ children }) => {
     }
   };
 
+  const onRegister = (firstName, lastName, number, email, password) => {
+    setIsLoading(true);
+
+    try {
+      registerRequest(email, password, firstName, lastName, number);
+    } catch (err) {
+      Alert.alert("There is something wrong!!!!", err.message);
+    }
+  };
+
   const onLogout = async () => {
     try {
       await firebase.auth().signOut();
       setUser(null);
     } catch (err) {
       Alert.alert("There is something wrong!", err.message);
-    }
-  };
-
-  const onRegister = (firstName, lastName, number, email, password) => {
-    try {
-      registerRequest(email, password, firstName, lastName, number);
-    } catch (err) {
-      Alert.alert("There is something wrong!!!!", err.message);
     }
   };
 

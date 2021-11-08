@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { events } from "../../DummyData";
 
 import EventList from "../components/EventList";
+import { events } from "../../DummyData";
 
 const CartScreen = () => {
   const values = ["All", "Party", "Campus"];

@@ -1,11 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import {
-  FlatList,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { FlatList, View, StyleSheet, TouchableOpacity } from "react-native";
 import { theme } from "../theme";
 
 import EventCard from "./EventCard";
@@ -55,6 +50,7 @@ const EventList = ({
 const styles = StyleSheet.create({
   flatListContainer: {
     margin: theme.space[0],
+   
   },
   separator: {
     height: theme.space[1],

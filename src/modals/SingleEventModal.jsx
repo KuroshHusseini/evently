@@ -20,19 +20,19 @@ const SingleEventModal = ({ route, navigation }) => {
         <View style={styles.contentStyle}>
           <Card.Content>
             <Title>{event.title}</Title>
-            <Paragraph>{event.description}</Paragraph>
+            <Paragraph>{event.details}</Paragraph>
             <View style={styles.innerContentStyle}>
               <Title>Information</Title>
               <Title>Start date and time</Title>
-              <Paragraph>{event.startTimeDate}</Paragraph>
+              <Paragraph>{event.startDateTime}</Paragraph>
               <Title>End date and time</Title>
-              <Paragraph>{event.endTimeDate}</Paragraph>
+              <Paragraph>{event.endDateTime}</Paragraph>
               <Title>Host</Title>
               <Paragraph>{event.host}</Paragraph>
               <Title>Location</Title>
               <Paragraph>{event.location}</Paragraph>
               <Title>Ticket</Title>
-              <Paragraph>{event.amount}</Paragraph>
+              <Paragraph>{event.cost}</Paragraph>
             </View>
           </Card.Content>
         </View>

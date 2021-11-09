@@ -18,7 +18,7 @@ const EventCard = ({ event }) => {
                   <Subheading>{event?.title}</Subheading>
                 </View>
                 <View>
-                  <Subheading>{event?.startTimeDate}</Subheading>
+                  <Subheading>{event?.startDateTime}</Subheading>
                 </View>
               </View>
               <View>

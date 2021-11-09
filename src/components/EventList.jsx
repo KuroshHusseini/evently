@@ -36,7 +36,7 @@ const EventList = ({
           >
             <EventCard
               event={item}
-              Key={({ id }) => id}
+              keyExtractor={({ uid }) => uid}
               onShowUnderlay={separators.highlight}
               onHideUnderlay={separators.unhighlight}
             />
@@ -50,7 +50,6 @@ const EventList = ({
 const styles = StyleSheet.create({
   flatListContainer: {
     margin: theme.space[0],
-   
   },
   separator: {
     height: theme.space[1],

@@ -8,8 +8,8 @@ export const createEvent = async (
   host,
   details,
   location,
-  cost,
   type,
+  cost,
   startDateTime,
   endDateTime
 ) => {
@@ -20,24 +20,12 @@ export const createEvent = async (
     host,
     details,
     location,
-    cost,
-    type,
+    type: type,
+    cost: cost,
     startDateTime,
     endDateTime,
     attending: [],
     userID: currentUser.uid,
   });
   console.log("Event added!");
-};
-
-export const getEvents = async () => {
-  
-  
-  const snapshot = await firebase
-    .firestore()
-    .collection("events")
-    .orderBy("startDateTime")
-    .get();
-
-  snapshot.forEach((doc) => console.log(doc.data()));
 };

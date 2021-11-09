@@ -39,7 +39,6 @@ const AuthenticationContextProvider = ({ children }) => {
 
   const onRegister = (firstName, lastName, number, email, password) => {
     setIsLoading(true);
-
     try {
       registerRequest(email, password, firstName, lastName, number);
     } catch (err) {

@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 export const ItemSeparator = () => <View style={styles.separator} />;
 const EventList = ({
   event,
+  screen,
   value,
   onChangeSearch,
   segmentValue,
@@ -32,7 +33,9 @@ const EventList = ({
         }
         renderItem={({ item, _, separators }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Detail", { event: item })}
+            onPress={() =>
+              navigation.navigate("Detail", { event: item, screen })
+            }
           >
             <EventCard
               event={item}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { v4 as uuidv4 } from "uuid";
 import * as ImagePicker from "expo-image-picker";
 import {
   View,
@@ -17,8 +16,8 @@ import UploadImage from "../components/UploadImage";
 import CustomTextInput from "../components/CustomTextInput";
 import DateTimePicker from "./../components/DateTimePicker";
 import CustomButton from "../components/CustomButton";
+
 import { createEvent } from "../services/eventServices";
-// import { events } from "./../../DummyData";
 
 const CreateEventModal = ({ navigation }) => {
   const [image, setImage] = useState(null);

@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { Card, Title, Paragraph } from "react-native-paper";
-import CustomButton from "./../components/CustomButton";
 import { theme } from "./../theme/index";
+
+import { AuthenticationContext } from "./../context/AuthenticationContext";
+import CustomButton from "./../components/CustomButton";
+import {
+  attendEvent,
+  cancelAttendEvent,
+  deleteEvent,
+} from "../services/eventServices";
 const SingleEventModal = ({ route, navigation }) => {
-  const { event } = route.params;
+  const { user } = useContext(AuthenticationContext);
+  const { event, screen } = route.params;
+  console.log(
+    "🚀 ~ file: SingleEventModal.jsx ~ line 16 ~ SingleEventModal ~ screen",
+    screen
+  );
+
+  const attendingUser = event.attending.includes(user.uid);
+
+  const onEditHandler = () => {
+    console.log(event);
+  };
+
+  const onCancelAttendanceHandler = () => {
+    cancelAttendEvent(event.key, user.uid);
+    navigation.navigate(screen);
+  };
+
+  const onDeleteHandler = () => {
+    deleteEvent(event.key);
+    navigation.navigate(screen);
+  };
 
   const onAttendHandler = () => {
-    console.log(event.user);
-    navigation.navigate("Home");
+    attendEvent(event.key, user.uid);
+    navigation.navigate(screen);
   };
 
   return (
@@ -37,9 +65,28 @@ const SingleEventModal = ({ route, navigation }) => {
           </Card.Content>
         </View>
       </Card>
-      <View style={styles.buttonStyle}>
-        <CustomButton title="Attend" onPressHandler={onAttendHandler} />
-      </View>
+
+      {event.userID === user.uid ? (
+        <View style={styles.EDButtonStyle}>
+          <View style={styles.innerBtnStyle}>
+            <CustomButton title="edit" onPressHandler={onEditHandler} />
+          </View>
+          <View style={styles.innerBtnStyle}>
+            <CustomButton title="delete" onPressHandler={onDeleteHandler} />
+          </View>
+        </View>
+      ) : (
+        <View style={styles.buttonStyle}>
+          {attendingUser ? (
+            <CustomButton
+              title="cancel attendance"
+              onPressHandler={onCancelAttendanceHandler}
+            />
+          ) : (
+            <CustomButton title="Attend" onPressHandler={onAttendHandler} />
+          )}
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -47,12 +94,10 @@ const SingleEventModal = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
   },
   card: {
     padding: theme.space[1],
     margin: theme.space[1],
-    marginTop: theme.space[1],
     borderRadius: theme.radius[0],
   },
   coverStyle: {
@@ -61,15 +106,23 @@ const styles = StyleSheet.create({
 
   contentStyle: {
     backgroundColor: theme.colors.main.primary,
-    borderRadius: theme.radius[0],
-    paddingBottom: theme.space[2],
-    marginTop: theme.space[3],
+    marginBottom: theme.space[0],
+    marginTop: theme.space[1],
   },
   buttonStyle: {
     flex: 1,
     justifyContent: "flex-end",
-    marginHorizontal: 10,
-    marginBottom: 30,
+    marginHorizontal: theme.space[1],
+    marginBottom: theme.space[4],
+  },
+  EDButtonStyle: {
+    flex: 1,
+    justifyContent: "flex-end",
+    marginHorizontal: theme.space[1],
+    marginBottom: theme.space[0],
+  },
+  innerBtnStyle: {
+    marginTop: 5,
   },
 });
 

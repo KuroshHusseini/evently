@@ -1,14 +1,19 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
-
-import EventList from "../components/EventList";
-import { EventContext } from "./../context/EventContext";
 import { ActivityIndicator } from "react-native-paper";
 
-const CartScreen = () => {
+import EventList from "../components/EventList";
+
+import { EventContext } from "./../context/EventContext";
+import { AuthenticationContext } from "./../context/AuthenticationContext";
+
+const CartScreen = ({ navigation }) => {
   const { event, loading } = useContext(EventContext);
+  const { user } = useContext(AuthenticationContext);
+
   const values = ["All", "Party", "Campus"];
   const [selected, setSelected] = useState(values[0]);
+
   const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
   const filterEvent = event
     .map((values) => values)
@@ -22,15 +27,20 @@ const CartScreen = () => {
 
   const searchEvent = filterEvent
     .map((values) => values)
-    .filter((value) => value.title.includes(search));
+    .filter(
+      (value) =>
+        value.attending.includes(user.uid) && value.title.includes(search)
+    );
 
   return loading ? (
     <ActivityIndicator />
   ) : (
     <View style={styles.container}>
       <EventList
+      screen="Cart"
         event={searchEvent}
         value={search}
+        navigation={navigation}
         onChangeSearch={onChangeSearch}
         segmentValue={values}
         segmentSelected={selected}

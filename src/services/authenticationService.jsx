@@ -4,8 +4,19 @@ import "firebase/compat/firestore";
 
 import { Alert } from "react-native";
 
-export const loginRequest = async (email, password) =>
-  await firebase.auth().signInWithEmailAndPassword(email, password);
+export const loginRequest = async (email, password) => {
+  try {
+    const response = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
+    return response;
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: authenticationService.jsx ~ line 12 ~ loginRequest ~ error",
+      error
+    );
+  }
+};
 
 export const registerRequest = async (
   rEmail,
@@ -14,16 +25,24 @@ export const registerRequest = async (
   lastName,
   number
 ) => {
-  await firebase.auth().createUserWithEmailAndPassword(rEmail, rPassword);
-  const currentUser = firebase.auth().currentUser;
+  try {
+    await firebase.auth().createUserWithEmailAndPassword(rEmail, rPassword);
+    const currentUser = firebase.auth().currentUser;
 
-  const db = firebase.firestore();
-  db.collection("users").user(currentUser.uid).set({
-    email: currentUser.email,
-    lastName: lastName,
-    firstName: firstName,
-    phoneNumber: number,
-  });
+    const db = firebase.firestore();
+    await db.collection("users").user(currentUser.uid).set({
+      email: currentUser.email,
+      lastName: lastName,
+      firstName: firstName,
+      phoneNumber: number,
+    });
+    console.log("User Created");
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: authenticationService.jsx ~ line 29 ~ error",
+      error
+    );
+  }
 };
 
 export const userInfoRequest = async (id) => {

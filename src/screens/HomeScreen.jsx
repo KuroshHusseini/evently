@@ -8,7 +8,6 @@ import { ActivityIndicator } from "react-native-paper";
 
 const HomeScreen = ({ navigation }) => {
   const { event, loading } = useContext(EventContext);
-  console.log("🚀 ~ file: HomeScreen.jsx ~ line 11 ~ HomeScreen ~ event", event)
   const values = ["All", "Party", "Campus"];
   const [selected, setSelected] = useState("");
 
@@ -30,6 +29,7 @@ const HomeScreen = ({ navigation }) => {
   ) : (
     <View style={styles.container}>
       <EventList
+        screen="Home"
         event={searchEvent}
         value={search}
         navigation={navigation}

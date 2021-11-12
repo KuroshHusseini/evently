@@ -7,7 +7,6 @@ import EventForm from "../components/EventForm";
 import { updateEvent } from "../services/eventServices";
 const EditEventModal = ({ route, navigation }) => {
   const { event, screen } = route.params;
-
   const [image, setImage] = useState(event.image);
   //* string data
   const [title, setTitle] = useState(event.title);

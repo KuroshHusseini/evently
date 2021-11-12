@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import CreatedScreen from "./../screens/CreatedScreen";
 import CustomButton from "./../components/CustomButton";
 import SingleEventModal from "./../modals/SingleEventModal";
+import EditEventModal from "./../modals/EditEventModal";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,28 @@ const CreatedNavigator = ({ navigation }) => {
       <Stack.Screen
         name="Detail"
         component={SingleEventModal}
+        options={{
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+          headerStyle: {
+            backgroundColor: theme.colors.main.secondary,
+          },
+          headerTintColor: theme.colors.main.primary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerLeft: () => (
+            <CustomButton
+              onPressHandler={onCancelHandler}
+              title="Back"
+              color="#fff"
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Edit"
+        component={EditEventModal}
         options={{
           ...TransitionPresets.ModalSlideFromBottomIOS,
           headerStyle: {

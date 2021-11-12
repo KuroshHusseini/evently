@@ -1,30 +1,29 @@
-import React, { useState, useEffect, useContext } from "react";
-import * as ImagePicker from "expo-image-picker";
+import React, { useState, useEffect } from "react";
 import { Keyboard, Platform, TouchableWithoutFeedback } from "react-native";
 import moment from "moment";
+import * as ImagePicker from "expo-image-picker";
 
-import { createEvent } from "../services/eventServices";
 import EventForm from "../components/EventForm";
-import { AuthenticationContext } from "../context/AuthenticationContext";
+import { updateEvent } from "../services/eventServices";
+const EditEventModal = ({ route, navigation }) => {
+  const { event, screen } = route.params;
 
-const CreateEventModal = ({ navigation }) => {
-  const { user } = useContext(AuthenticationContext);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(event.image);
   //* string data
-  const [title, setTitle] = useState("");
-  const [host, setHost] = useState("");
-  const [details, setDetails] = useState("");
-  const [location, setLocation] = useState("");
-  const [cost, setCost] = useState("");
+  const [title, setTitle] = useState(event.title);
+  const [host, setHost] = useState(event.host);
+  const [details, setDetails] = useState(event.details);
+  const [location, setLocation] = useState(event.location);
+  const [cost, setCost] = useState(event.cost);
   //* event type
   const values = ["Campus", "Party", "Other"];
-  const [type, setType] = useState(values[0]);
+  const [type, setType] = useState(event.type);
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
-  const [startDateTime, setStartDateTime] = useState(null);
+  const [startDateTime, setStartDateTime] = useState(event.startDateTime);
   //* end time picker
   const [isEndPickerVisible, setEndPickerVisible] = useState(false);
-  const [endDateTime, setEndDateTime] = useState(null);
+  const [endDateTime, setEndDateTime] = useState(event.endDateTime);
 
   //* image picker
   useEffect(() => {
@@ -66,20 +65,19 @@ const CreateEventModal = ({ navigation }) => {
 
   //* save
   const onSaveHandler = () => {
-    createEvent({
+    const eventObj = {
       image,
       title,
       host,
       details,
       location,
-      type: type,
-      cost: cost,
+      type,
+      cost,
       startDateTime,
       endDateTime,
-      attending: [],
-      userID: user.uid,
-    });
-    navigation.navigate("Home");
+    };
+    updateEvent(event.key, eventObj);
+    navigation.navigate(screen);
   };
 
   return (
@@ -110,11 +108,11 @@ const CreateEventModal = ({ navigation }) => {
         segmentControlValues={values}
         segmentType={type}
         onSegmentChangeHandler={onSegmentChangeHandler}
-        btnTitle="create"
+        btnTitle="save"
         onSaveHandler={onSaveHandler}
       />
     </TouchableWithoutFeedback>
   );
 };
 
-export default CreateEventModal;
+export default EditEventModal;

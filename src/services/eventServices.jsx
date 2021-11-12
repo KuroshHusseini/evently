@@ -3,32 +3,24 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 export const createEvent = async (
-  image,
-  title,
-  host,
-  details,
-  location,
-  type,
-  cost,
-  startDateTime,
-  endDateTime
+eventObj
 ) => {
-  const currentUser = await firebase.auth().currentUser;
-  await firebase.firestore().collection("events").add({
-    image,
-    title,
-    host,
-    details,
-    location,
-    type: type,
-    cost: cost,
-    startDateTime,
-    endDateTime,
-    attending: [],
-    userID: currentUser.uid,
-  });
+
+  await firebase.firestore().collection("events").add(eventObj);
   console.log("Event added!");
 };
+export const updateEvent = async (key, eventObj) => {
+  try {
+    await firebase.firestore().collection("events").doc(key).update(eventObj)
+    console.log("update comeplete!");
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: eventServices.jsx ~ line 40 ~ deleteEvent ~ error",
+      error
+    );
+  }
+};
+
 
 export const deleteEvent = async (key) => {
   try {
@@ -41,7 +33,6 @@ export const deleteEvent = async (key) => {
     );
   }
 };
-
 export const attendEvent = async (key, attendantID) => {
   try {
     const event = firebase.firestore().collection("events").doc(key);

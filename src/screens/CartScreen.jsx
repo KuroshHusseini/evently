@@ -37,7 +37,7 @@ const CartScreen = ({ navigation }) => {
   ) : (
     <View style={styles.container}>
       <EventList
-      screen="Cart"
+        screen="Cart"
         event={searchEvent}
         value={search}
         navigation={navigation}

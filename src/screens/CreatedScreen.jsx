@@ -21,6 +21,7 @@ const CreatedScreen = ({ navigation }) => {
     .filter((value) =>
       selected === "All" ? value : value?.type.includes(selected)
     );
+    
   const searchEvent = filterEvent
     .map((values) => values)
     .filter(

@@ -13,15 +13,10 @@ import {
 const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { event, screen } = route.params;
-  console.log(
-    "🚀 ~ file: SingleEventModal.jsx ~ line 16 ~ SingleEventModal ~ screen",
-    screen
-  );
 
   const attendingUser = event.attending.includes(user.uid);
-
   const onEditHandler = () => {
-    console.log(event);
+    navigation.navigate("Edit", {event, screen});
   };
 
   const onCancelAttendanceHandler = () => {

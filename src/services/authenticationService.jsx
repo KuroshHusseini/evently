@@ -11,9 +11,9 @@ export const loginRequest = async (email, password) => {
       .signInWithEmailAndPassword(email, password);
     return response;
   } catch (error) {
-    console.log(
-      "🚀 ~ file: authenticationService.jsx ~ line 12 ~ loginRequest ~ error",
-      error
+    Alert.alert(
+      "Authentication Error",
+      "User does not exist! Please check your email."
     );
   }
 };
@@ -38,9 +38,9 @@ export const registerRequest = async (
     });
     console.log("User Created");
   } catch (error) {
-    console.log(
-      "🚀 ~ file: authenticationService.jsx ~ line 29 ~ error",
-      error
+    Alert.alert(
+      "Authentication Error",
+      "User with the same corresponding email already exists"
     );
   }
 };

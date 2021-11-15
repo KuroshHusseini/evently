@@ -3470,7 +3470,7 @@
   "resolved" "https://registry.npmjs.org/fbjs-css-vars/-/fbjs-css-vars-1.0.2.tgz"
   "version" "1.0.2"
 
-"fbjs@^0.8.4":
+"fbjs@^0.8.16", "fbjs@^0.8.4":
   "integrity" "sha512-EQaWFK+fEPSoibjNy8IxUtaFOMXcWsY0JaVrQoZR9zC8N2Ygf9iDITPWjUTVIax95b6I742JFLqASHfsag/vKA=="
   "resolved" "https://registry.npmjs.org/fbjs/-/fbjs-0.8.18.tgz"
   "version" "0.8.18"
@@ -5186,7 +5186,7 @@
   dependencies:
     "minimist" "^1.2.5"
 
-"moment@^2.29.1":
+"moment@^2.11.2", "moment@^2.29.1":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
@@ -5735,6 +5735,15 @@
     "object-assign" "^4.1.1"
     "react-is" "^16.8.1"
 
+"prop-types@15.6.0":
+  "integrity" "sha1-zq8IMCL8RrSjX2nhPvda7Q1jmFY="
+  "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.6.0.tgz"
+  "version" "15.6.0"
+  dependencies:
+    "fbjs" "^0.8.16"
+    "loose-envify" "^1.3.1"
+    "object-assign" "^4.1.1"
+
 "property-expr@^2.0.4":
   "integrity" "sha512-sFPkHQjVKheDNnPvotjQmm3KD3uk1fWKUN7CrpdbwmUx3CrG3QiM8QpTSimvig5vTXmTvjz7+TDvXOI9+4rkcg=="
   "resolved" "https://registry.npmjs.org/property-expr/-/property-expr-2.0.4.tgz"
@@ -5832,6 +5841,14 @@
     "flow-parser" "^0.121.0"
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
+
+"react-native-form-validator@^0.5.1":
+  "integrity" "sha512-Y/+UEqhNJEVWyQ1cXYdw+ZXisrz1DR/D6uPjJ1FDxGLZ+85Itm4GqKGC0sUmjFGiNdUGE3aLjTpbLaJbPS4fUg=="
+  "resolved" "https://registry.npmjs.org/react-native-form-validator/-/react-native-form-validator-0.5.1.tgz"
+  "version" "0.5.1"
+  dependencies:
+    "moment" "^2.11.2"
+    "prop-types" "15.6.0"
 
 "react-native-gesture-handler@^1.10.3", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="

@@ -11,6 +11,7 @@ import SingleEventModal from "./../modals/SingleEventModal";
 import CustomButton from "./../components/CustomButton";
 
 import { theme } from "./../theme/index";
+import EditEventModal from "../modals/EditEventModal";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,28 @@ const HomeNavigator = ({ navigation }) => {
       <Stack.Screen
         name="Detail"
         component={SingleEventModal}
+        options={{
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+          headerStyle: {
+            backgroundColor: theme.colors.main.secondary,
+          },
+          headerTintColor: theme.colors.main.primary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+          headerLeft: () => (
+            <CustomButton
+              onPressHandler={onCancelHandler}
+              title="Back"
+              color="#fff"
+            />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="Edit"
+        component={EditEventModal}
         options={{
           ...TransitionPresets.ModalSlideFromBottomIOS,
           headerStyle: {

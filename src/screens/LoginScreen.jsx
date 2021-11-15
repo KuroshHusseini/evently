@@ -1,8 +1,16 @@
 import React, { useState, useContext } from "react";
 
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from "react-native";
+
 import { ActivityIndicator } from "react-native-paper";
 import { theme } from "./../theme/index";
+import { useValidation } from "react-native-form-validator";
 
 import CustomButton from "../components/CustomButton";
 import CustomTextInput from "./../components/CustomTextInput";
@@ -12,9 +20,22 @@ import { AuthenticationContext } from "../context/AuthenticationContext";
 
 //TODO: Add react native skeleton for loading
 const LoginScreen = ({ navigation }) => {
+  const { onLogin, isLoading } = useContext(AuthenticationContext);
   const [email, setEmail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("admin123");
-  const { onLogin, isLoading } = useContext(AuthenticationContext);
+
+  const { validate, getErrorMessages } = useValidation({
+    state: { email, password },
+  });
+
+  const loginHandler = () => {
+    validate({
+      email: { email: true, required: true },
+      password: { password: true, required: true },
+    });
+    getErrorMessages() && Alert.alert("Authentication Error", "Wrong email or password!");
+    onLogin(email, password);
+  };
 
   return isLoading ? (
     <ActivityIndicator size="large" Colors={theme.colors.main.secondary} />
@@ -39,10 +60,7 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={(p) => setPassword(p)}
         />
         <View style={styles.buttonContainer}>
-          <CustomButton
-            title="login"
-            onPressHandler={() => onLogin(email, password)}
-          />
+          <CustomButton title="login" onPressHandler={loginHandler} />
         </View>
         <View style={styles.buttonContainer}>
           <CustomButton

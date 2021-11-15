@@ -1,25 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as ImagePicker from "expo-image-picker";
-import {
-  View,
-  Keyboard,
-  Platform,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  KeyboardAvoidingView,
-} from "react-native";
+import { Keyboard, Platform, TouchableWithoutFeedback } from "react-native";
 import moment from "moment";
-import { theme } from "./../theme/index";
-import SegmentedControl from "@react-native-segmented-control/segmented-control";
-
-import UploadImage from "../components/UploadImage";
-import CustomTextInput from "../components/CustomTextInput";
-import DateTimePicker from "./../components/DateTimePicker";
-import CustomButton from "../components/CustomButton";
 
 import { createEvent } from "../services/eventServices";
+import EventForm from "../components/EventForm";
+import { AuthenticationContext } from "../context/AuthenticationContext";
 
 const CreateEventModal = ({ navigation }) => {
+  const { user } = useContext(AuthenticationContext);
   const [image, setImage] = useState(null);
   //* string data
   const [title, setTitle] = useState("");
@@ -77,132 +66,55 @@ const CreateEventModal = ({ navigation }) => {
 
   //* save
   const onSaveHandler = () => {
-    createEvent(
+    createEvent({
       image,
       title,
       host,
       details,
       location,
-      type,
-      cost,
+      type: type,
+      cost: cost,
       startDateTime,
-      endDateTime
-    );
+      endDateTime,
+      attending: [],
+      userID: user.uid,
+    });
     navigation.navigate("Home");
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <UploadImage image={image} addImage={pickImage} />
-        <View InputScrollView style={styles.inputContainer}>
-          <CustomTextInput
-            label="Title"
-            value={title}
-            onChangeText={(t) => setTitle(t)}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
-          <CustomTextInput
-            label="Host"
-            value={host}
-            onChangeText={(h) => setHost(h)}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
-
-          <CustomTextInput
-            label="Details"
-            value={details}
-            onChangeText={(d) => setDetails(d)}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
-
-          <CustomTextInput
-            label="Location"
-            value={location}
-            onChangeText={(l) => setLocation(l)}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
-
-          <CustomTextInput
-            label="Cost"
-            value={cost}
-            onChangeText={(c) => setCost(c)}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
-
-          <SegmentedControl
-            style={styles.segmentStyle}
-            appearance="light"
-            values={values}
-            selectedIndex={type}
-            onChange={onSegmentChangeHandler}
-          />
-
-          <View style={styles.buttonContainer}>
-            <View style={styles.dateTimeButtons}>
-              <DateTimePicker
-                title="start date and time"
-                value={startDateTime}
-                isDateTimePickerVisible={isStartPickerVisible}
-                showDateTimePicker={() => setStartPickerVisible(true)}
-                hideDateTimePicker={() => setStartPickerVisible(false)}
-                handleConfirm={handleStartDateTimeConfirm}
-              />
-            </View>
-            <View style={styles.dateTimeButtons}>
-              <DateTimePicker
-                title="end date and time"
-                value={endDateTime}
-                isDateTimePickerVisible={isEndPickerVisible}
-                showDateTimePicker={() => setEndPickerVisible(true)}
-                hideDateTimePicker={() => setEndPickerVisible(false)}
-                handleConfirm={handleEndDateTimeConfirm}
-              />
-            </View>
-          </View>
-        </View>
-        <View style={styles.inputContainer}>
-          <CustomButton
-            title="Save"
-            mode="contained"
-            dark={true}
-            color={theme.colors.main.secondary}
-            onPressHandler={onSaveHandler}
-          />
-        </View>
-      </KeyboardAvoidingView>
+      <EventForm
+        image={image}
+        pickImage={pickImage}
+        title={title}
+        onChangeTitle={(t) => setTitle(t)}
+        host={host}
+        onChangeHost={(h) => setHost(h)}
+        details={details}
+        onChangeDetails={(d) => setDetails(d)}
+        location={location}
+        onChangeLocation={(l) => setLocation(l)}
+        cost={cost}
+        onChangeCost={(c) => setCost(c)}
+        startDateTimeValue={startDateTime}
+        isStartPickerVisible={isStartPickerVisible}
+        showStartDateTimePicker={() => setStartPickerVisible(true)}
+        hideStartDateTimePicker={() => setStartPickerVisible(false)}
+        handleStartDateTimeConfirm={handleStartDateTimeConfirm}
+        endDateTimeValue={endDateTime}
+        isEndPickerVisible={isEndPickerVisible}
+        showEndDateTimePicker={() => setEndPickerVisible(true)}
+        hideEndDateTimePicker={() => setEndPickerVisible(false)}
+        handleEndDateTimeConfirm={handleEndDateTimeConfirm}
+        segmentControlValues={values}
+        segmentType={type}
+        onSegmentChangeHandler={onSegmentChangeHandler}
+        btnTitle="create"
+        onSaveHandler={onSaveHandler}
+      />
     </TouchableWithoutFeedback>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputContainer: {
-    width: "90%",
-    marginTop: theme.space[0],
-  },
-  segmentStyle: {
-    height: 40,
-    marginTop: theme.space[0],
-  },
-  buttonContainer: {
-    justifyContent: "center",
-  },
-  dateTimeButtons: {
-    marginTop: theme.space[0],
-  },
-});
 
 export default CreateEventModal;

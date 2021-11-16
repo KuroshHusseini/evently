@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Keyboard, Platform, TouchableWithoutFeedback } from "react-native";
-import moment from "moment";
+import {
+  Keyboard,
+  Platform,
+  TouchableWithoutFeedback,
+  Alert,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
+
+import { useValidation } from "react-native-form-validator";
+import moment from "moment";
 
 import EventForm from "../components/EventForm";
 import { updateEvent } from "../services/eventServices";
@@ -62,9 +69,8 @@ const EditEventModal = ({ route, navigation }) => {
     setEndPickerVisible(false);
   };
 
-  //* save
-  const onSaveHandler = () => {
-    const eventObj = {
+  const { validate, isFieldInError } = useValidation({
+    state: {
       image,
       title,
       host,
@@ -74,9 +80,68 @@ const EditEventModal = ({ route, navigation }) => {
       cost,
       startDateTime,
       endDateTime,
-    };
-    updateEvent(event.key, eventObj);
-    navigation.navigate(screen);
+    },
+  });
+
+  //* save
+  const onSaveHandler = () => {
+    validate({
+      image: { required: true },
+      title: { minlength: 3, maxLength: 40, required: true },
+      host: { minlength: 3, maxLength: 40, required: true },
+      details: { minlength: 20, maxLength: 200, required: true },
+      location: { minlength: 3, maxLength: 60, required: true },
+      cost: { numbers: true, required: true },
+      startDateTime: { required: true },
+      endDateTime: { required: true },
+    });
+
+    if (image === null) {
+      Alert.alert("Error", "Image of the event must be provided");
+    } else if (isFieldInError("title")) {
+      Alert.alert(
+        "Error",
+        "Title of the event must be provided(Max length 40)"
+      );
+    } else if (isFieldInError("host")) {
+      Alert.alert("Error", "Host of the event must be provided(Max length 40)");
+    } else if (isFieldInError("details")) {
+      Alert.alert(
+        "Error",
+        "Details must be provided with minimum length of 20 and maximum length of 200)"
+      );
+    } else if (isFieldInError("location")) {
+      Alert.alert("Error", "Location of the event must be provided");
+    } else if (isFieldInError("cost")) {
+      Alert.alert(
+        "Error",
+        "The cost of the participation in the event must be provided"
+      );
+    } else if (isFieldInError("startDateTime")) {
+      Alert.alert(
+        "Error",
+        "The starting date and time of the event must be provided"
+      );
+    } else if (isFieldInError("endDateTime")) {
+      Alert.alert(
+        "Error",
+        "The finishing date and time of the event must be provided"
+      );
+    } else {
+      const eventObj = {
+        image,
+        title,
+        host,
+        details,
+        location,
+        type,
+        cost,
+        startDateTime,
+        endDateTime,
+      };
+      updateEvent(event.key, eventObj);
+      navigation.navigate(screen);
+    }
   };
 
   return (

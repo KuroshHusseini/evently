@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { Keyboard, Platform, TouchableWithoutFeedback } from "react-native";
-import moment from "moment";
+import {
+  Keyboard,
+  Platform,
+  TouchableWithoutFeedback,
+  Alert,
+} from "react-native";
 
-import { createEvent } from "../services/eventServices";
+import * as ImagePicker from "expo-image-picker";
+import moment from "moment";
+import { useValidation } from "react-native-form-validator";
+
 import EventForm from "../components/EventForm";
 import { AuthenticationContext } from "../context/AuthenticationContext";
+import { createEvent } from "../services/eventServices";
 
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
@@ -64,22 +71,80 @@ const CreateEventModal = ({ navigation }) => {
     setEndPickerVisible(false);
   };
 
-  //* save
-  const onSaveHandler = () => {
-    createEvent({
+  const { validate, isFieldInError } = useValidation({
+    state: {
       image,
       title,
       host,
       details,
       location,
-      type: type,
-      cost: cost,
+      type,
+      cost,
       startDateTime,
       endDateTime,
-      attending: [],
-      userID: user.uid,
+    },
+  });
+
+  //* save
+  const onSaveHandler = () => {
+    validate({
+      image: { required: true },
+      title: { minlength: 3, maxLength: 40, required: true },
+      host: { minlength: 3, maxLength: 40, required: true },
+      details: { minlength: 20, maxLength: 200, required: true },
+      location: { minlength: 3, maxLength: 60, required: true },
+      cost: { numbers: true, required: true },
+      startDateTime: { required: true },
+      endDateTime: { required: true },
     });
-    navigation.navigate("Home");
+
+    if (image === null) {
+      Alert.alert("Error", "Image of the event must be provided");
+    } else if (isFieldInError("title") || title.length < 3) {
+      Alert.alert(
+        "Error",
+        "Title of the event must be provided(Max length 40)"
+      );
+    } else if (isFieldInError("host")) {
+      Alert.alert("Error", "Host of the event must be provided(Max length 40)");
+    } else if (isFieldInError("details")) {
+      Alert.alert(
+        "Error",
+        "Details must be provided with minimum length of 20 and maximum length of 200)"
+      );
+    } else if (isFieldInError("location")) {
+      Alert.alert("Error", "Location of the event must be provided");
+    } else if (isFieldInError("cost")) {
+      Alert.alert(
+        "Error",
+        "The cost of the participation in the event must be provided"
+      );
+    } else if (isFieldInError("startDateTime")) {
+      Alert.alert(
+        "Error",
+        "The starting date and time of the event must be provided"
+      );
+    } else if (isFieldInError("endDateTime")) {
+      Alert.alert(
+        "Error",
+        "The finishing date and time of the event must be provided"
+      );
+    } else {
+      createEvent({
+        image,
+        title,
+        host,
+        details,
+        location,
+        type: type,
+        cost: `${cost} €`,
+        startDateTime,
+        endDateTime,
+        attending: [],
+        userID: user.uid,
+      });
+      navigation.navigate("Home");
+    }
   };
 
   return (

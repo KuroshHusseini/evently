@@ -8,10 +8,8 @@ import { ActivityIndicator } from "react-native-paper";
 
 const HomeScreen = ({ navigation }) => {
   const { event, loading } = useContext(EventContext);
-  const values = ["All", "Party", "Campus"];
   const [selected, setSelected] = useState("");
 
-  const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
   const filterEvent = event
     .map((values) => values)
     .filter((value) =>
@@ -19,7 +17,6 @@ const HomeScreen = ({ navigation }) => {
     );
   //* search
   const [search, setSearchQuery] = useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
   const searchEvent = filterEvent
     .map((values) => values)
     .filter((value) => value?.title.includes(search));
@@ -30,13 +27,15 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <EventList
         screen="Home"
-        event={searchEvent}
+        title="All"
         value={search}
+        event={searchEvent}
         navigation={navigation}
-        onChangeSearch={onChangeSearch}
-        segmentValue={values}
-        segmentSelected={selected}
-        onSegmentChange={onSegmentChange}
+        onChangeSearch={(query) => setSearchQuery(query)}
+        onChangeAllHandler={() => setSelected("All")}
+        onPartyChangeHandler={() => setSelected("Party")}
+        onSportChangeHandler={() => setSelected("Sport")}
+        onCampusChangeHandler={() => setSelected("Campus")}
       />
     </View>
   );

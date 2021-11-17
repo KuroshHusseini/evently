@@ -1,31 +1,24 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { theme } from "./../theme/index";
 
 import { Searchbar } from "react-native-paper";
-import SegmentedControl from "@react-native-segmented-control/segmented-control";
+import CustomSegmentControl from "./CustomSegmentControl";
 
-const SearchBar = ({
-  onChangeSearch,
-  searchQuery,
-  segmentValue,
-  segmentSelected,
-  onSegmentChange,
-}) => {
+const SearchBar = (props) => {
   return (
     <View style={styles.searchBarContainer}>
-      <SegmentedControl
-        style={styles.segmentStyle}
-        appearance="light"
-        values={segmentValue}
-        selectedIndex={segmentSelected}
-        onChange={onSegmentChange}
+      <CustomSegmentControl
+        title={props.title}
+        onChangeAllHandler={props.onChangeAllHandler}
+        onPartyChangeHandler={props.onPartyChangeHandler}
+        onSportChangeHandler={props.onSportChangeHandler}
+        onCampusChangeHandler={props.onCampusChangeHandler}
       />
       <Searchbar
         style={styles.searchBarContainer}
         placeholder="Search by event name"
-        onChangeText={onChangeSearch}
-        value={searchQuery}
+        onChangeText={props.onChangeSearch}
+        value={props.searchQuery}
       />
     </View>
   );
@@ -33,11 +26,7 @@ const SearchBar = ({
 
 const styles = StyleSheet.create({
   searchBarContainer: {
-    marginBottom: theme.space[0],
-  },
-  segmentStyle: {
-    height: 50,
-    marginBottom: theme.space[0],
+    marginHorizontal: 3,
   },
 });
 

@@ -10,20 +10,14 @@ import { AuthenticationContext } from "./../context/AuthenticationContext";
 const CartScreen = ({ navigation }) => {
   const { event, loading } = useContext(EventContext);
   const { user } = useContext(AuthenticationContext);
+  const [search, setSearchQuery] = useState("");
+  const [selected, setSelected] = useState("");
 
-  const values = ["All", "Party", "Campus"];
-  const [selected, setSelected] = useState(values[0]);
-
-  const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
   const filterEvent = event
     .map((values) => values)
     .filter((value) =>
       selected === "All" ? value : value?.type.includes(selected)
     );
-
-  //* search
-  const [search, setSearchQuery] = useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
 
   const searchEvent = filterEvent
     .map((values) => values)
@@ -38,13 +32,15 @@ const CartScreen = ({ navigation }) => {
     <View style={styles.container}>
       <EventList
         screen="Cart"
-        event={searchEvent}
+        title="All"
         value={search}
+        event={searchEvent}
         navigation={navigation}
-        onChangeSearch={onChangeSearch}
-        segmentValue={values}
-        segmentSelected={selected}
-        onSegmentChange={onSegmentChange}
+        onChangeSearch={(query) => setSearchQuery(query)}
+        onChangeAllHandler={() => setSelected("All")}
+        onPartyChangeHandler={() => setSelected("Party")}
+        onSportChangeHandler={() => setSelected("Sport")}
+        onCampusChangeHandler={() => setSelected("Campus")}
       />
     </View>
   );

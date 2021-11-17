@@ -11,10 +11,12 @@ const EventList = ({
   event,
   screen,
   value,
+  title,
   onChangeSearch,
-  segmentValue,
-  segmentSelected,
-  onSegmentChange,
+  onChangeAllHandler,
+  onPartyChangeHandler,
+  onSportChangeHandler,
+  onCampusChangeHandler,
   navigation,
 }) => {
   return (
@@ -25,10 +27,12 @@ const EventList = ({
         ListHeaderComponent={
           <SearchBar
             searchQuery={value}
+            title={title}
             onChangeSearch={onChangeSearch}
-            segmentValue={segmentValue}
-            segmentSelected={segmentSelected}
-            onSegmentChange={onSegmentChange}
+            onChangeAllHandler={onChangeAllHandler}
+            onPartyChangeHandler={onPartyChangeHandler}
+            onSportChangeHandler={onSportChangeHandler}
+            onCampusChangeHandler={onCampusChangeHandler}
           />
         }
         renderItem={({ item, _, separators }) => (

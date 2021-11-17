@@ -10,18 +10,15 @@ import { EventContext } from "./../context/EventContext";
 const CreatedScreen = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { event, loading } = useContext(EventContext);
-
-  const values = ["All", "Party", "Campus"];
-  const [selected, setSelected] = useState(values[0]);
+  const [selected, setSelected] = useState("");
   const [search, setSearchQuery] = useState("");
 
-  const onSegmentChange = (event) => setSelected(event.nativeEvent.value);
   const filterEvent = event
     .map((values) => values)
     .filter((value) =>
       selected === "All" ? value : value?.type.includes(selected)
     );
-    
+
   const searchEvent = filterEvent
     .map((values) => values)
     .filter(
@@ -34,13 +31,15 @@ const CreatedScreen = ({ navigation }) => {
     <View style={styles.container}>
       <EventList
         screen="Created"
-        event={searchEvent}
+        title="All"
         value={search}
+        event={searchEvent}
         navigation={navigation}
         onChangeSearch={(query) => setSearchQuery(query)}
-        segmentValue={values}
-        segmentSelected={selected}
-        onSegmentChange={onSegmentChange}
+        onChangeAllHandler={() => setSelected("All")}
+        onPartyChangeHandler={() => setSelected("Party")}
+        onSportChangeHandler={() => setSelected("Sport")}
+        onCampusChangeHandler={() => setSelected("Campus")}
       />
     </View>
   );

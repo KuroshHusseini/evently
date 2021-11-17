@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Keyboard,
-  Platform,
-  TouchableWithoutFeedback,
-  Alert,
-} from "react-native";
+import { Platform, Alert } from "react-native";
 
 import * as ImagePicker from "expo-image-picker";
 import moment from "moment";
@@ -137,7 +132,7 @@ const CreateEventModal = ({ navigation }) => {
         details,
         location,
         type: type,
-        cost: `${cost} €`,
+        cost,
         startDateTime,
         endDateTime,
         attending: [],
@@ -148,7 +143,7 @@ const CreateEventModal = ({ navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <>
       <EventForm
         image={image}
         pickImage={pickImage}
@@ -178,7 +173,7 @@ const CreateEventModal = ({ navigation }) => {
         btnTitle="create"
         onSaveHandler={onSaveHandler}
       />
-    </TouchableWithoutFeedback>
+    </>
   );
 };
 

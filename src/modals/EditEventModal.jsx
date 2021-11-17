@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Keyboard,
-  Platform,
-  TouchableWithoutFeedback,
-  Alert,
-} from "react-native";
+import { Platform, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { useValidation } from "react-native-form-validator";
@@ -69,7 +64,7 @@ const EditEventModal = ({ route, navigation }) => {
     setEndPickerVisible(false);
   };
 
-  const { validate, isFieldInError } = useValidation({
+  const { validate, isFieldInError, getErrorMessages } = useValidation({
     state: {
       image,
       title,
@@ -87,21 +82,26 @@ const EditEventModal = ({ route, navigation }) => {
   const onSaveHandler = () => {
     validate({
       image: { required: true },
-      title: { minlength: 3, maxLength: 40, required: true },
+      title: {
+        minlength: 3,
+        maxLength: 50,
+        required: true,
+      },
       host: { minlength: 3, maxLength: 40, required: true },
       details: { minlength: 20, maxLength: 200, required: true },
-      location: { minlength: 3, maxLength: 60, required: true },
+      location: { minlength: 10, maxLength: 60, required: true },
       cost: { numbers: true, required: true },
       startDateTime: { required: true },
       endDateTime: { required: true },
     });
 
+    console.log(getErrorMessages());
     if (image === null) {
       Alert.alert("Error", "Image of the event must be provided");
     } else if (isFieldInError("title")) {
       Alert.alert(
         "Error",
-        "Title of the event must be provided(Max length 40)"
+        "Title of the event must be provided(Max length 40)! Should not include numbers and special characters"
       );
     } else if (isFieldInError("host")) {
       Alert.alert("Error", "Host of the event must be provided(Max length 40)");
@@ -110,12 +110,12 @@ const EditEventModal = ({ route, navigation }) => {
         "Error",
         "Details must be provided with minimum length of 20 and maximum length of 200)"
       );
-    } else if (isFieldInError("location")) {
+    } else if (isFieldInError("location") || location.length < 3) {
       Alert.alert("Error", "Location of the event must be provided");
     } else if (isFieldInError("cost")) {
       Alert.alert(
         "Error",
-        "The cost of the participation in the event must be provided"
+        "Cost of the participation in the event must be provided"
       );
     } else if (isFieldInError("startDateTime")) {
       Alert.alert(
@@ -145,7 +145,7 @@ const EditEventModal = ({ route, navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <>
       <EventForm
         image={image}
         pickImage={pickImage}
@@ -175,7 +175,7 @@ const EditEventModal = ({ route, navigation }) => {
         btnTitle="save"
         onSaveHandler={onSaveHandler}
       />
-    </TouchableWithoutFeedback>
+    </>
   );
 };
 

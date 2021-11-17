@@ -13,7 +13,7 @@ export const loginRequest = async (email, password) => {
   } catch (error) {
     Alert.alert(
       "Authentication Error",
-      "User does not exist! Please check your email."
+      "Wrong email or password!"
     );
   }
 };

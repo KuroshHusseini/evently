@@ -20,7 +20,7 @@ const CreateEventModal = ({ navigation }) => {
   const [cost, setCost] = useState("");
   //* event type
   const values = ["Campus", "Party", "Other"];
-  const [type, setType] = useState(values[0]);
+  const [type, setType] = useState("Campus");
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(null);

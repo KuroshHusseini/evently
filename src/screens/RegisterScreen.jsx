@@ -24,8 +24,8 @@ const RegisterScreen = () => {
   const [lastName, setLastName] = useState("Husseini");
   const [number, setNumber] = useState("0456925222");
   const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("admin123");
-  const [repeatPassword, setRepeatPassword] = useState("admin123");
+  const [password, setPassword] = useState("Admin123#");
+  const [repeatPassword, setRepeatPassword] = useState("Admin123#");
 
   const { onRegister, isLoading } = useContext(AuthenticationContext);
 

@@ -22,7 +22,7 @@ import { AuthenticationContext } from "../context/AuthenticationContext";
 const LoginScreen = ({ navigation }) => {
   const { onLogin, isLoading } = useContext(AuthenticationContext);
   const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("admin123");
+  const [password, setPassword] = useState("Admin123#");
 
   const { validate, getErrorMessages } = useValidation({
     state: { email, password },
@@ -33,8 +33,11 @@ const LoginScreen = ({ navigation }) => {
       email: { email: true, required: true },
       password: { password: true, required: true },
     });
-    getErrorMessages() && Alert.alert("Authentication Error", "Wrong email or password!");
-    onLogin(email, password);
+    if (getErrorMessages()) {
+      Alert.alert("Authentication Error", "Wrong email or password!");
+    } else {
+      onLogin(email, password);
+    }
   };
 
   return isLoading ? (

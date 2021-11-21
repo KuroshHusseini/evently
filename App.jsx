@@ -12,6 +12,7 @@ import apiKeys from "./config/keys";
 
 import EventContextProvider from "./src/context/EventContext";
 import AuthenticationContextProvider from "./src/context/AuthenticationContext";
+import UserContextProvider from "./src/context/UserContext";
 
 import Navigator from "./src/navigation/Navigator";
 
@@ -24,9 +25,11 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <AuthenticationContextProvider>
-        <EventContextProvider>
-          <Navigator />
-        </EventContextProvider>
+        <UserContextProvider>
+          <EventContextProvider>
+            <Navigator />
+          </EventContextProvider>
+        </UserContextProvider>
       </AuthenticationContextProvider>
       <StatusBar style="auto" />
     </SafeAreaView>

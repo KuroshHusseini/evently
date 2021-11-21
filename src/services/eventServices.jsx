@@ -5,7 +5,6 @@ import "firebase/compat/firestore";
 export const createEvent = async (
 eventObj
 ) => {
-
   await firebase.firestore().collection("events").add(eventObj);
   console.log("Event added!");
 };

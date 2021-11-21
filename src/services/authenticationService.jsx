@@ -11,10 +11,7 @@ export const loginRequest = async (email, password) => {
       .signInWithEmailAndPassword(email, password);
     return response;
   } catch (error) {
-    Alert.alert(
-      "Authentication Error",
-      "Wrong email or password!"
-    );
+    Alert.alert("Authentication Error", "Wrong email or password!");
   }
 };
 
@@ -29,8 +26,7 @@ export const registerRequest = async (
     await firebase.auth().createUserWithEmailAndPassword(rEmail, rPassword);
     const currentUser = firebase.auth().currentUser;
 
-    const db = firebase.firestore();
-    await db.collection("users").user(currentUser.uid).set({
+    await firebase.firestore().collection("users").doc(currentUser.uid).set({
       email: currentUser.email,
       lastName: lastName,
       firstName: firstName,

@@ -11,29 +11,20 @@ export const updateUserInfo = async (key, userObj) => {
       .collection("users")
       .doc(key)
       .update(userObj);
-    console.log(
-      "🚀 ~ file: userServices.jsx ~ line 23 ~ updateUserInfo ~ user",
-      user
-    );
     return user;
   } catch (error) {
     Alert.alert("Error", "User does not exist");
-    console.log(
-      "🚀 ~ file: authenticationService.jsx ~ line 59 ~ updateUserInfo ~ error",
-      error
-    );
   }
 };
 
-export const deleteUser = async () => {
+export const deleteUser = async (id) => {
   try {
-    const currentUser = firebase.auth().currentUser;
     await firebase.auth().currentUser.delete();
-    await firebase.firestore().collection("users").doc(currentUser.uid).delete();
+    await firebase.firestore().collection("users").doc(id).delete();
     console.log("User deleted!");
   } catch (error) {
     console.log(
-      "🚀 ~ file: UserContext.jsx ~ line 49 ~ onDeleteUser ~ error",
+      "🚀 ~ file: userServices.jsx ~ line 30 ~ deleteUser ~ error",
       error
     );
   }

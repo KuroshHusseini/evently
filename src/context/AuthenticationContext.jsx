@@ -26,6 +26,7 @@ const AuthenticationContextProvider = ({ children }) => {
     }
   });
 
+
   const onLogin = (email, password) => {
     setIsLoading(true);
     try {

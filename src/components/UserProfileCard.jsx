@@ -10,7 +10,7 @@ const UserProfileCard = ({ firstName, lastName, email, number }) => {
         <Paragraph>First name: {firstName}</Paragraph>
         <Paragraph>Last name: {lastName}</Paragraph>
         <Paragraph>Email: {email}</Paragraph>
-        <Paragraph>Number:{number}</Paragraph>
+        <Paragraph>Number: {number}</Paragraph>
       </Card.Content>
     </Card>
   );

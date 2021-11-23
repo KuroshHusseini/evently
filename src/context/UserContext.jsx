@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -14,29 +14,24 @@ const UserContextProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const getUser = async (userId) => {
-    try {
-      await firebase
+    useEffect(() => {
+      const subscriber = firebase
         .firestore()
         .collection("users")
         .doc(userId)
-        .get()
-        .then((ds) => {
-          if (ds.exists) {            
-            setUserInfo( ds.data());
-          }
+        .onSnapshot((documentSnapshot) => {
+          setUserInfo(documentSnapshot.data());
         });
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: UserContext.jsx ~ line 29 ~ getUser ~ error",
-        error
-      );
-    }
+
+      // Stop listening for updates when no longer required
+      return () => subscriber();
+    }, [userId]);
   };
 
-  const onUserUpdate = (key, userObj) => {
+  const onUserUpdate = (userId, userObj) => {
     setIsLoading(true);
     try {
-      updateUserInfo(key, userObj);
+      updateUserInfo(userId, userObj);
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);

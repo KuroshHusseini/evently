@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import { theme } from "../theme";
 
@@ -7,16 +7,18 @@ import { UserContext } from "../context/UserContext";
 
 import CustomButton from "./../components/CustomButton";
 import UserProfileCard from "../components/UserProfileCard";
-//TODO: fetch users information
-const ProfileScreen = ({navigation}) => {
+const ProfileScreen = ({ navigation }) => {
   const { user, onLogout } = useContext(AuthenticationContext);
   const { getUser, userInfo, onDeleteUser } = useContext(UserContext);
+  console.log(
+    "🚀 ~ file: ProfileScreen.jsx ~ line 14 ~ ProfileScreen ~ userInfo",
+    userInfo
+  );
 
-  useEffect(() => {
-    getUser(user.uid);
-  }, []);
+  getUser(user.uid);
 
-  const onEditProfileInfo = () => navigation.navigate("EditProfileInfo");
+  const onEditProfileInfo = () =>
+    navigation.navigate("EditProfileInfo", { userInfo, userId: user.uid });
 
   const deleteHandler = () =>
     Alert.alert(

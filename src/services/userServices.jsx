@@ -4,12 +4,12 @@ import "firebase/compat/firestore";
 import { Alert } from "react-native";
 
 
-export const updateUserInfo = async (key, userObj) => {
+export const updateUserInfo = async (id, userObj) => {
   try {
     const user = await firebase
       .firestore()
       .collection("users")
-      .doc(key)
+      .doc(id)
       .update(userObj);
     return user;
   } catch (error) {

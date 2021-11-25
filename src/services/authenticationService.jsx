@@ -41,11 +41,87 @@ export const registerRequest = async (
   }
 };
 
-export const userInfoRequest = async (id) => {
-  const user = await firebase.firestore().collection("users").doc(id).get();
-  if (!user.exists) {
-    Alert.alert("No user data found!");
-  } else {
-    return user.data();
+export const changePasswordRequest = async (currentPass) => {
+  const currentUserEmail = await firebase.auth().currentUser.email;
+  try {
+    const emailCred = await firebase.auth.EmailAuthProvider.credential(
+      currentUserEmail,
+      currentPass
+    );
+
+    const userReAuthenticate = await firebase
+      .auth()
+      .currentUser.reauthenticateWithCredential(emailCred);
+
+    if (userReAuthenticate) {
+      Alert.prompt(
+        "New password",
+        "Please enter your new password.",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          {
+            text: "Enter",
+            onPress: (newPass) => {
+              console.log(
+                "🚀 ~ file: authenticationService.jsx ~ line 68 ~ changePasswordRequest ~ newPass",
+                newPass
+              );
+              console.log(
+                /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
+                  newPass
+                )
+              );
+              if (
+                /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
+                  newPass
+                )
+              ) {
+                Alert.prompt(
+                  "Confirm password",
+                  "Please repeat your new password.",
+                  [
+                    {
+                      text: "Cancel",
+                      style: "cancel",
+                    },
+                    {
+                      text: "Enter",
+                      onPress: (confirmPassword) => {
+                        if (confirmPassword === newPass) {
+                          firebase.auth().currentUser.updatePassword(newPass);
+                          Alert.alert(
+                            "Password changed!"
+                          );
+                        } else {
+                          Alert.alert(
+                            "Password does not match please try again later"
+                          );
+                        }
+                      },
+                    },
+                  ],
+                  "secure-text",
+                  null,
+                  "dark"
+                );
+              } else {
+                Alert.alert(
+                  "Error",
+                  "Passwords must match and contain a minimum length of 8 characters with the following format upper case, lower case, number, special character."
+                );
+              }
+            },
+          },
+        ],
+        "secure-text",
+        null,
+        "dark"
+      );
+    }
+  } catch (error) {
+    Alert.alert("Wrong password", "Please try again later!");
   }
 };

@@ -8,12 +8,10 @@ import { UserContext } from "../context/UserContext";
 import CustomButton from "./../components/CustomButton";
 import UserProfileCard from "../components/UserProfileCard";
 const ProfileScreen = ({ navigation }) => {
-  const { user, onLogout } = useContext(AuthenticationContext);
-  const { getUser, userInfo, onDeleteUser } = useContext(UserContext);
-  console.log(
-    "🚀 ~ file: ProfileScreen.jsx ~ line 14 ~ ProfileScreen ~ userInfo",
-    userInfo
+  const { user, onLogout, onChangePassword } = useContext(
+    AuthenticationContext
   );
+  const { getUser, userInfo, onDeleteUser } = useContext(UserContext);
 
   getUser(user.uid);
 
@@ -23,7 +21,7 @@ const ProfileScreen = ({ navigation }) => {
   const deleteHandler = () =>
     Alert.alert(
       "Delete Account!",
-      "Are you sure you want to delete your account",
+      "Are you sure you want to delete your account.",
       [
         {
           text: "Cancel",
@@ -38,6 +36,30 @@ const ProfileScreen = ({ navigation }) => {
         },
       ]
     );
+
+  const onHandleNewPassword = () => {
+    Alert.prompt(
+      "Current password",
+      "To change your password please enter your current password.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Enter",
+          onPress: (password) => {
+            onChangePassword(password);
+            onLogout();
+          },
+        },
+      ],
+      "secure-text",
+      null,
+      "dark"
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -59,7 +81,7 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.innerBtnContainer}>
           <CustomButton
             title="change your password"
-            onPressHandler={() => console.log("change password")}
+            onPressHandler={onHandleNewPassword}
           />
         </View>
         <View style={styles.innerBtnContainer}>

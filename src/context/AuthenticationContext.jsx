@@ -5,6 +5,7 @@ import "firebase/compat/firestore";
 import { Alert } from "react-native";
 
 import {
+  changePasswordRequest,
   loginRequest,
   registerRequest,
 } from "../services/authenticationService";
@@ -15,6 +16,7 @@ export const AuthenticationContext = createContext();
 const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
+  console.log("🚀 ~ file: AuthenticationContext.jsx ~ line 19 ~ AuthenticationContextProvider ~ user", user)
   const [error, setError] = useState(null);
 
   firebase.auth().onAuthStateChanged((user) => {
@@ -25,7 +27,6 @@ const AuthenticationContextProvider = ({ children }) => {
       setIsLoading(false);
     }
   });
-
 
   const onLogin = (email, password) => {
     setIsLoading(true);
@@ -56,6 +57,10 @@ const AuthenticationContextProvider = ({ children }) => {
     }
   };
 
+  const onChangePassword = (password) => {
+    changePasswordRequest(password);
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -65,6 +70,7 @@ const AuthenticationContextProvider = ({ children }) => {
         error,
         onLogin,
         onRegister,
+        onChangePassword,
         onLogout,
       }}
     >

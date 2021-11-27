@@ -25,22 +25,28 @@ const CreatedScreen = ({ navigation }) => {
       (value) => user.uid === value.userID && value.title.includes(search)
     );
 
-  return loading ? (
-    <ActivityIndicator />
-  ) : (
+  return (
     <View style={styles.container}>
-      <EventList
-        screen="Created"
-        title="All"
-        value={search}
-        event={searchEvent}
-        navigation={navigation}
-        onChangeSearch={(query) => setSearchQuery(query)}
-        onChangeAllHandler={() => setSelected("All")}
-        onPartyChangeHandler={() => setSelected("Party")}
-        onSportChangeHandler={() => setSelected("Sport")}
-        onCampusChangeHandler={() => setSelected("Campus")}
-      />
+      {loading ? (
+        <>
+          <ActivityIndicator />
+        </>
+      ) : (
+        <>
+          <EventList
+            screen="Home"
+            title="All"
+            value={search}
+            event={searchEvent}
+            navigation={navigation}
+            onChangeSearch={(query) => setSearchQuery(query)}
+            onChangeAllHandler={() => setSelected("All")}
+            onPartyChangeHandler={() => setSelected("Party")}
+            onSportChangeHandler={() => setSelected("Sport")}
+            onCampusChangeHandler={() => setSelected("Campus")}
+          />
+        </>
+      )}
     </View>
   );
 };

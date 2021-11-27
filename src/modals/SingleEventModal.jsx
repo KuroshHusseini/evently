@@ -45,21 +45,31 @@ const SingleEventModal = ({ route, navigation }) => {
             <Title>{event.title}</Title>
             <Paragraph>{event.details}</Paragraph>
             <View style={styles.innerContentStyle}>
-              <Title>Information</Title>
-              <Title>Starts</Title>
-              <Paragraph>{event.startDateTime}</Paragraph>
-              <Title>Ends</Title>
-              <Paragraph>{event.endDateTime}</Paragraph>
-              <Title>Host</Title>
-              <Paragraph>{event.host}</Paragraph>
-              <Title>Location</Title>
-              <Paragraph>{event.location}</Paragraph>
-              <Title>Ticket</Title>
-              <Paragraph>
-                {event.cost.charAt(0).includes("0") || event.cost.length === 0
-                  ? "Free entrance"
-                  : `${event.cost} €`}
-              </Paragraph>
+              <Title>Event Information</Title>
+              <View style={styles.contentText}>
+                <Title>Start: </Title>
+                <Paragraph>{event.startDateTime}</Paragraph>
+              </View>
+              <View style={styles.contentText}>
+                <Title>End: </Title>
+                <Paragraph>{event.endDateTime}</Paragraph>
+              </View>
+              <View style={styles.contentText}>
+                <Title>Host: </Title>
+                <Paragraph>{event.host}</Paragraph>
+              </View>
+              <View style={styles.contentText}>
+                <Title>Location: </Title>
+                <Paragraph>{event.location}</Paragraph>
+              </View>
+              <View style={styles.contentText}>
+                <Title>Ticket: </Title>
+                <Paragraph>
+                  {event.cost.charAt(0).includes("0") || event.cost.length === 0
+                    ? "Free entrance"
+                    : ` ${event.cost} €`}
+                </Paragraph>
+              </View>
             </View>
           </Card.Content>
         </View>
@@ -97,10 +107,11 @@ const styles = StyleSheet.create({
   card: {
     padding: theme.space[1],
     margin: theme.space[1],
-    borderRadius: theme.radius[0],
+    borderRadius: theme.radius[2],
   },
+
   coverStyle: {
-    borderRadius: theme.radius[0],
+    borderRadius: theme.radius[2],
   },
 
   contentStyle: {
@@ -113,6 +124,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     marginHorizontal: theme.space[1],
     marginBottom: theme.space[4],
+  },
+  innerContentStyle: {
+    marginTop: theme.space[1],
+  },
+  contentText: {
+    alignItems: "center",
+    flexDirection: "row",
   },
   EDButtonStyle: {
     flex: 1,

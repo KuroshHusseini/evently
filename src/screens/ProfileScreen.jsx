@@ -11,9 +11,8 @@ const ProfileScreen = ({ navigation }) => {
   const { user, onLogout, onChangePassword } = useContext(
     AuthenticationContext
   );
-  const { getUser, userInfo, onDeleteUser } = useContext(UserContext);
-
-  getUser(user.uid);
+  const { userInfo, onDeleteUser } = useContext(UserContext);
+  
 
   const onEditProfileInfo = () =>
     navigation.navigate("EditProfileInfo", { userInfo, userId: user.uid });

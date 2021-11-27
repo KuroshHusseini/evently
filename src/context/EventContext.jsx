@@ -8,13 +8,14 @@ export const EventContext = createContext(null);
 const EventContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [event, setEvent] = useState([]);
- 
+
   useEffect(() => {
     const subscriber = firebase
       .firestore()
       .collection("events")
+      .orderBy("startDateTime")
       .onSnapshot((querySnapshot) => {
-        const eventArray = [];
+        const eventArray = [];  
 
         querySnapshot.forEach((documentSnapshot) => {
           eventArray.push({

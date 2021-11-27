@@ -5,10 +5,17 @@ import { theme } from "./../theme/index";
 import EventList from "../components/EventList";
 import { EventContext } from "./../context/EventContext";
 import { ActivityIndicator } from "react-native-paper";
+import { AuthenticationContext } from "../context/AuthenticationContext";
+import { UserContext } from "./../context/UserContext";
 
 const HomeScreen = ({ navigation }) => {
   const { event, loading } = useContext(EventContext);
+  const { user } = useContext(AuthenticationContext);
+  const { getUser } = useContext(UserContext);
+
   const [selected, setSelected] = useState("");
+
+  getUser(user.uid);
 
   const filterEvent = event
     .map((values) => values)
@@ -21,22 +28,28 @@ const HomeScreen = ({ navigation }) => {
     .map((values) => values)
     .filter((value) => value?.title.includes(search));
 
-  return loading ? (
-    <ActivityIndicator />
-  ) : (
+  return (
     <View style={styles.container}>
-      <EventList
-        screen="Home"
-        title="All"
-        value={search}
-        event={searchEvent}
-        navigation={navigation}
-        onChangeSearch={(query) => setSearchQuery(query)}
-        onChangeAllHandler={() => setSelected("All")}
-        onPartyChangeHandler={() => setSelected("Party")}
-        onSportChangeHandler={() => setSelected("Sport")}
-        onCampusChangeHandler={() => setSelected("Campus")}
-      />
+      {loading ? (
+        <>
+          <ActivityIndicator />
+        </>
+      ) : (
+        <>
+          <EventList
+            screen="Home"
+            title="All"
+            value={search}
+            event={searchEvent}
+            navigation={navigation}
+            onChangeSearch={(query) => setSearchQuery(query)}
+            onChangeAllHandler={() => setSelected("All")}
+            onPartyChangeHandler={() => setSelected("Party")}
+            onSportChangeHandler={() => setSelected("Sport")}
+            onCampusChangeHandler={() => setSelected("Campus")}
+          />
+        </>
+      )}
     </View>
   );
 };

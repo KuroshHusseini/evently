@@ -26,26 +26,31 @@ const CartScreen = ({ navigation }) => {
         value.attending.includes(user.uid) && value.title.includes(search)
     );
 
-  return loading ? (
-    <ActivityIndicator />
-  ) : (
+  return (
     <View style={styles.container}>
-      <EventList
-        screen="Cart"
-        title="All"
-        value={search}
-        event={searchEvent}
-        navigation={navigation}
-        onChangeSearch={(query) => setSearchQuery(query)}
-        onChangeAllHandler={() => setSelected("All")}
-        onPartyChangeHandler={() => setSelected("Party")}
-        onSportChangeHandler={() => setSelected("Sport")}
-        onCampusChangeHandler={() => setSelected("Campus")}
-      />
+      {loading ? (
+        <>
+          <ActivityIndicator />
+        </>
+      ) : (
+        <>
+          <EventList
+            screen="Home"
+            title="All"
+            value={search}
+            event={searchEvent}
+            navigation={navigation}
+            onChangeSearch={(query) => setSearchQuery(query)}
+            onChangeAllHandler={() => setSelected("All")}
+            onPartyChangeHandler={() => setSelected("Party")}
+            onSportChangeHandler={() => setSelected("Sport")}
+            onCampusChangeHandler={() => setSelected("Campus")}
+          />
+        </>
+      )}
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

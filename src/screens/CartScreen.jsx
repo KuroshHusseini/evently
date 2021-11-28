@@ -6,6 +6,7 @@ import EventList from "../components/EventList";
 
 import { EventContext } from "./../context/EventContext";
 import { AuthenticationContext } from "./../context/AuthenticationContext";
+import { theme } from "./../theme/index";
 
 const CartScreen = ({ navigation }) => {
   const { event, loading } = useContext(EventContext);
@@ -29,9 +30,9 @@ const CartScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {loading ? (
-        <>
-          <ActivityIndicator />
-        </>
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" color={theme.colors.main.secondary} />
+        </View>
       ) : (
         <>
           <EventList
@@ -54,6 +55,11 @@ const CartScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

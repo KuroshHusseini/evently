@@ -31,9 +31,9 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {loading ? (
-        <>
-          <ActivityIndicator />
-        </>
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" color={theme.colors.main.secondary} />
+        </View>
       ) : (
         <>
           <EventList
@@ -61,6 +61,11 @@ const styles = StyleSheet.create({
   segmentStyle: {
     height: 40,
     marginBottom: theme.space[0],
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

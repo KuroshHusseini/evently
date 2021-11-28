@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { ActivityIndicator } from "react-native-paper";
+import { theme } from "./../theme/index";
 
 import EventList from "../components/EventList";
 
@@ -28,9 +29,9 @@ const CreatedScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {loading ? (
-        <>
-          <ActivityIndicator />
-        </>
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" color={theme.colors.main.secondary} />
+        </View>
       ) : (
         <>
           <EventList
@@ -54,6 +55,11 @@ const CreatedScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -22,7 +22,7 @@ const EventCard = ({ event }) => {
                 </View>
               </View>
               <View>
-                <Caption>{event?.details}</Caption>
+                <Caption style={{color: theme.colors.text.secondary}}>{event?.details}</Caption>
               </View>
               <View style={styles.loWrapper}>
                 <View>
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
   },
   card: {

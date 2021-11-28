@@ -2,31 +2,17 @@ import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
 import { theme } from "./../theme/index";
-
-const CustomSegmentControl = (props) => {
+const CreateEventSegment = (props) => {
+  console.log(
+    "🚀 ~ file: CreateEventSegment.jsx ~ line 6 ~ CreateEventSegment ~ props",
+    props.onChosenEvent
+  );
   return (
     <ScrollView horizontal style={styles.scContainer}>
       <View style={styles.container}>
         <Button
           style={styles.btn}
-          mode={
-            props.onChosenEvent === "All" || props.onChosenEvent === "Other"
-              ? "contained"
-              : "outlined"
-          }
-          color={theme.colors.main.secondary}
-          onPress={props.onChangeAllHandler}
-          dark={true}
-        >
-          {props.title}
-        </Button>
-        <Button
-          style={styles.btn}
-          mode={
-            props.onChosenEvent === "Party" 
-              ? "contained"
-              : "outlined"
-          }
+          mode={props.onChosenEvent === "Party" ? "contained" : "outlined"}
           color={theme.colors.main.secondary}
           onPress={props.onPartyChangeHandler}
           dark={true}
@@ -35,11 +21,7 @@ const CustomSegmentControl = (props) => {
         </Button>
         <Button
           style={styles.btn}
-          mode={
-            props.onChosenEvent === "Sport" 
-              ? "contained"
-              : "outlined"
-          }
+          mode={props.onChosenEvent === "Sport" ? "contained" : "outlined"}
           color={theme.colors.main.secondary}
           onPress={props.onSportChangeHandler}
           dark={true}
@@ -48,16 +30,21 @@ const CustomSegmentControl = (props) => {
         </Button>
         <Button
           style={styles.btn}
-          mode={
-            props.onChosenEvent === "Campus" 
-              ? "contained"
-              : "outlined"
-          }
+          mode={props.onChosenEvent === "Campus" ? "contained" : "outlined"}
           color={theme.colors.main.secondary}
           onPress={props.onCampusChangeHandler}
           dark={true}
         >
           Campus
+        </Button>
+        <Button
+          style={styles.btn}
+          mode={props.onChosenEvent === "Other" ? "contained" : "outlined"}
+          color={theme.colors.main.secondary}
+          onPress={props.onChangeAllHandler}
+          dark={true}
+        >
+          Other
         </Button>
       </View>
     </ScrollView>
@@ -79,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomSegmentControl;
+export default CreateEventSegment;

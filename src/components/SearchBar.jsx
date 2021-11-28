@@ -9,6 +9,7 @@ const SearchBar = (props) => {
     <View style={styles.searchBarContainer}>
       <CustomSegmentControl
         title={props.title}
+        onChosenEvent={props.onChosenEvent}
         onChangeAllHandler={props.onChangeAllHandler}
         onPartyChangeHandler={props.onPartyChangeHandler}
         onSportChangeHandler={props.onSportChangeHandler}

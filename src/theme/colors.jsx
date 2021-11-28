@@ -7,7 +7,7 @@ export const colors = {
   },
   text: {
     primary: "#FFFFFF",
-    secondary: "#696969",
+    secondary: "#000000",
     error: "#8B0000",
   },
 };

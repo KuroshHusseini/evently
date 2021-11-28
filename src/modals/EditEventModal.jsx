@@ -16,9 +16,8 @@ const EditEventModal = ({ route, navigation }) => {
   const [details, setDetails] = useState(event.details);
   const [location, setLocation] = useState(event.location);
   const [cost, setCost] = useState(event.cost);
-  //* event type
-  const values = ["Campus", "Party", "Other"];
-  const [type, setType] = useState(event.type);
+  const [selected, setSelected] = useState("");
+
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(event.startDateTime);
@@ -48,10 +47,6 @@ const EditEventModal = ({ route, navigation }) => {
     });
     !result.cancelled && setImage(result.uri);
   };
-
-  //* type of event handler
-  const onSegmentChangeHandler = (event) => setType(event.nativeEvent.value);
-
   //* start date
   const handleStartDateTimeConfirm = (startDate) => {
     setStartDateTime(moment(startDate).format("LL HH:mm").toString());
@@ -71,7 +66,7 @@ const EditEventModal = ({ route, navigation }) => {
       host,
       details,
       location,
-      type,
+      type: selected,
       cost,
       startDateTime,
       endDateTime,
@@ -134,7 +129,7 @@ const EditEventModal = ({ route, navigation }) => {
         host,
         details,
         location,
-        type,
+        type: selected,
         cost,
         startDateTime,
         endDateTime,
@@ -157,6 +152,11 @@ const EditEventModal = ({ route, navigation }) => {
         onChangeDetails={(d) => setDetails(d)}
         location={location}
         onChangeLocation={(l) => setLocation(l)}
+        onChosenEvent={selected}
+        onChangeAllHandler={() => setSelected("Other")}
+        onPartyChangeHandler={() => setSelected("Party")}
+        onSportChangeHandler={() => setSelected("Sport")}
+        onCampusChangeHandler={() => setSelected("Campus")}
         cost={cost}
         onChangeCost={(c) => setCost(c)}
         startDateTimeValue={startDateTime}
@@ -169,9 +169,6 @@ const EditEventModal = ({ route, navigation }) => {
         showEndDateTimePicker={() => setEndPickerVisible(true)}
         hideEndDateTimePicker={() => setEndPickerVisible(false)}
         handleEndDateTimeConfirm={handleEndDateTimeConfirm}
-        segmentControlValues={values}
-        segmentType={type}
-        onSegmentChangeHandler={onSegmentChangeHandler}
         btnTitle="save"
         onSaveHandler={onSaveHandler}
       />

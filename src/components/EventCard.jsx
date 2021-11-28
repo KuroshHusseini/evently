@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     right: 0,
     width: "100%",
     borderRadius: theme.radius[1],
-    backgroundColor: "rgba(255,255,255, 0.9)",
+    backgroundColor: "rgba(255,255,255, 0.7)",
   },
   cardTitle: {
     flexDirection: "row",

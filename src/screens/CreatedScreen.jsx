@@ -14,6 +14,8 @@ const CreatedScreen = ({ navigation }) => {
   const [selected, setSelected] = useState("");
   const [search, setSearchQuery] = useState("");
 
+
+  
   const filterEvent = event
     .map((values) => values)
     .filter((value) =>
@@ -41,6 +43,7 @@ const CreatedScreen = ({ navigation }) => {
             event={searchEvent}
             navigation={navigation}
             onChangeSearch={(query) => setSearchQuery(query)}
+            onChosenEvent={selected}
             onChangeAllHandler={() => setSelected("All")}
             onPartyChangeHandler={() => setSelected("Party")}
             onSportChangeHandler={() => setSelected("Sport")}

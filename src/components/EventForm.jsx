@@ -8,13 +8,13 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { theme } from "./../theme/index";
 
 import UploadImage from "./UploadImage";
 import CustomTextInput from "./CustomTextInput";
 import DateTimePicker from "./DateTimePicker";
 import CustomButton from "./CustomButton";
+import CreateEventSegment from "./CreateEventSegment";
 
 const EventForm = (props) => {
   return (
@@ -65,12 +65,13 @@ const EventForm = (props) => {
             underlineColor={theme.colors.main.secondary}
           />
 
-          <SegmentedControl
-            style={styles.segmentStyle}
-            appearance="light"
-            values={props.segmentControlValues}
-            selectedIndex={props.segmentType}
-            onChange={props.onSegmentChangeHandler}
+          <CreateEventSegment
+            title="other"
+            onChosenEvent={props.onChosenEvent}
+            onChangeAllHandler={props.onChangeAllHandler}
+            onPartyChangeHandler={props.onPartyChangeHandler}
+            onSportChangeHandler={props.onSportChangeHandler}
+            onCampusChangeHandler={props.onCampusChangeHandler}
           />
 
           <View style={styles.buttonContainer}>
@@ -118,10 +119,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: "90%",
-    marginTop: theme.space[0],
-  },
-  segmentStyle: {
-    height: 40,
     marginTop: theme.space[0],
   },
   buttonContainer: {

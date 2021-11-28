@@ -13,6 +13,7 @@ const EventList = ({
   value,
   title,
   onChangeSearch,
+  onChosenEvent,
   onChangeAllHandler,
   onPartyChangeHandler,
   onSportChangeHandler,
@@ -28,6 +29,7 @@ const EventList = ({
           <SearchBar
             searchQuery={value}
             title={title}
+            onChosenEvent={onChosenEvent}
             onChangeSearch={onChangeSearch}
             onChangeAllHandler={onChangeAllHandler}
             onPartyChangeHandler={onPartyChangeHandler}
@@ -56,7 +58,7 @@ const EventList = ({
 
 const styles = StyleSheet.create({
   flatListContainer: {
-    margin: theme.space[0],
+    marginHorizontal: theme.space[0],
   },
   separator: {
     height: theme.space[1],

@@ -42,6 +42,7 @@ const CartScreen = ({ navigation }) => {
             event={searchEvent}
             navigation={navigation}
             onChangeSearch={(query) => setSearchQuery(query)}
+            onChosenEvent={selected}
             onChangeAllHandler={() => setSelected("All")}
             onPartyChangeHandler={() => setSelected("Party")}
             onSportChangeHandler={() => setSelected("Sport")}

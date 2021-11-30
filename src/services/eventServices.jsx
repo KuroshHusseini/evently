@@ -2,15 +2,30 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
-export const createEvent = async (
-eventObj
-) => {
+export const pushNotification = (pushToken, title, body) => {
+  fetch("https://exp.host/--/api/v2/push/send", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Accept-Encoding": "gzip, deflate",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      to: pushToken,
+      data: { extraData: "Some data" },
+      title: title,
+      body: body,
+    }),
+  });
+};
+
+export const createEvent = async (eventObj) => {
   await firebase.firestore().collection("events").add(eventObj);
   console.log("Event added!");
 };
 export const updateEvent = async (key, eventObj) => {
   try {
-    await firebase.firestore().collection("events").doc(key).update(eventObj)
+    await firebase.firestore().collection("events").doc(key).update(eventObj);
     console.log("update comeplete!");
   } catch (error) {
     console.log(
@@ -20,10 +35,9 @@ export const updateEvent = async (key, eventObj) => {
   }
 };
 
-
-export const deleteEvent = async (key) => {
+export const deleteEvent = async (event) => {
   try {
-    await firebase.firestore().collection("events").doc(key).delete();
+    await firebase.firestore().collection("events").doc(event).delete();
     console.log("delete comeplete!");
   } catch (error) {
     console.log(

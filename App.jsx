@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet,Platform } from "react-native";
 import { theme } from "./src/theme/index";
 
 import firebase from "firebase/compat/app";
@@ -15,12 +15,14 @@ import AuthenticationContextProvider from "./src/context/AuthenticationContext";
 import UserContextProvider from "./src/context/UserContext";
 
 import Navigator from "./src/navigation/Navigator";
-
+import {Constants, Notifications, Permissions} from "expo"
 export default function App() {
   if (!firebase.apps.length) {
     firebase.initializeApp(apiKeys.firebaseConfig);
     console.log("Connected to Firebase");
   }
+
+
 
   return (
     <SafeAreaView style={styles.container}>

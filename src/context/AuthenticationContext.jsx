@@ -4,6 +4,8 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { Alert } from "react-native";
 
+
+
 import {
   changePasswordRequest,
   loginRequest,
@@ -12,12 +14,15 @@ import {
 
 export const AuthenticationContext = createContext();
 
+
+
 // eslint-disable-next-line no-unused-vars
 const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
+  
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       setUser(user);

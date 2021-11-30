@@ -6,9 +6,9 @@ import { useValidation } from "react-native-form-validator";
 import moment from "moment";
 
 import EventForm from "../components/EventForm";
-import { updateEvent } from "../services/eventServices";
+import { updateEvent, pushNotification } from "../services/eventServices";
 const EditEventModal = ({ route, navigation }) => {
-  const { event, screen } = route.params;
+  const { user, event, screen } = route.params;
   const [image, setImage] = useState(event.image);
   //* string data
   const [title, setTitle] = useState(event.title);
@@ -59,7 +59,7 @@ const EditEventModal = ({ route, navigation }) => {
     setEndPickerVisible(false);
   };
 
-  const { validate, isFieldInError, getErrorMessages } = useValidation({
+  const { validate, isFieldInError } = useValidation({
     state: {
       image,
       title,
@@ -90,7 +90,6 @@ const EditEventModal = ({ route, navigation }) => {
       endDateTime: { required: true },
     });
 
-    console.log(getErrorMessages());
     if (image === null) {
       Alert.alert("Error", "Image of the event must be provided");
     } else if (isFieldInError("title")) {
@@ -135,6 +134,11 @@ const EditEventModal = ({ route, navigation }) => {
         endDateTime,
       };
       updateEvent(event.key, eventObj);
+      pushNotification(
+        user.pushToken,
+        `${event.title} is edited!`,
+        "Please check the event to keep yourself up to date."
+      );
       navigation.navigate(screen);
     }
   };

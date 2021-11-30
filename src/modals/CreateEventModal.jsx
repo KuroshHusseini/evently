@@ -7,10 +7,12 @@ import { useValidation } from "react-native-form-validator";
 
 import EventForm from "../components/EventForm";
 import { AuthenticationContext } from "../context/AuthenticationContext";
-import { createEvent } from "../services/eventServices";
-
+import { createEvent, pushNotification } from "../services/eventServices";
+import { UserContext } from "./../context/UserContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
+  const { userInfo } = useContext(UserContext);
+
   const [image, setImage] = useState(null);
   //* string data
   const [title, setTitle] = useState("");
@@ -133,6 +135,12 @@ const CreateEventModal = ({ navigation }) => {
         attending: [],
         userID: user.uid,
       });
+
+      pushNotification(
+        userInfo.pushToken,
+        "New event is published",
+        "Please check the application for more information"
+      );
       navigation.navigate("Home");
     }
   };

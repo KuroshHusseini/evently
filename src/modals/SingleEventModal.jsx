@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
 import { Card, Title, Paragraph } from "react-native-paper";
+import { UserContext } from "./../context/UserContext";
 import { theme } from "./../theme/index";
 
 import { AuthenticationContext } from "./../context/AuthenticationContext";
@@ -9,28 +10,37 @@ import {
   attendEvent,
   cancelAttendEvent,
   deleteEvent,
+  pushNotification,
 } from "../services/eventServices";
 const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
+  const { userInfo } = useContext(UserContext);
   const { event, screen } = route.params;
 
   const attendingUser = event.attending.includes(user.uid);
   const onEditHandler = () => {
-    navigation.navigate("Edit", { event, screen });
+    navigation.navigate("Edit", { user: userInfo, event, screen });
   };
 
   const onCancelAttendanceHandler = () => {
-    cancelAttendEvent(event.key, user.uid);
+    cancelAttendEvent(event, user.uid);
     navigation.navigate(screen);
   };
 
   const onDeleteHandler = () => {
-    deleteEvent(event.key);
+    deleteEvent(event.key, user.uid);
+    pushNotification(
+      userInfo.pushToken,
+      `${event.title} is cancelled`,
+      `Here is a reminder that the following event is cancelled ${event.title}! 
+      Please contact the event creator for more information.`
+    );
     navigation.navigate(screen);
   };
 
   const onAttendHandler = () => {
-    attendEvent(event.key, user.uid);
+    attendEvent(event.key);
+
     navigation.navigate(screen);
   };
 

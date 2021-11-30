@@ -67,7 +67,7 @@ const CustomSegmentControl = (props) => {
 const styles = StyleSheet.create({
   scContainer: {
     padding: theme.space[0],
-    marginHorizontal: 3,
+    marginHorizontal: 1,
   },
   container: {
     flex: 1,

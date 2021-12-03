@@ -7,11 +7,11 @@ import { useValidation } from "react-native-form-validator";
 
 import EventForm from "../components/EventForm";
 import { AuthenticationContext } from "../context/AuthenticationContext";
-import { createEvent, pushNotification } from "../services/eventServices";
-import { UserContext } from "./../context/UserContext";
+import { createEvent } from "../services/eventServices";
+// import { UserContext } from "./../context/UserContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
-  const { userInfo } = useContext(UserContext);
+  // const { userInfo } = useContext(UserContext);
 
   const [image, setImage] = useState(null);
   //* string data
@@ -21,7 +21,6 @@ const CreateEventModal = ({ navigation }) => {
   const [location, setLocation] = useState("");
   const [cost, setCost] = useState("");
   const [selected, setSelected] = useState("");
-
   //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(null);
@@ -136,11 +135,11 @@ const CreateEventModal = ({ navigation }) => {
         userID: user.uid,
       });
 
-      pushNotification(
-        userInfo.pushToken,
-        "New event is published",
-        "Please check the application for more information"
-      );
+      // pushNotification(
+      //   userInfo.pushToken,
+      //   "New event is published",
+      //   "Please check the application for more information"
+      // );
       navigation.navigate("Home");
     }
   };

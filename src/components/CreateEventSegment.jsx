@@ -3,10 +3,6 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
 import { theme } from "./../theme/index";
 const CreateEventSegment = (props) => {
-  console.log(
-    "🚀 ~ file: CreateEventSegment.jsx ~ line 6 ~ CreateEventSegment ~ props",
-    props.onChosenEvent
-  );
   return (
     <ScrollView horizontal style={styles.scContainer}>
       <View style={styles.container}>

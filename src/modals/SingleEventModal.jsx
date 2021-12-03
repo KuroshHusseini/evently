@@ -10,37 +10,35 @@ import {
   attendEvent,
   cancelAttendEvent,
   deleteEvent,
-  pushNotification,
 } from "../services/eventServices";
 const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
   const { event, screen } = route.params;
-
+ 
   const attendingUser = event.attending.includes(user.uid);
   const onEditHandler = () => {
     navigation.navigate("Edit", { user: userInfo, event, screen });
   };
 
   const onCancelAttendanceHandler = () => {
-    cancelAttendEvent(event, user.uid);
+    cancelAttendEvent(event.key, user.uid);
     navigation.navigate(screen);
   };
 
   const onDeleteHandler = () => {
     deleteEvent(event.key, user.uid);
-    pushNotification(
-      userInfo.pushToken,
-      `${event.title} is cancelled`,
-      `Here is a reminder that the following event is cancelled ${event.title}! 
-      Please contact the event creator for more information.`
-    );
+    // pushNotification(
+    //   userInfo.pushToken,
+    //   `${event.title} is cancelled`,
+    //   `Here is a reminder that the following event is cancelled ${event.title}! 
+    //   Please contact the event creator for more information.`
+    // );
     navigation.navigate(screen);
   };
 
   const onAttendHandler = () => {
-    attendEvent(event.key);
-
+    attendEvent(event.key, user.uid );
     navigation.navigate(screen);
   };
 

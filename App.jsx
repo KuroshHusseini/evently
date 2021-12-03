@@ -21,9 +21,6 @@ export default function App() {
     firebase.initializeApp(apiKeys.firebaseConfig);
     console.log("Connected to Firebase");
   }
-
-
-
   return (
     <SafeAreaView style={styles.container}>
       <AuthenticationContextProvider>

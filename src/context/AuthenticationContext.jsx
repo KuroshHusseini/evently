@@ -1,10 +1,8 @@
-import React, { useState, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { Alert } from "react-native";
-
-
 
 import {
   changePasswordRequest,
@@ -14,24 +12,30 @@ import {
 
 export const AuthenticationContext = createContext();
 
-
-
 // eslint-disable-next-line no-unused-vars
 const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      setUser(user);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  });
-
+  useEffect(() => {
+    // onAuthStateChanged returns an unsubscriber
+    const unsubscribeAuth = firebase
+      .auth()
+      .onAuthStateChanged(async (authenticatedUser) => {
+        try {
+          await (authenticatedUser
+            ? setUser(authenticatedUser)
+            : setUser(null));
+          setIsLoading(false);
+        } catch (error) {
+          setIsLoading(false);
+          console.log(error);
+        }
+      });
+    // unsubscribe auth listener on unmount
+    return unsubscribeAuth;
+  }, []);
   const onLogin = (email, password) => {
     setIsLoading(true);
     try {

@@ -6,74 +6,79 @@ import "firebase/compat/firestore";
 import { Alert } from "react-native";
 import { deleteUser, updateUserInfo } from "../services/userServices";
 
-import * as Notifications from "expo-notifications";
-import * as Permissions from "expo-permissions";
+// import * as Notifications from "expo-notifications";
 
 export const UserContext = createContext();
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => {
-    return {
-      shouldShowAlert: true,
-      shouldPlaySound: true,
-    };
-  },
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => {
+//     return {
+//       shouldShowAlert: true,
+//       shouldPlaySound: true,
+//     };
+//   },
+// });
 // eslint-disable-next-line no-unused-vars
 const UserContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
-  const registerForPushNotification = async (userID) => {
-    try {
-      const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
-      let finalState = status;
-      if (status !== "granted") {
-        const { status } = await Permissions.getAsync(
-          Permissions.NOTIFICATIONS
-        );
-        finalState = status;
-      }
+  // const registerForPushNotification = async (userID) => {
+  //   try {
+  //     let statusObj = await Notifications.getPermissionsAsync();
 
-      if (finalState !== "granted") {
-        Alert.alert(
-          "Permission not granted! you will not receive any push notifications"
-        );
-        return;
-      }
+  //     if (statusObj.status !== "granted") {
+  //       statusObj = await Notifications.requestPermissionsAsync();
+  //     }
 
-      const token = await Notifications.getExpoPushTokenAsync();
-      await firebase
-        .firestore()
-        .collection("users")
-        .doc(userID)
-        .update({
-          ...userInfo,
-          expoPushToken: token.data,
-        });
+  //     if (statusObj.status !== "granted") {
+  //       Alert.alert(
+  //         "No Notification Permission",
+  //         "please go to settings and turn on the notification permission manually",
+  //         [
+  //           { text: "cancel", onPress: () => console.log("cancel") },
+  //           { text: "Allow", onPress: () => Linking.openURL("app-settings:") },
+  //         ],
+  //         { cancelable: false }
+  //       );
+  //       return;
+  //     }
 
-      const backgroundSubscription =
-        Notifications.addNotificationResponseReceivedListener((response) => {
-          console.log(response);
-        });
+  //     const token = await Notifications.getExpoPushTokenAsync();
+   
 
-      const foregroundSubscription =
-        Notifications.addNotificationReceivedListener((notification) => {
-          console.log(notification);
-        });
+  //     // await firebase
+  //     //   .firestore()
+  //     //   .collection("users")
+  //     //   .doc(userID)
+  //     //   .update({
+  //     //     ...userInfo,
+  //     //     expoPushToken: token.data,
+  //     //   });
 
-      return () => {
-        backgroundSubscription.remove();
-        foregroundSubscription.remove();
-      };
-    } catch (error) {
-      console.log("🚀 ~ file: App.js ~ line 24 ~ error", error);
-    }
-  };
+  //     const backgroundSubscription =
+  //       Notifications.addNotificationResponseReceivedListener((response) => {
+  //         console.log(response);
+  //       });
 
-  // useEffect(() => {}, []);
+  //     const foregroundSubscription =
+  //       Notifications.addNotificationReceivedListener((notification) => {
+  //         console.log(notification);
+  //       });
 
-  const getUser = async (userId) => {
+  //     return () => {
+  //       backgroundSubscription.remove();
+  //       foregroundSubscription.remove();
+  //     };
+  //   } catch (error) {
+  //     console.log(
+  //       "🚀 ~ file: UserContext.jsx ~ line 76 ~ registerForPushNotification ~ error",
+  //       error
+  //     );
+  //   }
+  // };
+
+  const getUser = (userId) => {
     useEffect(() => {
       const subscriber = firebase
         .firestore()
@@ -81,7 +86,7 @@ const UserContextProvider = ({ children }) => {
         .doc(userId)
         .onSnapshot((documentSnapshot) => {
           setUserInfo(documentSnapshot.data());
-          registerForPushNotification(userId);
+          // registerForPushNotification(userId);
         });
 
       // Stop listening for updates when no longer required

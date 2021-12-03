@@ -6,9 +6,9 @@ import { useValidation } from "react-native-form-validator";
 import moment from "moment";
 
 import EventForm from "../components/EventForm";
-import { updateEvent, pushNotification } from "../services/eventServices";
+import { updateEvent} from "../services/eventServices";
 const EditEventModal = ({ route, navigation }) => {
-  const { user, event, screen } = route.params;
+  const {  event, screen } = route.params;
   const [image, setImage] = useState(event.image);
   //* string data
   const [title, setTitle] = useState(event.title);
@@ -134,11 +134,11 @@ const EditEventModal = ({ route, navigation }) => {
         endDateTime,
       };
       updateEvent(event.key, eventObj);
-      pushNotification(
-        user.pushToken,
-        `${event.title} is edited!`,
-        "Please check the event to keep yourself up to date."
-      );
+      // pushNotification(
+      //   user.pushToken,
+      //   `${event.title} is edited!`,
+      //   "Please check the event to keep yourself up to date."
+      // );
       navigation.navigate(screen);
     }
   };

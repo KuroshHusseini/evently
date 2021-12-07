@@ -10,13 +10,13 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
 import { theme } from "./../theme/index";
-
+import CustomLoader from "../components/CustomLoader";
 import CustomButton from "../components/CustomButton";
 import CustomTextInput from "../components/CustomTextInput";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
+
 
 //TODO: Add react native skeleton for loading
 const RegisterScreen = () => {
@@ -72,7 +72,7 @@ const RegisterScreen = () => {
     }
   };
   return isLoading ? (
-    <ActivityIndicator size="large" Colors={theme.colors.main.secondary} />
+    <CustomLoader/>
   ) : (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView

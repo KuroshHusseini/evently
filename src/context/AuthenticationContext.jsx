@@ -51,6 +51,7 @@ const AuthenticationContextProvider = ({ children }) => {
     setIsLoading(true);
     try {
       registerRequest(email, password, firstName, lastName, number);
+      setIsLoading(false)
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
     }

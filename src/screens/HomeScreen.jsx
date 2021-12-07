@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { theme } from "./../theme/index";
-
+import CustomLoader from "../components/CustomLoader";
 import EventList from "../components/EventList";
 import { EventContext } from "./../context/EventContext";
-import { ActivityIndicator } from "react-native-paper";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import { UserContext } from "./../context/UserContext";
+
 
 const HomeScreen = ({ navigation }) => {
   const { event, loading } = useContext(EventContext);
@@ -31,9 +31,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {loading ? (
-        <View style={styles.loader}>
-          <ActivityIndicator size="large" color={theme.colors.main.secondary} />
-        </View>
+       <CustomLoader/>
       ) : (
         <>
           <EventList
@@ -62,11 +60,6 @@ const styles = StyleSheet.create({
   segmentStyle: {
     height: 40,
     marginBottom: theme.space[0],
-  },
-  loader: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     position: "relative",
     elevation: 2,
     height: "25%",
-    width: "90%",
+    width: "95%",
     backgroundColor: theme.colors.main.primary,
     borderRadius:  theme.radius[0],
     overflow: "hidden",

@@ -21,7 +21,7 @@ const EventCard = ({ event }) => {
                   <Subheading>{event?.startDateTime}</Subheading>
                 </View>
               </View>
-              <View>
+              <View style={styles.cardDetailsWrapper}>
                 <Caption style={{color: theme.colors.text.secondary}}>{event?.details}</Caption>
               </View>
               <View style={styles.loWrapper}>
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   cardTitleWrapper: {
-    maxHeight: 40,
-    paddingRight: theme.space[1],
+    maxWidth: 180,
+    paddingRight: theme.space[0],
   },
   loWrapper: {
     flex: 1,

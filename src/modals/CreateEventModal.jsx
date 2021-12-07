@@ -45,7 +45,7 @@ const CreateEventModal = ({ navigation }) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [2, 1],
+      aspect: [3, 2],
       quality: 0,
     });
     !result.cancelled && setImage(result.uri);
@@ -80,7 +80,7 @@ const CreateEventModal = ({ navigation }) => {
   const onSaveHandler = () => {
     validate({
       image: { required: true },
-      title: { minlength: 3, maxLength: 40, required: true },
+      title: { minlength: 3, maxLength: 30, required: true },
       host: { minlength: 3, maxLength: 40, required: true },
       details: { minlength: 20, maxLength: 200, required: true },
       location: { minlength: 3, maxLength: 60, required: true },

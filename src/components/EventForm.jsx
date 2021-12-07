@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   inputContainer: {
-    width: "90%",
+    width: "95%",
     marginTop: theme.space[0],
   },
   buttonContainer: {

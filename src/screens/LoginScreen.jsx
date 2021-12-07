@@ -8,15 +8,15 @@ import {
   Alert,
 } from "react-native";
 
-import { ActivityIndicator } from "react-native-paper";
 import { theme } from "./../theme/index";
 import { useValidation } from "react-native-form-validator";
-
+import CustomLoader from "../components/CustomLoader";
 import CustomButton from "../components/CustomButton";
 import CustomTextInput from "./../components/CustomTextInput";
 import CustomText from "../components/CustomText";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
+
 
 //TODO: Add react native skeleton for loading
 const LoginScreen = ({ navigation }) => {
@@ -41,7 +41,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return isLoading ? (
-    <ActivityIndicator size="large" Colors={theme.colors.main.secondary} />
+    <CustomLoader />
   ) : (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

@@ -47,9 +47,8 @@ const ProfileScreen = ({ navigation }) => {
         },
         {
           text: "Enter",
-          onPress: (password) => {
+          onPress: async (password) => {
             onChangePassword(password);
-            onLogout();
           },
         },
       ],

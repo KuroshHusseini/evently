@@ -37,7 +37,7 @@ const CreatedScreen = ({ navigation }) => {
       ) : (
         <>
           <EventList
-            screen="Home"
+            screen="Created"
             title="All"
             value={search}
             event={searchEvent}

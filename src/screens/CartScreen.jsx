@@ -36,7 +36,7 @@ const CartScreen = ({ navigation }) => {
       ) : (
         <>
           <EventList
-            screen="Home"
+            screen="Cart"
             title="All"
             value={search}
             event={searchEvent}

@@ -2,23 +2,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
-export const pushNotification = (pushToken, title, body) => {
-  fetch("https://exp.host/--/api/v2/push/send", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Accept-Encoding": "gzip, deflate",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      to: pushToken,
-      data: { extraData: "Some data" },
-      title: title,
-      body: body,
-    }),
-  });
-};
-
 export const createEvent = async (eventObj) => {
   await firebase.firestore().collection("events").add(eventObj);
   console.log("Event added!");

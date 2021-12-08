@@ -65,15 +65,6 @@ export const changePasswordRequest = async (currentPass) => {
           {
             text: "Enter",
             onPress: (newPass) => {
-              console.log(
-                "🚀 ~ file: authenticationService.jsx ~ line 68 ~ changePasswordRequest ~ newPass",
-                newPass
-              );
-              console.log(
-                /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
-                  newPass
-                )
-              );
               if (
                 /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(
                   newPass
@@ -92,9 +83,7 @@ export const changePasswordRequest = async (currentPass) => {
                       onPress: (confirmPassword) => {
                         if (confirmPassword === newPass) {
                           firebase.auth().currentUser.updatePassword(newPass);
-                          Alert.alert(
-                            "Password changed!"
-                          );
+                          Alert.alert("Password changed!");
                         } else {
                           Alert.alert(
                             "Password does not match please try again later"

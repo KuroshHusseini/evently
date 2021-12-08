@@ -28,12 +28,6 @@ const SingleEventModal = ({ route, navigation }) => {
 
   const onDeleteHandler = () => {
     deleteEvent(event.key, user.uid);
-    // pushNotification(
-    //   userInfo.pushToken,
-    //   `${event.title} is cancelled`,
-    //   `Here is a reminder that the following event is cancelled ${event.title}! 
-    //   Please contact the event creator for more information.`
-    // );
     navigation.navigate(screen);
   };
 

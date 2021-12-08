@@ -13,7 +13,7 @@ const EditProfileInfoModal = ({ route, navigation }) => {
       ...userInfo,
       firstName,
       lastName,
-      number,
+      phoneNumber: number,
     };
     onUserUpdate(userId, newUserInfo);
     navigation.navigate("Profile");

@@ -9,12 +9,12 @@ import { AuthenticationContext } from "./../context/AuthenticationContext";
 import { theme } from "./../theme/index";
 
 const CartScreen = ({ navigation }) => {
-  const { event, loading } = useContext(EventContext);
+  const { validEvents, loading } = useContext(EventContext);
   const { user } = useContext(AuthenticationContext);
   const [search, setSearchQuery] = useState("");
   const [selected, setSelected] = useState("");
 
-  const filterEvent = event
+  const filterEvent = validEvents()
     .map((values) => values)
     .filter((value) =>
       selected === "All" ? value : value?.type.includes(selected)

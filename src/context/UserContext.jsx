@@ -37,7 +37,10 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
-  const onDeleteUser = () => deleteUser();
+  
+
+  const onDeleteUser = (id) => deleteUser(id);
+
   return (
     <UserContext.Provider
       value={{
@@ -45,6 +48,7 @@ const UserContextProvider = ({ children }) => {
         userInfo,
         getUser,
         onUserUpdate,
+      
         onDeleteUser,
       }}
     >

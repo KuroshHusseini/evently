@@ -7,23 +7,22 @@ import { EventContext } from "./../context/EventContext";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import { UserContext } from "./../context/UserContext";
 
-
 const HomeScreen = ({ navigation }) => {
-  const { event, loading } = useContext(EventContext);
+  const {  validEvents, loading } = useContext(EventContext);
+ 
   const { user } = useContext(AuthenticationContext);
   const { getUser } = useContext(UserContext);
-
+  const [search, setSearchQuery] = useState("");
   const [selected, setSelected] = useState("");
 
   getUser(user.uid);
 
-  const filterEvent = event
+  const filterEvent = validEvents()
     .map((values) => values)
     .filter((value) =>
       selected === "All" ? value : value?.type.includes(selected)
     );
-  //* search
-  const [search, setSearchQuery] = useState("");
+
   const searchEvent = filterEvent
     .map((values) => values)
     .filter((value) => value?.title.includes(search));
@@ -31,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {loading ? (
-       <CustomLoader/>
+        <CustomLoader />
       ) : (
         <>
           <EventList

@@ -3,11 +3,16 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
+
 export const EventContext = createContext(null);
 
 const EventContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [event, setEvent] = useState([]);
+
+  const validEvents = () => {
+    return event.map((e) => e).filter((fe) => new Date(fe.startDateTime).getTime() >= new Date().getTime());
+  };
 
   useEffect(() => {
     const subscriber = firebase
@@ -15,7 +20,7 @@ const EventContextProvider = ({ children }) => {
       .collection("events")
       .orderBy("startDateTime")
       .onSnapshot((querySnapshot) => {
-        const eventArray = [];  
+        const eventArray = [];
 
         querySnapshot.forEach((documentSnapshot) => {
           eventArray.push({
@@ -33,7 +38,7 @@ const EventContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <EventContext.Provider value={{ event, loading }}>
+    <EventContext.Provider value={{ event, validEvents, loading }}>
       {children}
     </EventContext.Provider>
   );

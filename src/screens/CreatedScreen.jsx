@@ -14,8 +14,6 @@ const CreatedScreen = ({ navigation }) => {
   const [selected, setSelected] = useState("");
   const [search, setSearchQuery] = useState("");
 
-
-  
   const filterEvent = event
     .map((values) => values)
     .filter((value) =>

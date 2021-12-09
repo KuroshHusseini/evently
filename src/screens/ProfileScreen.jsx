@@ -29,7 +29,6 @@ const ProfileScreen = ({ navigation }) => {
           text: "Delete",
           onPress: () => {
             onDeleteUser(user.uid);
-            onLogout();
           },
         },
       ]
@@ -57,6 +56,8 @@ const ProfileScreen = ({ navigation }) => {
       "dark"
     );
   };
+
+  const onHandleLogout = () => onLogout();
 
   return (
     <View style={styles.container}>
@@ -88,7 +89,7 @@ const ProfileScreen = ({ navigation }) => {
           />
         </View>
         <View style={styles.innerBtnContainer}>
-          <CustomButton title="log out" onPressHandler={() => onLogout()} />
+          <CustomButton title="log out" onPressHandler={onHandleLogout} />
         </View>
       </View>
     </View>

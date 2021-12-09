@@ -2,7 +2,7 @@
 
 - [Evenlty](#evenlty)
   - [Introduction](#introduction)
-  - [List of API's](#list-of-apis)
+  - [Used API's](#used-apis)
     - [Firebase](#firebase)
   - [Testing](#testing)
     - [Jest](#jest)
@@ -16,7 +16,7 @@ Evenly is an application made for Cyprus. It is a technology platform. It is an 
 I have used React-Native to create this application which is an open-source mobile application framework created by Facebook.
 With evenly you can create a new event. The created event can be viewed by users and attended. The user also can find the necessary information related to the event on the app which makes it a lot easier.  
 
-## List of API's
+## Used API's
 
 ### Firebase
 

@@ -39,7 +39,7 @@ Testing helps you uncover these mistakes and verifies that your code is working.
 
 ### User testing
 
-For user testing, our goal was to lean more towards validation and evaluation. That is, finding out if users understand and enjoy our app, and whether the features meet their needs. For this, we leveraged early versions of our app, prototypes, and mockups. I have chosen for this a user that didn't know anything about my app and used it the first time.
+For user testing, my goal was to lean more towards validation and evaluation. That is, finding out if users understand and enjoy our app, and whether the features meet their needs. For this, we leveraged early versions of our app, prototypes, and mockups. I have chosen for this a user that didn't know anything about my app and used it the first time.
 
 
 ## Installation

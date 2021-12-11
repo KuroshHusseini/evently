@@ -15,7 +15,7 @@ const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
   const { event, screen } = route.params;
- 
+
   const attendingUser = event.attending.includes(user.uid);
   const onEditHandler = () => {
     navigation.navigate("Edit", { user: userInfo, event, screen });
@@ -32,7 +32,7 @@ const SingleEventModal = ({ route, navigation }) => {
   };
 
   const onAttendHandler = () => {
-    attendEvent(event.key, user.uid );
+    attendEvent(event.key, user.uid);
     navigation.navigate(screen);
   };
 
@@ -68,8 +68,16 @@ const SingleEventModal = ({ route, navigation }) => {
                 <Title>Ticket: </Title>
                 <Paragraph>
                   {event.cost.charAt(0).includes("0") || event.cost.length === 0
-                    ? "Free entrance"
+                    ? "Free Entrance"
                     : ` ${event.cost} €`}
+                </Paragraph>
+              </View>
+              <View style={styles.contentText}>
+                <Title>Attendants Count: </Title>
+                <Paragraph>
+                  {event.attending.length === 0 && event.userID !== user.uid
+                    ? "Be The First Attendant"
+                    : event.attending.length}
                 </Paragraph>
               </View>
             </View>
@@ -111,11 +119,9 @@ const styles = StyleSheet.create({
     margin: theme.space[1],
     borderRadius: theme.radius[2],
   },
-
   coverStyle: {
     borderRadius: theme.radius[2],
   },
-
   contentStyle: {
     backgroundColor: theme.colors.main.primary,
     marginBottom: theme.space[0],

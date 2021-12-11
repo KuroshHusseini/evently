@@ -39,7 +39,6 @@ const EventForm = (props) => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-
           <CustomTextInput
             label="Details"
             value={props.details}
@@ -47,7 +46,6 @@ const EventForm = (props) => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-
           <CustomTextInput
             label="Location"
             value={props.location}
@@ -55,7 +53,6 @@ const EventForm = (props) => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-
           <CustomTextInput
             label="Cost"
             value={props.cost}
@@ -64,7 +61,6 @@ const EventForm = (props) => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-
           <CreateEventSegment
             title="other"
             onChosenEvent={props.onChosenEvent}
@@ -73,7 +69,6 @@ const EventForm = (props) => {
             onSportChangeHandler={props.onSportChangeHandler}
             onCampusChangeHandler={props.onCampusChangeHandler}
           />
-
           <View style={styles.buttonContainer}>
             <View style={styles.dateTimeButtons}>
               <DateTimePicker

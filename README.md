@@ -5,7 +5,7 @@
   - [Used API's](#used-apis)
     - [Firebase](#firebase)
   - [Testing](#testing)
-    - [Jest](#jest)
+    - [Jest & React Testing Library](#jest--react-testing-library)
     - [User testing](#user-testing)
   - [Installation](#installation)
   - [Maintainers](#maintainers)
@@ -33,9 +33,9 @@ As your codebase expands, small errors and edge cases you don’t expect can cas
 
 Testing helps you uncover these mistakes and verifies that your code is working. Perhaps even more importantly, testing ensures that your code continues to work in the future as you add new features, refactor the existing ones, or upgrade major dependencies of your project. <a href="https://reactnative.dev/docs/testing-overview">Read more...</a>
 
-### Jest
+### Jest & React Testing Library
 
-//TODO write tests
+React Native Testing Library is a testing library for React Native inspired by React Testing Library. Because React Native does not run in a browser environment, the core queries are implemented independently, unlike other wrappers that use DOM Testing Library as the base.
 
 ### User testing
 

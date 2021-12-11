@@ -6,7 +6,20 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern"
+    "lint": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.js"
+    ]
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.5.2",
@@ -28,6 +41,7 @@
     "react-native-form-validator": "^0.5.1",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-input-scroll-view": "^1.11.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal-datetime-picker": "^13.0.0",
     "react-native-paper": "^4.9.2",
     "react-native-safe-area-context": "3.3.2",
@@ -39,8 +53,11 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/eslint-parser": "^7.15.8",
+    "@testing-library/jest-native": "^4.0.4",
+    "@testing-library/react-native": "^9.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.26.1"
+    "eslint-plugin-react": "^7.26.1",
+    "react-test-renderer": "^17.0.1"
   },
   "private": true
 }

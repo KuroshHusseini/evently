@@ -17,8 +17,6 @@ import CustomTextInput from "../components/CustomTextInput";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
-
-//TODO: Add react native skeleton for loading
 const RegisterScreen = () => {
   const [firstName, setFirstName] = useState("Kurosh");
   const [lastName, setLastName] = useState("Husseini");

@@ -35,7 +35,11 @@ Testing helps you uncover these mistakes and verifies that your code is working.
 
 ### Jest & React Testing Library
 
+Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
+
 React Native Testing Library is a testing library for React Native inspired by React Testing Library. Because React Native does not run in a browser environment, the core queries are implemented independently, unlike other wrappers that use DOM Testing Library as the base.
+
+In order for us to test a react-native application we need to install both Jest & React Testing Library. They need each other and every one of them has a clear task. Jest is a test runner, which gives you the ability to run tests with Jest from the command line. In addition, Jest offers you functions for test suites, test cases, and assertions.
 
 ### User testing
 

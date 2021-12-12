@@ -6,6 +6,7 @@ import { theme } from "./../theme/index";
 const CustomButton = (props) => {
   return (
     <Button
+      testID="customButton"
       mode="contained"
       dense={true}
       icon={props.icon}

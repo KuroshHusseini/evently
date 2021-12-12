@@ -7,10 +7,10 @@ const UserProfileCard = ({ firstName, lastName, email, number }) => {
     <Card style={styles.card}>
       <Card.Content>
         <Title>Personal Information</Title>
-        <Paragraph>First name: {firstName}</Paragraph>
-        <Paragraph>Last name: {lastName}</Paragraph>
-        <Paragraph>Email: {email}</Paragraph>
-        <Paragraph>Number: {number}</Paragraph>
+        <Paragraph testID="firstNameText">First name: {firstName}</Paragraph>
+        <Paragraph testID="lastNameText">Last name: {lastName}</Paragraph>
+        <Paragraph testID="emailText">Email: {email}</Paragraph>
+        <Paragraph testID="numberText">Number: {number}</Paragraph>
       </Card.Content>
     </Card>
   );

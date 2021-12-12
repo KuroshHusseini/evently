@@ -15,21 +15,32 @@ const EventCard = ({ event }) => {
             <Card.Content>
               <View style={styles.cardTitle}>
                 <View style={styles.cardTitleWrapper}>
-                  <Subheading>{event?.title}</Subheading>
+                  <Subheading testID="eventTitleText">
+                    {event?.title}
+                  </Subheading>
                 </View>
                 <View>
-                  <Subheading>{event?.startDateTime}</Subheading>
+                  <Subheading testID="eventDateText">
+                    {event?.startDateTime}
+                  </Subheading>
                 </View>
               </View>
               <View style={styles.cardDetailsWrapper}>
-                <Caption style={{color: theme.colors.text.secondary}}>{event?.details}</Caption>
+                <Caption
+                  testID="eventDetailText"
+                  style={{ color: theme.colors.text.secondary }}
+                >
+                  {event?.details}
+                </Caption>
               </View>
               <View style={styles.loWrapper}>
                 <View>
-                  <Subheading>{event?.location}</Subheading>
+                  <Subheading testID="eventLocationText">
+                    {event?.location}
+                  </Subheading>
                 </View>
                 <View>
-                  <Subheading>{event?.host}</Subheading>
+                  <Subheading testID="eventHostText">{event?.host}</Subheading>
                 </View>
               </View>
             </Card.Content>

@@ -12,7 +12,6 @@ import {
 
 export const AuthenticationContext = createContext();
 
-// eslint-disable-next-line no-unused-vars
 const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState(null);

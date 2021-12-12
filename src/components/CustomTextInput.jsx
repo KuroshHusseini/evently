@@ -1,7 +1,6 @@
 import React from "react";
 import { theme } from "../theme";
-import { TextInput, Text, StyleSheet, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { TextInput, Text, StyleSheet } from "react-native";
 const CustomTextInput = (props) => {
   return (
     <>
@@ -14,16 +13,6 @@ const CustomTextInput = (props) => {
         value={props.value}
         {...props}
       />
-      {props.errorLabel && (
-        <View style={styles.errorTextContainer}>
-          <MaterialIcons
-            name="error"
-            size={24}
-            color={theme.colors.text.error}
-          />
-          <Text style={styles.errorLabel}>{props.errorLabel}</Text>
-        </View>
-      )}
     </>
   );
 };

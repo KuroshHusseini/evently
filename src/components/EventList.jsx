@@ -24,6 +24,7 @@ const EventList = ({
     <View style={styles.flatListContainer}>
       <FlatList
         data={event}
+        testID="flat-list"
         ItemSeparatorComponent={ItemSeparator}
         ListHeaderComponent={
           <SearchBar

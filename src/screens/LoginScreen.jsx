@@ -17,7 +17,6 @@ import CustomText from "../components/CustomText";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
-
 //TODO: Add react native skeleton for loading
 const LoginScreen = ({ navigation }) => {
   const { onLogin, isLoading } = useContext(AuthenticationContext);
@@ -34,7 +33,7 @@ const LoginScreen = ({ navigation }) => {
       password: { password: true, required: true },
     });
     if (getErrorMessages()) {
-      Alert.alert("Authentication Error", "Wrong email or password!");
+      Alert.alert("Error", "Wrong email or password!");
     } else {
       onLogin(email, password);
     }
@@ -50,12 +49,14 @@ const LoginScreen = ({ navigation }) => {
       <CustomText title="Login" />
       <View style={styles.innerContainer}>
         <CustomTextInput
+          testID="emailTextInput"
           label="Email"
           value={email}
           placeholder="Enter your email"
           onChangeText={(e) => setEmail(e)}
         />
         <CustomTextInput
+          testID="passwordTextInput"
           label="Password"
           value={password}
           placeholder="Enter your password"
@@ -67,6 +68,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <View style={styles.buttonContainer}>
           <CustomButton
+            testID="onSubmitBtn"
             title="register"
             onPressHandler={() => navigation.navigate("RegisterScreen")}
           />

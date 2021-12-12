@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
-import { theme } from "./../theme/index";
 
 import EventList from "../components/EventList";
+import CustomLoader from "./../components/CustomLoader";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import { EventContext } from "./../context/EventContext";
+
 
 const CreatedScreen = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
@@ -30,7 +30,7 @@ const CreatedScreen = ({ navigation }) => {
     <View style={styles.container}>
       {loading ? (
         <View style={styles.loader}>
-          <ActivityIndicator size="large" color={theme.colors.main.secondary} />
+          <CustomLoader />
         </View>
       ) : (
         <>

@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
 
 import EventList from "../components/EventList";
 
 import { EventContext } from "./../context/EventContext";
 import { AuthenticationContext } from "./../context/AuthenticationContext";
-import { theme } from "./../theme/index";
+
+import CustomLoader from "./../components/CustomLoader";
 
 const CartScreen = ({ navigation }) => {
   const { validEvents, loading } = useContext(EventContext);
@@ -31,7 +31,7 @@ const CartScreen = ({ navigation }) => {
     <View style={styles.container}>
       {loading ? (
         <View style={styles.loader}>
-          <ActivityIndicator size="large" color={theme.colors.main.secondary} />
+          <CustomLoader />
         </View>
       ) : (
         <>

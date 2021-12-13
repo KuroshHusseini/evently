@@ -56,9 +56,9 @@ Assuming that you have [Node 12 LTS](https://nodejs.org/en/download/) or greater
 3. Install expo CLI: <code>npm install -g expo-cli</code></li>
 4. Clone the project: <code>git@github.com:kurosh97/evently.git</code></li>
 
-Create new directory and inside that folder 'keys'.
+Create new directory 'secrets'.
 
-Inside secrets folder create a new file keys.jsx and copy/paste the following code snippet in it</li>
+Inside secrets create a new file 'keys.jsx' and copy/paste the following code snippet in it</li>
 
 ```
 const firebaseConfig = {

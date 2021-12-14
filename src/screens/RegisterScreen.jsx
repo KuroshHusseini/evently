@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState, useContext } from "react";
 import { useValidation } from "react-native-form-validator";
 
@@ -9,6 +10,7 @@ import {
   Keyboard,
   Platform,
   Alert,
+  Image,
 } from "react-native";
 import { theme } from "./../theme/index";
 import CustomLoader from "../components/CustomLoader";
@@ -70,14 +72,19 @@ const RegisterScreen = () => {
     }
   };
   return isLoading ? (
-    <CustomLoader/>
+    <CustomLoader />
   ) : (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        {/* <CustomText title="Register" /> */}
+        <View style={styles.iconContainer}>
+          <Image
+            style={styles.icon}
+            source={require("../../assets/register_logo.png")}
+          />
+        </View>
         <View style={styles.innerContainer}>
           <CustomTextInput
             label="First name"
@@ -136,6 +143,14 @@ const styles = StyleSheet.create({
   innerContainer: {
     width: "90%",
     marginBottom: 20,
+  },
+  iconContainer:{
+    height: 200,
+    width: 200,
+  },
+  icon: {
+    height: 200,
+    width: 200,
   },
   buttonContainer: {
     marginTop: theme.space[1],

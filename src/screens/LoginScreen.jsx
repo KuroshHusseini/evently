@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useState, useContext } from "react";
 
 import {
@@ -6,6 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Image,
 } from "react-native";
 
 import { theme } from "./../theme/index";
@@ -13,7 +15,6 @@ import { useValidation } from "react-native-form-validator";
 import CustomLoader from "../components/CustomLoader";
 import CustomButton from "../components/CustomButton";
 import CustomTextInput from "./../components/CustomTextInput";
-import CustomText from "../components/CustomText";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
@@ -46,7 +47,12 @@ const LoginScreen = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <CustomText title="Login" />
+      <View style={styles.iconContainer}>
+        <Image
+          style={styles.icon}
+          source={require("../../assets/login_logo.png")}
+        />
+      </View>
       <View style={styles.innerContainer}>
         <CustomTextInput
           testID="emailTextInput"
@@ -83,6 +89,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  iconContainer: {
+    flex: 0.5,
+  },
+  icon: {
+    height: 250,
+    width: 250,
   },
   innerContainer: {
     width: "90%",

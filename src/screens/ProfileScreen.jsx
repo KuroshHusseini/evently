@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import React, { useContext } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, Image } from "react-native";
 import { theme } from "../theme";
 
 import { AuthenticationContext } from "../context/AuthenticationContext";
@@ -61,6 +62,12 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.iconContainer}>
+        <Image
+          style={styles.icon}
+          source={require("../../assets/profile_logo.png")}
+        />
+      </View>
       <View style={styles.cardContainer}>
         <UserProfileCard
           firstName={userInfo?.firstName}
@@ -101,15 +108,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-
+  iconContainer: {
+    flex: 0.8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  icon: {
+    height: 250,
+    width: 250,
+  },
   cardContainer: {
     margin: theme.space[2],
   },
-  innerBtnContainer: {
-    marginTop: theme.space[0],
-  },
   buttonContainer: {
     marginHorizontal: theme.space[2],
+  },
+  innerBtnContainer: {
+    marginTop: theme.space[0],
   },
 });
 

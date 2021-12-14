@@ -32,8 +32,8 @@ const ProfileNavigator = ({ navigation }) => {
       <Stack.Screen
         name="EditProfileInfo"
         component={EditProfileInfoModal}
-        title="Edit your information"
         options={{
+          title: "Edit your information",
           ...TransitionPresets.ModalSlideFromBottomIOS,
           headerStyle: {
             backgroundColor: theme.colors.main.secondary,

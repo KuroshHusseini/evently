@@ -73,7 +73,7 @@ const EditEventModal = ({ route, navigation }) => {
     },
   });
 
-  //* save
+  
   const onSaveHandler = () => {
     validate({
       image: { required: true },
@@ -134,11 +134,6 @@ const EditEventModal = ({ route, navigation }) => {
         endDateTime,
       };
       updateEvent(event.key, eventObj);
-      // pushNotification(
-      //   user.pushToken,
-      //   `${event.title} is edited!`,
-      //   "Please check the event to keep yourself up to date."
-      // );
       navigation.navigate(screen);
       console.log("🚀 ~ file: EditEventModal.jsx ~ line 143 ~ onSaveHandler ~ screen", screen)
     }

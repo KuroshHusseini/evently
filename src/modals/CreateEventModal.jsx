@@ -11,8 +11,7 @@ import { createEvent } from "../services/eventServices";
 // import { UserContext } from "./../context/UserContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
-  // const { userInfo } = useContext(UserContext);
-
+  
   const [image, setImage] = useState(null);
   //* string data
   const [title, setTitle] = useState("");
@@ -134,12 +133,6 @@ const CreateEventModal = ({ navigation }) => {
         attending: [],
         userID: user.uid,
       });
-
-      // pushNotification(
-      //   userInfo.pushToken,
-      //   "New event is published",
-      //   "Please check the application for more information"
-      // );
       navigation.navigate("Home");
     }
   };

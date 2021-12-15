@@ -47,7 +47,7 @@ const LoginScreen = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <View style={styles.iconContainer}>
+      <View>
         <Image
           style={styles.icon}
           source={require("../../assets/login_logo.png")}
@@ -89,9 +89,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  iconContainer: {
-    flex: 0.5,
   },
   icon: {
     height: 250,

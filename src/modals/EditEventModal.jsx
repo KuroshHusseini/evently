@@ -6,9 +6,9 @@ import { useValidation } from "react-native-form-validator";
 import moment from "moment";
 
 import EventForm from "../components/EventForm";
-import { updateEvent} from "../services/eventServices";
+import { updateEvent } from "../services/eventServices";
 const EditEventModal = ({ route, navigation }) => {
-  const {  event, screen } = route.params;
+  const { event, screen } = route.params;
   const [image, setImage] = useState(event.image);
   //* string data
   const [title, setTitle] = useState(event.title);
@@ -73,7 +73,6 @@ const EditEventModal = ({ route, navigation }) => {
     },
   });
 
-  
   const onSaveHandler = () => {
     validate({
       image: { required: true },
@@ -135,7 +134,6 @@ const EditEventModal = ({ route, navigation }) => {
       };
       updateEvent(event.key, eventObj);
       navigation.navigate(screen);
-      console.log("🚀 ~ file: EditEventModal.jsx ~ line 143 ~ onSaveHandler ~ screen", screen)
     }
   };
 

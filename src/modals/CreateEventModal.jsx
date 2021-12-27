@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Platform, Alert } from "react-native";
-
 import * as ImagePicker from "expo-image-picker";
+
 import moment from "moment";
 import { useValidation } from "react-native-form-validator";
 
@@ -11,23 +11,21 @@ import { createEvent } from "../services/eventServices";
 // import { UserContext } from "./../context/UserContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
-  
+
   const [image, setImage] = useState(null);
-  //* string data
-  const [title, setTitle] = useState("");
-  const [host, setHost] = useState("");
-  const [details, setDetails] = useState("");
-  const [location, setLocation] = useState("");
-  const [cost, setCost] = useState("");
+  const [title, setTitle] = useState("Title");
+  const [host, setHost] = useState("host");
+  const [details, setDetails] = useState(
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia"
+  );
+  const [location, setLocation] = useState("Nicosia");
+  const [cost, setCost] = useState("12");
   const [selected, setSelected] = useState("");
-  //* start time picker
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(null);
-  //* end time picker
   const [isEndPickerVisible, setEndPickerVisible] = useState(false);
   const [endDateTime, setEndDateTime] = useState(null);
 
-  //* image picker
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -44,19 +42,17 @@ const CreateEventModal = ({ navigation }) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [3, 2],
+      aspect: [4, 3],
       quality: 0,
     });
     !result.cancelled && setImage(result.uri);
   };
 
-  //* start date
   const handleStartDateTimeConfirm = (startDate) => {
     setStartDateTime(moment(startDate).format("LL HH:mm").toString());
     setStartPickerVisible(false);
   };
 
-  //* end date
   const handleEndDateTimeConfirm = (endDate) => {
     setEndDateTime(moment(endDate).format("LL HH:mm").toString());
     setEndPickerVisible(false);
@@ -120,7 +116,7 @@ const CreateEventModal = ({ navigation }) => {
         "The finishing date and time of the event must be provided"
       );
     } else {
-      createEvent({
+      const eventObj = {
         image,
         title,
         host,
@@ -132,7 +128,8 @@ const CreateEventModal = ({ navigation }) => {
         endDateTime,
         attending: [],
         userID: user.uid,
-      });
+      };
+      createEvent(eventObj);
       navigation.navigate("Home");
     }
   };

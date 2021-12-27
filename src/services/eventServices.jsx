@@ -1,12 +1,27 @@
 import firebase from "firebase/compat/app";
+// import storage from "@react-native-firebase/storage";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-
+import "firebase/compat/storage";
 export const createEvent = async (eventObj) => {
-  await firebase.firestore().collection("events").add(eventObj);
-  console.log("Event added!");
+  const imageRef = eventObj.image.substring(eventObj.image.lastIndexOf("/"));
+
+  try {
+    await firebase.storage().ref(imageRef).put(eventObj.image);
+    await firebase.firestore().collection("events").add(eventObj);
+    console.log("Event added!");
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: eventServices.jsx ~ line 15 ~ createEvent ~ error",
+      error
+    );
+  }
 };
+
 export const updateEvent = async (key, eventObj) => {
+  // const imageRef = eventObj.image.substring(
+  //   eventObj.image.lastIndexOf("/") + 1
+  // );
   try {
     await firebase.firestore().collection("events").doc(key).update(eventObj);
     console.log("update comeplete!");

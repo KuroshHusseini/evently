@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     height: "25%",
     width: "95%",
     backgroundColor: theme.colors.main.primary,
-    borderRadius:  theme.radius[0],
+    borderRadius: theme.radius[0],
     overflow: "hidden",
   },
   uploadBtnContainer: {
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     padding: theme.space[1],
   },
   image: {
+    resizeMode: "stretch",
     height: "100%",
     width: "100%",
   },

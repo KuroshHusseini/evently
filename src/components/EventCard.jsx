@@ -20,9 +20,12 @@ const EventCard = ({ event }) => {
                   </Subheading>
                 </View>
                 <View>
-                  <Subheading testID="eventDateText">
+                  <Caption
+                    testID="eventDateText"
+                    style={{ color: theme.colors.text.secondary }}
+                  >
                     {event?.startDateTime}
-                  </Subheading>
+                  </Caption>
                 </View>
               </View>
               <View style={styles.cardDetailsWrapper}>
@@ -34,13 +37,16 @@ const EventCard = ({ event }) => {
                 </Caption>
               </View>
               <View style={styles.loWrapper}>
-                <View>
-                  <Subheading testID="eventLocationText">
+                <View style={styles.innerLoWrapperLeft}>
+                  <Caption
+                    testID="eventLocationText"
+                    style={{ color: theme.colors.text.secondary }}
+                  >
                     {event?.location}
-                  </Subheading>
+                  </Caption>
                 </View>
-                <View>
-                  <Subheading testID="eventHostText">{event?.host}</Subheading>
+                <View style={styles.innerLoWrapperRight}>
+                  <Caption testID="eventHostText">{event?.host}</Caption>
                 </View>
               </View>
             </Card.Content>
@@ -64,11 +70,12 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   card: {
+    backgroundColor: "red",
     borderRadius: theme.radius[2],
     overflow: "hidden",
   },
   cardCover: {
-    height: 230,
+    height: 280,
     width: "100%",
   },
   cardInsideContainer: {
@@ -93,6 +100,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  innerLoWrapperLeft: {
+    marginRight: theme.space[1],
+  },
+  innerLoWrapperRight: {
+    marginLeft: theme.space[0],
   },
 });
 

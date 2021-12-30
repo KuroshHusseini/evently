@@ -48,7 +48,6 @@ const UserContextProvider = ({ children }) => {
         userInfo,
         getUser,
         onUserUpdate,
-      
         onDeleteUser,
       }}
     >

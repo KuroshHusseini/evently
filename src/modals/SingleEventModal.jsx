@@ -8,8 +8,10 @@ import {
   Platform,
 } from "react-native";
 import { Card, Title, Paragraph } from "react-native-paper";
-import { UserContext } from "./../context/UserContext";
 import { theme } from "./../theme/index";
+import * as Linking from "expo-linking";
+
+import { UserContext } from "./../context/UserContext";
 
 import { AuthenticationContext } from "./../context/AuthenticationContext";
 import CustomButton from "./../components/CustomButton";
@@ -22,8 +24,9 @@ const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
   const { event, screen } = route.params;
+
   const [competent, setCompetent] = useState(false);
-  
+
   const attendingUser = event.attending.includes(user.uid);
 
   const onEditHandler = () => {
@@ -72,6 +75,10 @@ const SingleEventModal = ({ route, navigation }) => {
       null,
       "dark"
     );
+  };
+
+  const onContactHandler = () => {
+    Linking.openURL(`tel:+357${event.creatorNumber}`);
   };
 
   return (
@@ -150,13 +157,36 @@ const SingleEventModal = ({ route, navigation }) => {
               competent ? (
                 <CustomButton title="Attend" onPressHandler={onAttendHandler} />
               ) : (
-                <CustomButton
-                  title="Press to enter private code"
-                  onPressHandler={onPrivateCodeHandler}
-                />
+                <View>
+                  <View>
+                    <CustomButton
+                      title="Contact creator"
+                      onPressHandler={onContactHandler}
+                    />
+                  </View>
+                  <View style={styles.innerContentStyle}>
+                    <CustomButton
+                      title="Press to enter private code"
+                      onPressHandler={onPrivateCodeHandler}
+                    />
+                  </View>
+                </View>
               )
             ) : (
-              <CustomButton title="Attend" onPressHandler={onAttendHandler} />
+              <View style={styles.acButtonStyle}>
+                <View style={styles.innerBtnStyle}>
+                  <CustomButton
+                    title="Contact creator"
+                    onPressHandler={onContactHandler}
+                  />
+                </View>
+                <View style={styles.innerBtnStyle}>
+                  <CustomButton
+                    title="Attend"
+                    onPressHandler={onAttendHandler}
+                  />
+                </View>
+              </View>
             )}
           </View>
         )}
@@ -204,6 +234,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: theme.space[1],
     marginBottom: theme.space[0],
+  },
+  acButtonStyle: {
+    justifyContent: "space-between",
+    flexDirection: "row",
   },
   innerBtnStyle: {
     flex: 1,

@@ -8,9 +8,11 @@ import { useValidation } from "react-native-form-validator";
 import EventForm from "../components/EventForm";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import { createEvent } from "../services/eventServices";
+import { UserContext } from "./../context/UserContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
-
+  const { userInfo } = useContext(UserContext);
+  console.log("🚀 ~ file: CreateEventModal.jsx ~ line 15 ~ CreateEventModal ~ userInfo", userInfo)
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("Title");
   const [host, setHost] = useState("host");
@@ -128,6 +130,7 @@ const CreateEventModal = ({ navigation }) => {
         startDateTime,
         endDateTime,
         attending: [],
+        creatorNumber: userInfo.number,
         userID: user.uid,
       };
       createEvent(eventObj);

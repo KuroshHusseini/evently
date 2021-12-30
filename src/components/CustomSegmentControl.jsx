@@ -49,6 +49,19 @@ const CustomSegmentControl = (props) => {
         <Button
           style={styles.btn}
           mode={
+            props.onChosenEvent === "Private" 
+              ? "contained"
+              : "outlined"
+          }
+          color={theme.colors.main.secondary}
+          onPress={props.onPrivateChangeHandler}
+          dark={true}
+        >
+          Sport
+        </Button>
+        <Button
+          style={styles.btn}
+          mode={
             props.onChosenEvent === "Campus" 
               ? "contained"
               : "outlined"

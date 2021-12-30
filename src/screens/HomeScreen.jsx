@@ -8,8 +8,8 @@ import { AuthenticationContext } from "../context/AuthenticationContext";
 import { UserContext } from "./../context/UserContext";
 
 const HomeScreen = ({ navigation }) => {
-  const {  validEvents, loading } = useContext(EventContext);
- 
+  const { validEvents, loading } = useContext(EventContext);
+
   const { user } = useContext(AuthenticationContext);
   const { getUser } = useContext(UserContext);
   const [search, setSearchQuery] = useState("");
@@ -44,6 +44,7 @@ const HomeScreen = ({ navigation }) => {
             onChangeAllHandler={() => setSelected("All")}
             onPartyChangeHandler={() => setSelected("Party")}
             onSportChangeHandler={() => setSelected("Sport")}
+            onPrivateChangeHandler={() => setSelected("Private")}
             onCampusChangeHandler={() => setSelected("Campus")}
           />
         </>

@@ -7,7 +7,6 @@ import CustomLoader from "./../components/CustomLoader";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import { EventContext } from "./../context/EventContext";
 
-
 const CreatedScreen = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { event, loading } = useContext(EventContext);
@@ -45,6 +44,7 @@ const CreatedScreen = ({ navigation }) => {
             onChangeAllHandler={() => setSelected("All")}
             onPartyChangeHandler={() => setSelected("Party")}
             onSportChangeHandler={() => setSelected("Sport")}
+            onPrivateChangeHandler={() => setSelected("Private")}
             onCampusChangeHandler={() => setSelected("Campus")}
           />
         </>

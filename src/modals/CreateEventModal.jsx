@@ -8,7 +8,6 @@ import { useValidation } from "react-native-form-validator";
 import EventForm from "../components/EventForm";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 import { createEvent } from "../services/eventServices";
-// import { UserContext } from "./../context/UserContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
 
@@ -21,6 +20,7 @@ const CreateEventModal = ({ navigation }) => {
   const [location, setLocation] = useState("Nicosia");
   const [cost, setCost] = useState("12");
   const [selected, setSelected] = useState("");
+  const [code, setCode] = useState("");
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(null);
   const [isEndPickerVisible, setEndPickerVisible] = useState(false);
@@ -122,8 +122,9 @@ const CreateEventModal = ({ navigation }) => {
         host,
         details,
         location,
-        type: selected,
         cost,
+        type: selected,
+        privateCode: code,
         startDateTime,
         endDateTime,
         attending: [],
@@ -145,14 +146,17 @@ const CreateEventModal = ({ navigation }) => {
         onChangeHost={(h) => setHost(h)}
         details={details}
         onChangeDetails={(d) => setDetails(d)}
+        location={location}
+        onChangeLocation={(l) => setLocation(l)}
+        cost={cost}
         onChosenEvent={selected}
         onChangeAllHandler={() => setSelected("Other")}
         onPartyChangeHandler={() => setSelected("Party")}
         onSportChangeHandler={() => setSelected("Sport")}
         onCampusChangeHandler={() => setSelected("Campus")}
-        location={location}
-        onChangeLocation={(l) => setLocation(l)}
-        cost={cost}
+        onPrivateChangeHandler={() => setSelected("Private")}
+        code={code}
+        onChangeCode={(pc) => setCode(pc)}
         onChangeCost={(c) => setCost(c)}
         startDateTimeValue={startDateTime}
         isStartPickerVisible={isStartPickerVisible}

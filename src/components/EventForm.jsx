@@ -25,20 +25,26 @@ const EventForm = (props) => {
       >
         <UploadImage image={props.image} addImage={props.pickImage} />
         <View InputScrollView style={styles.inputContainer}>
-          <CustomTextInput
-            label="Title"
-            value={props.title}
-            onChangeText={props.onChangeTitle}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
-          <CustomTextInput
-            label="Host"
-            value={props.host}
-            onChangeText={props.onChangeHost}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
+          <View style={styles.innerInputContainer}>
+            <View style={styles.inputL}>
+              <CustomTextInput
+                label="Title"
+                value={props.title}
+                onChangeText={props.onChangeTitle}
+                keyboardAppearance="dark"
+                underlineColor={theme.colors.main.secondary}
+              />
+            </View>
+            <View style={styles.inputR}>
+              <CustomTextInput
+                label="Host"
+                value={props.host}
+                onChangeText={props.onChangeHost}
+                keyboardAppearance="dark"
+                underlineColor={theme.colors.main.secondary}
+              />
+            </View>
+          </View>
           <CustomTextInput
             label="Details"
             value={props.details}
@@ -46,21 +52,27 @@ const EventForm = (props) => {
             keyboardAppearance="dark"
             underlineColor={theme.colors.main.secondary}
           />
-          <CustomTextInput
-            label="Location"
-            value={props.location}
-            onChangeText={props.onChangeLocation}
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
-          <CustomTextInput
-            label="Cost"
-            value={props.cost}
-            onChangeText={props.onChangeCost}
-            keyboardType="numeric"
-            keyboardAppearance="dark"
-            underlineColor={theme.colors.main.secondary}
-          />
+          <View style={styles.innerInputContainer}>
+            <View style={styles.inputL}>
+              <CustomTextInput
+                label="Location"
+                value={props.location}
+                onChangeText={props.onChangeLocation}
+                keyboardAppearance="dark"
+                underlineColor={theme.colors.main.secondary}
+              />
+            </View>
+            <View style={styles.inputR}>
+              <CustomTextInput
+                label="Cost"
+                value={props.cost}
+                onChangeText={props.onChangeCost}
+                keyboardType="numeric"
+                keyboardAppearance="dark"
+                underlineColor={theme.colors.main.secondary}
+              />
+            </View>
+          </View>
           <CreateEventSegment
             title="other"
             onChosenEvent={props.onChosenEvent}
@@ -68,7 +80,19 @@ const EventForm = (props) => {
             onPartyChangeHandler={props.onPartyChangeHandler}
             onSportChangeHandler={props.onSportChangeHandler}
             onCampusChangeHandler={props.onCampusChangeHandler}
+            onPrivateChangeHandler={props.onPrivateChangeHandler}
           />
+
+          {props.onChosenEvent === "Private" && (
+            <CustomTextInput
+              label="Private Code"
+              secureTextEntry
+              value={props.code}
+              onChangeText={props.onChangeCode}
+              keyboardAppearance="dark"
+              underlineColor={theme.colors.main.secondary}
+            />
+          )}
           <View style={styles.buttonContainer}>
             <View style={styles.dateTimeButtons}>
               <DateTimePicker
@@ -115,6 +139,17 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "95%",
     marginTop: theme.space[0],
+  },
+  innerInputContainer: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+  },
+  inputL: {
+    flex: 1,
+    marginRight: theme.space[0],
+  },
+  inputR: {
+    flex: 1,
   },
   buttonContainer: {
     justifyContent: "center",

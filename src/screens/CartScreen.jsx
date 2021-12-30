@@ -46,6 +46,7 @@ const CartScreen = ({ navigation }) => {
             onChangeAllHandler={() => setSelected("All")}
             onPartyChangeHandler={() => setSelected("Party")}
             onSportChangeHandler={() => setSelected("Sport")}
+            onPrivateChangeHandler={() => setSelected("Private")}
             onCampusChangeHandler={() => setSelected("Campus")}
           />
         </>

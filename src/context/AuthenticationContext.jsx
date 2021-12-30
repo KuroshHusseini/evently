@@ -50,19 +50,15 @@ const AuthenticationContextProvider = ({ children }) => {
     setIsLoading(true);
     try {
       registerRequest(email, password, firstName, lastName, number);
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
     }
   };
 
   const onLogout = async () => {
-    try {
-      await firebase.auth().signOut();
-      setUser(null);
-    } catch (err) {
-      Alert.alert("There is something wrong!", err.message);
-    }
+    await firebase.auth().signOut();
+    setUser(null);
   };
 
   const onChangePassword = (password) => {

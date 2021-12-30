@@ -10,22 +10,18 @@ import { updateEvent } from "../services/eventServices";
 const EditEventModal = ({ route, navigation }) => {
   const { event, screen } = route.params;
   const [image, setImage] = useState(event.image);
-  //* string data
   const [title, setTitle] = useState(event.title);
   const [host, setHost] = useState(event.host);
   const [details, setDetails] = useState(event.details);
   const [location, setLocation] = useState(event.location);
   const [cost, setCost] = useState(event.cost);
-  const [selected, setSelected] = useState("");
-
-  //* start time picker
+  const [selected, setSelected] = useState(event.type);
+  const [code, setCode] = useState(event.privateCode);
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(event.startDateTime);
-  //* end time picker
   const [isEndPickerVisible, setEndPickerVisible] = useState(false);
   const [endDateTime, setEndDateTime] = useState(event.endDateTime);
 
-  //* image picker
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -127,8 +123,9 @@ const EditEventModal = ({ route, navigation }) => {
         host,
         details,
         location,
-        type: selected,
         cost,
+        type: selected,
+        privateCode: code,
         startDateTime,
         endDateTime,
       };
@@ -150,13 +147,16 @@ const EditEventModal = ({ route, navigation }) => {
         onChangeDetails={(d) => setDetails(d)}
         location={location}
         onChangeLocation={(l) => setLocation(l)}
+        cost={cost}
+        onChangeCost={(c) => setCost(c)}
         onChosenEvent={selected}
         onChangeAllHandler={() => setSelected("Other")}
         onPartyChangeHandler={() => setSelected("Party")}
         onSportChangeHandler={() => setSelected("Sport")}
         onCampusChangeHandler={() => setSelected("Campus")}
-        cost={cost}
-        onChangeCost={(c) => setCost(c)}
+        onPrivateChangeHandler={() => setSelected("Private")}
+        code={code}
+        onChangeCode={(pc) => setCode(pc)}
         startDateTimeValue={startDateTime}
         isStartPickerVisible={isStartPickerVisible}
         showStartDateTimePicker={() => setStartPickerVisible(true)}

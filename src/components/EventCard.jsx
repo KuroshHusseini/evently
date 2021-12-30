@@ -70,8 +70,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   card: {
-    backgroundColor: "red",
-    borderRadius: theme.radius[2],
+    borderRadius: theme.radius[0],
     overflow: "hidden",
   },
   cardCover: {
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     width: "100%",
-    borderRadius: theme.radius[1],
+    borderRadius: theme.radius[0],
     backgroundColor: "rgba(255,255,255, 0.7)",
   },
   cardTitle: {

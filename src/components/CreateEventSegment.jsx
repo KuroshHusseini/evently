@@ -35,6 +35,15 @@ const CreateEventSegment = (props) => {
         </Button>
         <Button
           style={styles.btn}
+          mode={props.onChosenEvent === "Private" ? "contained" : "outlined"}
+          color={theme.colors.main.secondary}
+          onPress={props.onPrivateChangeHandler}
+          dark={true}
+        >
+          Private
+        </Button>
+        <Button
+          style={styles.btn}
           mode={props.onChosenEvent === "Other" ? "contained" : "outlined"}
           color={theme.colors.main.secondary}
           onPress={props.onChangeAllHandler}

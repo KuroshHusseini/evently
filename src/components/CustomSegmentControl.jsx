@@ -57,7 +57,7 @@ const CustomSegmentControl = (props) => {
           onPress={props.onPrivateChangeHandler}
           dark={true}
         >
-          Sport
+          Private
         </Button>
         <Button
           style={styles.btn}

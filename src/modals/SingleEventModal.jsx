@@ -7,10 +7,10 @@ import {
   View,
   Platform,
 } from "react-native";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import { Card, Title, Paragraph } from "react-native-paper";
 import { theme } from "./../theme/index";
 import * as Linking from "expo-linking";
-
 import { UserContext } from "./../context/UserContext";
 
 import { AuthenticationContext } from "./../context/AuthenticationContext";
@@ -19,12 +19,12 @@ import {
   attendEvent,
   cancelAttendEvent,
   deleteEvent,
+  updateEvent,
 } from "../services/eventServices";
 const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
   const { event, screen } = route.params;
-
   const [competent, setCompetent] = useState(false);
 
   const attendingUser = event.attending.includes(user.uid);
@@ -75,6 +75,11 @@ const SingleEventModal = ({ route, navigation }) => {
       null,
       "dark"
     );
+  };
+
+  const onValidEventHandler = () => {
+    updateEvent(event.key,{ ...event, validated: true });
+    navigation.navigate("Validate");
   };
 
   const onContactHandler = () => {
@@ -133,6 +138,22 @@ const SingleEventModal = ({ route, navigation }) => {
                       : event.attending.length}
                   </Paragraph>
                 </View>
+                <View style={styles.contentText}>
+                  <Title>Validated: </Title>
+                  {event.validated ? (
+                    <AntDesign
+                      name="checksquare"
+                      size={24}
+                      color={theme.colors.main.green}
+                    />
+                  ) : (
+                    <Entypo
+                      name="squared-cross"
+                      size={24}
+                      color={theme.colors.main.red}
+                    />
+                  )}
+                </View>
               </View>
             </Card.Content>
           </View>
@@ -146,6 +167,40 @@ const SingleEventModal = ({ route, navigation }) => {
               <CustomButton title="delete" onPressHandler={onDeleteHandler} />
             </View>
           </View>
+        ) : userInfo.maintainer && !event.validated ? (
+          <>
+            <View style={styles.acButtonStyle}>
+              <View style={styles.innerBtnStyle}>
+                <CustomButton
+                  title="Contact creator"
+                  onPressHandler={onContactHandler}
+                />
+              </View>
+              <View style={styles.innerBtnStyle}>
+                <CustomButton title="delete" onPressHandler={onDeleteHandler} />
+              </View>
+            </View>
+            <View style={styles.innerBtnStyle}>
+              <CustomButton
+                title="The event is valid"
+                onPressHandler={onValidEventHandler}
+              />
+            </View>
+          </>
+        ) : userInfo.maintainer && event.validated ? (
+          <>
+            <View style={styles.acButtonStyle}>
+              <View style={styles.innerBtnStyle}>
+                <CustomButton
+                  title="Contact creator"
+                  onPressHandler={onContactHandler}
+                />
+              </View>
+              <View style={styles.innerBtnStyle}>
+                <CustomButton title="delete" onPressHandler={onDeleteHandler} />
+              </View>
+            </View>
+          </>
         ) : (
           <View style={styles.buttonStyle}>
             {attendingUser ? (

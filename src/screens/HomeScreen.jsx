@@ -9,7 +9,6 @@ import { UserContext } from "./../context/UserContext";
 
 const HomeScreen = ({ navigation }) => {
   const { validEvents, loading } = useContext(EventContext);
-
   const { user } = useContext(AuthenticationContext);
   const { getUser } = useContext(UserContext);
   const [search, setSearchQuery] = useState("");
@@ -18,14 +17,15 @@ const HomeScreen = ({ navigation }) => {
   getUser(user.uid);
 
   const filterEvent = validEvents()
-    .map((values) => values)
-    .filter((value) =>
-      selected === "All" ? value : value?.type.includes(selected)
+    .map((e) => e)
+    .filter((e) => e.validated)
+    .filter((e) =>
+      selected === "All" ? e : e?.type.includes(selected)
     );
 
   const searchEvent = filterEvent
-    .map((values) => values)
-    .filter((value) => value?.title.includes(search));
+    .map((events) => events)
+    .filter((events) => events?.title.includes(search));
 
   return (
     <View style={styles.container}>

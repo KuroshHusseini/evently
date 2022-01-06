@@ -16,6 +16,7 @@ const EventList = ({
   onChosenEvent,
   onChangeAllHandler,
   onPartyChangeHandler,
+  onPrivateChangeHandler,
   onSportChangeHandler,
   onCampusChangeHandler,
   navigation,
@@ -34,6 +35,7 @@ const EventList = ({
             onChangeSearch={onChangeSearch}
             onChangeAllHandler={onChangeAllHandler}
             onPartyChangeHandler={onPartyChangeHandler}
+            onPrivateChangeHandler={onPrivateChangeHandler}
             onSportChangeHandler={onSportChangeHandler}
             onCampusChangeHandler={onCampusChangeHandler}
           />

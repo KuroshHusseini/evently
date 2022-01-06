@@ -4,6 +4,8 @@ export const colors = {
     secondary: "#000000",
     lightGray: "#DCDCDC",
     grey: "#808080",
+    green: "#008000",
+    red: "#DC143C",
   },
   text: {
     primary: "#FFFFFF",

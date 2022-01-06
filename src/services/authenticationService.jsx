@@ -31,6 +31,7 @@ export const registerRequest = async (
       lastName: lastName,
       firstName: firstName,
       phoneNumber: number,
+      maintainer: false
     });
     console.log("User Created");
   } catch (error) {

@@ -126,6 +126,7 @@ const EditEventModal = ({ route, navigation }) => {
         cost,
         type: selected,
         privateCode: code,
+        validated: false,
         startDateTime,
         endDateTime,
       };

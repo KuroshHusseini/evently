@@ -1,41 +1,35 @@
 import React, { useState, useContext } from "react";
 import { View, StyleSheet } from "react-native";
-
+import { theme } from "./../theme/index";
+import CustomLoader from "../components/CustomLoader";
 import EventList from "../components/EventList";
-import CustomLoader from "./../components/CustomLoader";
-
-import { AuthenticationContext } from "../context/AuthenticationContext";
 import { EventContext } from "./../context/EventContext";
 
-const CreatedScreen = ({ navigation }) => {
-  const { user } = useContext(AuthenticationContext);
-  const { event, loading } = useContext(EventContext);
-  const [selected, setSelected] = useState("");
-  const [search, setSearchQuery] = useState("");
 
-  const filterEvent = event
+const EventValidationScreen = ({ navigation }) => {
+  const { validEvents, loading } = useContext(EventContext);
+  const [search, setSearchQuery] = useState("");
+  const [selected, setSelected] = useState("");
+
+  const eventsToBeValidated = validEvents().map((e) => e).filter(e=> !e.validated)
+  const filterEvent = eventsToBeValidated
     .map((values) => values)
     .filter((value) =>
       selected === "All" ? value : value?.type.includes(selected)
     );
 
-    //search event and show the users created ones 
   const searchEvent = filterEvent
     .map((values) => values)
-    .filter(
-      (value) => user.uid === value.userID && value.title.includes(search)
-    );
+    .filter((value) => value?.title.includes(search));
 
   return (
     <View style={styles.container}>
       {loading ? (
-        <View style={styles.loader}>
-          <CustomLoader />
-        </View>
+        <CustomLoader />
       ) : (
         <>
           <EventList
-            screen="Created"
+            screen="Validate"
             title="All"
             value={search}
             event={searchEvent}
@@ -58,11 +52,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  loader: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  segmentStyle: {
+    height: 40,
+    marginBottom: theme.space[0],
   },
 });
 
-export default CreatedScreen;
+export default EventValidationScreen;

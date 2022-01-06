@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import React from "react";
+import React, { useContext } from "react";
 import {
   createStackNavigator,
   TransitionPresets,
@@ -12,10 +12,13 @@ import CustomButton from "./../components/CustomButton";
 
 import { theme } from "./../theme/index";
 import EditEventModal from "../modals/EditEventModal";
+import { UserContext } from "./../context/UserContext";
 
 const Stack = createStackNavigator();
 
 const HomeNavigator = ({ navigation }) => {
+  const { userInfo } = useContext(UserContext);
+
   const onCreateEventHandler = () => navigation.navigate("Create");
   const onCancelHandler = () => navigation.navigate("Home");
   return (
@@ -31,15 +34,21 @@ const HomeNavigator = ({ navigation }) => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
-          headerRight: () => (
-            <CustomButton
-              onPressHandler={onCreateEventHandler}
-              title="Create"
-              color="#fff"
-            />
-          ),
+          headerRight: () => {
+            return (
+              userInfo &&
+              !userInfo.maintainer && (
+                <CustomButton
+                  onPressHandler={onCreateEventHandler}
+                  title="Create"
+                  color="#fff"
+                />
+              )
+            );
+          },
         }}
       />
+
       <Stack.Screen
         name="Detail"
         component={SingleEventModal}

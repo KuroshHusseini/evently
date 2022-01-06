@@ -131,6 +131,7 @@ const CreateEventModal = ({ navigation }) => {
         endDateTime,
         attending: [],
         creatorNumber: userInfo.number,
+        validated: false,
         userID: user.uid,
       };
       createEvent(eventObj);

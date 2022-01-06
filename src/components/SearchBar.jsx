@@ -13,6 +13,7 @@ const SearchBar = (props) => {
         onChangeAllHandler={props.onChangeAllHandler}
         onPartyChangeHandler={props.onPartyChangeHandler}
         onSportChangeHandler={props.onSportChangeHandler}
+        onPrivateChangeHandler={props.onPrivateChangeHandler}
         onCampusChangeHandler={props.onCampusChangeHandler}
       />
       <Searchbar

@@ -19,15 +19,12 @@ export const createEvent = async (eventObj) => {
 };
 
 export const updateEvent = async (key, eventObj) => {
-  // const imageRef = eventObj.image.substring(
-  //   eventObj.image.lastIndexOf("/") + 1
-  // );
   try {
     await firebase.firestore().collection("events").doc(key).update(eventObj);
     console.log("update comeplete!");
   } catch (error) {
     console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 40 ~ deleteEvent ~ error",
+      "🚀 ~ file: eventServices.jsx ~ line 28 ~ update ~ error",
       error
     );
   }

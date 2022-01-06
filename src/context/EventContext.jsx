@@ -3,16 +3,18 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
-
 export const EventContext = createContext(null);
 
 const EventContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [event, setEvent] = useState([]);
 
-  const validEvents = () => {
-    return event.map((e) => e).filter((fe) => new Date(fe.startDateTime).getTime() >= new Date().getTime());
-  };
+  const validEvents = () =>
+    event
+      .map((e) => e)
+      .filter(
+        (fe) => new Date(fe.startDateTime).getTime() >= new Date().getTime()
+      );
 
   useEffect(() => {
     const subscriber = firebase

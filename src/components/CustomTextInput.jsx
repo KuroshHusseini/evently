@@ -19,7 +19,7 @@ const CustomTextInput = (props) => {
 
 const styles = StyleSheet.create({
   labelText: {
-    fontSize: 15,
+    fontSize: 12,
     marginVertical: theme.space[0],
     paddingLeft: theme.space[1],
   },

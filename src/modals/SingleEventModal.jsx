@@ -78,7 +78,7 @@ const SingleEventModal = ({ route, navigation }) => {
   };
 
   const onValidEventHandler = () => {
-    updateEvent(event.key,{ ...event, validated: true });
+    updateEvent(event.key, { ...event, validated: true });
     navigation.navigate("Validate");
   };
 
@@ -93,12 +93,12 @@ const SingleEventModal = ({ route, navigation }) => {
         style={styles.container}
       >
         <Card style={styles.card}>
-          <View>
-            <Card.Cover
-              style={styles.coverStyle}
-              source={{ uri: event.image }}
-            />
-          </View>
+          <Card.Cover
+            style={styles.coverStyle}
+            resizeMode="stretch"
+            source={{ uri: event.image.uri }}
+          />
+
           <View style={styles.contentStyle}>
             <Card.Content>
               <Title>{event.title}</Title>
@@ -255,12 +255,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    padding: theme.space[1],
-    margin: theme.space[1],
+    padding: theme.space[0],
+    marginHorizontal: theme.space[1],
+    marginVertical: theme.space[0],
     borderRadius: theme.radius[0],
   },
   coverStyle: {
     borderRadius: theme.radius[0],
+    height: "35%",
   },
   contentStyle: {
     backgroundColor: theme.colors.main.primary,

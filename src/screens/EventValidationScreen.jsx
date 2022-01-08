@@ -5,13 +5,12 @@ import CustomLoader from "../components/CustomLoader";
 import EventList from "../components/EventList";
 import { EventContext } from "./../context/EventContext";
 
-
 const EventValidationScreen = ({ navigation }) => {
-  const { validEvents, loading } = useContext(EventContext);
+  const { event, loading } = useContext(EventContext);
   const [search, setSearchQuery] = useState("");
   const [selected, setSelected] = useState("");
 
-  const eventsToBeValidated = validEvents().map((e) => e).filter(e=> !e.validated)
+  const eventsToBeValidated = event.map((e) => e).filter((e) => !e.validated);
   const filterEvent = eventsToBeValidated
     .map((values) => values)
     .filter((value) =>

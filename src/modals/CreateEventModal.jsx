@@ -12,7 +12,6 @@ import { UserContext } from "./../context/UserContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
-  console.log("🚀 ~ file: CreateEventModal.jsx ~ line 15 ~ CreateEventModal ~ userInfo", userInfo)
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("Title");
   const [host, setHost] = useState("host");
@@ -45,9 +44,9 @@ const CreateEventModal = ({ navigation }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 0,
+      quality: 1,
     });
-    !result.cancelled && setImage(result.uri);
+    !result.cancelled && setImage(result);
   };
 
   const handleStartDateTimeConfirm = (startDate) => {
@@ -130,7 +129,7 @@ const CreateEventModal = ({ navigation }) => {
         startDateTime,
         endDateTime,
         attending: [],
-        creatorNumber: userInfo.number,
+        creatorNumber: userInfo.phoneNumber,
         validated: false,
         userID: user.uid,
       };

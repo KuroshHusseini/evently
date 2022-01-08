@@ -1,13 +1,22 @@
 import firebase from "firebase/compat/app";
-// import storage from "@react-native-firebase/storage";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+
 export const createEvent = async (eventObj) => {
-  const imageRef = eventObj.image.substring(eventObj.image.lastIndexOf("/"));
+  const imageRef = eventObj.image.uri.substring(
+    eventObj.image.uri.lastIndexOf("/")
+  );
 
   try {
-    await firebase.storage().ref(imageRef).put(eventObj.image);
+    const response = await fetch(eventObj.image.uri);
+    const blob = await response.blob();
+    firebase
+      .storage()
+      .ref()
+      .child("images/" + imageRef)
+      .put(blob);
+
     await firebase.firestore().collection("events").add(eventObj);
     console.log("Event added!");
   } catch (error) {

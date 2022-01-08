@@ -8,7 +8,7 @@ const EventCard = ({ event }) => {
       <Card style={styles.card}>
         <ImageBackground
           style={styles.cardCover}
-          source={{ uri: event?.image }}
+          source={{ uri: event?.image.uri }}
           resizeMode="cover"
         >
           <View style={styles.cardInsideContainer}>

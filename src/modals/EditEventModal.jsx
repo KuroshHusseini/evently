@@ -138,7 +138,7 @@ const EditEventModal = ({ route, navigation }) => {
   return (
     <>
       <EventForm
-        image={image}
+        image={image.uri}
         pickImage={pickImage}
         title={title}
         onChangeTitle={(t) => setTitle(t)}

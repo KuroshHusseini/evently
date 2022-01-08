@@ -3,21 +3,34 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 
+//TODO: store the image and then download the image. Then save the downloaded image uri to firestore
+
+// const getPictureBlob = async (uri) => {
+//   const res = await fetch(uri);
+//   const bob = await res.blob()
+//   return;
+// };
+
 export const createEvent = async (eventObj) => {
-  const imageRef = eventObj.image.uri.substring(
-    eventObj.image.uri.lastIndexOf("/")
-  );
+  let blob;
+  const imageUri = eventObj.image.uri;
+  const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
 
   try {
-    const response = await fetch(eventObj.image.uri);
-    const blob = await response.blob();
-    firebase
+    const res = await fetch(imageUri);
+    blob = await res.blob();
+    const ref = firebase
       .storage()
       .ref()
-      .child("images/" + imageRef)
-      .put(blob);
+      .child("images/" + imageRef);
 
-    await firebase.firestore().collection("events").add(eventObj);
+    const snapshot = await ref.put(blob);
+    const imageFirebaseUri = await snapshot.ref.getDownloadURL();
+    await firebase
+      .firestore()
+      .collection("events")
+      .add({ ...eventObj, image: imageFirebaseUri });
+    blob.close();
     console.log("Event added!");
   } catch (error) {
     console.log(

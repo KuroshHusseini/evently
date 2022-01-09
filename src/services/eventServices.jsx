@@ -7,23 +7,11 @@ import "firebase/compat/storage";
 //TODO: store the image and then download the image. Then save the downloaded image uri to firestore
 
 export const createEvent = async (eventObj) => {
-  const imageUri = eventObj.image.uri;
+  const imageUri = eventObj.image;
   const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
 
   try {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", imageUri, true);
-      xhr.send(null);
-    });
+    const blob = await fetch(imageUri);
 
     const ref = firebase.storage().ref().child(imageRef);
     const snapshot = ref.put(blob);
@@ -46,37 +34,8 @@ export const createEvent = async (eventObj) => {
 };
 
 export const updateEvent = async (key, eventObj) => {
-console.log("🚀 ~ file: eventServices.jsx ~ line 51 ~ updateEvent ~ eventObj", eventObj)
-  const imageUri = eventObj.image.uri;
-  const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
   try {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function (e) {
-        console.log(e);
-        reject(new TypeError("Network request failed"));
-      };
-      xhr.responseType = "blob";
-      xhr.open("GET", imageUri, true);
-      xhr.send(null);
-    });
-
-    const ref = firebase.storage().ref().child(imageRef);
-    const snapshot = ref.put(blob);
-    await snapshot;
-
-    const downloadUrl = await ref.getDownloadURL();
-    await firebase
-      .firestore()
-      .collection("events")
-      .doc(key)
-      .update({ ...eventObj, image: downloadUrl });
-
-    blob.close();
-    console.log("update comeplete!");
+    await firebase.firestore().collection("events").doc(key).update(eventObj);
   } catch (error) {
     console.log(
       "🚀 ~ file: eventServices.jsx ~ line 97 ~ updateEvent ~ error",

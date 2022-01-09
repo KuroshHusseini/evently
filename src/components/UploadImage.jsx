@@ -6,7 +6,12 @@ import { theme } from "./../theme/index";
 const UploadImage = ({ image, addImage }) => {
   return (
     <View style={styles.container}>
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      {image && (
+        <Image
+          source={{ uri: image }}
+          style={styles.image}
+        />
+      )}
       <View style={styles.uploadBtnContainer}>
         <TouchableOpacity onPress={addImage} style={styles.uploadBtn}>
           <Text>{image ? "Edit" : "Upload"} Image</Text>
@@ -43,9 +48,11 @@ const styles = StyleSheet.create({
     padding: theme.space[1],
   },
   image: {
-    resizeMode: "cover",
+    resizeMode: "stretch",
     height: "100%",
     width: "100%",
+  
+
   },
 });
 export default UploadImage;

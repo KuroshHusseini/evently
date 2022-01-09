@@ -10,7 +10,6 @@ import { AuthenticationContext } from "../context/AuthenticationContext";
 import { UserContext } from "./../context/UserContext";
 import { EventContext } from "./../context/EventContext";
 
-
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
@@ -49,7 +48,7 @@ const CreateEventModal = ({ navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-    !result.cancelled && setImage(result);
+    !result.cancelled && setImage(result.uri);
   };
 
   const handleStartDateTimeConfirm = (startDate) => {
@@ -76,7 +75,7 @@ const CreateEventModal = ({ navigation }) => {
     },
   });
 
-  const onSaveHandler = async () => {
+  const onSaveHandler = () => {
     validate({
       image: { required: true },
       title: { minlength: 3, maxLength: 30, required: true },
@@ -136,7 +135,7 @@ const CreateEventModal = ({ navigation }) => {
         validated: false,
         userID: user.uid,
       };
-      await create(eventObj);
+      create(eventObj);
       navigation.navigate("Home");
     }
   };

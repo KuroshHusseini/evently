@@ -11,7 +11,7 @@ const EventCard = ({ event }) => {
           source={{
             uri: event?.image,
           }}
-          resizeMode="cover"
+          resizeMode="stretch"
         >
           <View style={styles.cardInsideContainer}>
             <Card.Content>

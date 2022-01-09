@@ -1,10 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  Alert,
-  StyleSheet,
-  View,
-  ScrollView,
-} from "react-native";
+import { Alert, StyleSheet, View, Image, ScrollView } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { Card, Title, Paragraph } from "react-native-paper";
 import { theme } from "./../theme/index";
@@ -87,13 +82,13 @@ const SingleEventModal = ({ route, navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View>
-        <Card style={styles.card}>
-          <Card.Cover
-            style={styles.coverStyle}
-            resizeMode="stretch"
-            source={{ uri: event.image }}
+        <View style={styles.eventImageStyle}>
+          <Image
+            source={{ uri: event.image, width: "100%", height: 250 }}
+            style={{ resizeMode: "stretch" }}
           />
-
+        </View>
+        <Card style={styles.card}>
           <View style={styles.contentStyle}>
             <Card.Content>
               <Title>{event.title}</Title>
@@ -248,6 +243,11 @@ const SingleEventModal = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  eventImageStyle: {
+    borderRadius: theme.radius[0],
+    overflow: "hidden",
+    margin: theme.space[1],
   },
   card: {
     padding: theme.space[0],

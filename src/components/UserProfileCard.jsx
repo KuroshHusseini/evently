@@ -18,7 +18,7 @@ const UserProfileCard = ({ firstName, lastName, email, number }) => {
 
 const styles = StyleSheet.create({
   card: {
-    padding: theme.space[2],
+    padding: theme.space[0],
   },
 });
 

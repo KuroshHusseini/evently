@@ -12,7 +12,6 @@ const EditEventModal = ({ route, navigation }) => {
   const { update, loading } = useContext(EventContext);
   const { event, screen } = route.params;
   const [image, setImage] = useState(event.image);
-  console.log("🚀 ~ file: EditEventModal.jsx ~ line 15 ~ EditEventModal ~ image", image.uri)
   const [title, setTitle] = useState(event.title);
   const [host, setHost] = useState(event.host);
   const [details, setDetails] = useState(event.details);
@@ -44,7 +43,7 @@ const EditEventModal = ({ route, navigation }) => {
       aspect: [4, 3],
       quality: 1,
     });
-    !result.cancelled && setImage(result);
+    !result.cancelled && setImage(result.uri);
   };
   //* start date
   const handleStartDateTimeConfirm = (startDate) => {
@@ -133,7 +132,7 @@ const EditEventModal = ({ route, navigation }) => {
         startDateTime,
         endDateTime,
       };
-      await update(event.key, eventObj);
+      update(event.key, eventObj);
       navigation.navigate(screen);
     }
   };
@@ -144,7 +143,7 @@ const EditEventModal = ({ route, navigation }) => {
         <CustomLoader />
       ) : (
         <EventForm
-          image={image.uri}
+          image={image}
           pickImage={pickImage}
           title={title}
           onChangeTitle={(t) => setTitle(t)}

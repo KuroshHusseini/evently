@@ -7,6 +7,7 @@ import {
   KeyboardAvoidingView,
   View,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { theme } from "./../theme/index";
 
@@ -24,7 +25,7 @@ const EventForm = (props) => {
         style={styles.container}
       >
         <UploadImage image={props.image} addImage={props.pickImage} />
-        <View InputScrollView style={styles.inputContainer}>
+        <ScrollView InputScrollView style={styles.inputContainer}>
           <View style={styles.innerInputContainer}>
             <View style={styles.inputL}>
               <CustomTextInput
@@ -50,6 +51,8 @@ const EventForm = (props) => {
             value={props.details}
             onChangeText={props.onChangeDetails}
             keyboardAppearance="dark"
+            multiline={true}
+            numberOfLines={4}
             underlineColor={theme.colors.main.secondary}
           />
           <View style={styles.innerInputContainer}>
@@ -114,17 +117,17 @@ const EventForm = (props) => {
                 handleConfirm={props.handleEndDateTimeConfirm}
               />
             </View>
+            <View style={styles.dateTimeButtons}>
+              <CustomButton
+                title={props.btnTitle}
+                mode="contained"
+                dark={true}
+                color={theme.colors.main.secondary}
+                onPressHandler={props.onSaveHandler}
+              />
+            </View>
           </View>
-        </View>
-        <View style={styles.inputContainer}>
-          <CustomButton
-            title={props.btnTitle}
-            mode="contained"
-            dark={true}
-            color={theme.colors.main.secondary}
-            onPressHandler={props.onSaveHandler}
-          />
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -135,6 +138,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: theme.space[1]
   },
   inputContainer: {
     width: "95%",

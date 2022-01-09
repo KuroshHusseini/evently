@@ -19,9 +19,10 @@ const CustomTextInput = (props) => {
 
 const styles = StyleSheet.create({
   labelText: {
-    fontSize: 12,
+    fontSize: 16,
+    fontWeight: "bold",
     marginVertical: theme.space[0],
-    paddingLeft: theme.space[1],
+    paddingLeft: theme.space[0],
   },
   formFieldText: {
     backgroundColor: theme.colors.main.lightGray,
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     padding: theme.space[0],
   },
   errorLabel: {
-    fontSize: 14,
+    fontSize: 12,
     color: theme.colors.text.error,
     marginLeft: theme.space[0],
   },

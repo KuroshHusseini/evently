@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  Alert,
+  Alert,ScrollView,
   Image,
 } from "react-native";
 import { theme } from "./../theme/index";
@@ -85,7 +85,7 @@ const RegisterScreen = () => {
             source={require("../../assets/register_logo.png")}
           />
         </View>
-        <View style={styles.innerContainer}>
+        <ScrollView style={styles.innerContainer}>
           <CustomTextInput
             label="First name"
             placeholder="Enter your first name"
@@ -128,7 +128,7 @@ const RegisterScreen = () => {
           <View style={styles.buttonContainer}>
             <CustomButton title="register" onPressHandler={registerHandler} />
           </View>
-        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -142,11 +142,12 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: "90%",
-    marginBottom: 20,
+    marginBottom: theme.space[2],
   },
   iconContainer:{
     height: 200,
     width: 200,
+    marginVertical: theme.space[1],
   },
   icon: {
     height: 200,

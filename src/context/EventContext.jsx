@@ -41,11 +41,11 @@ const EventContextProvider = ({ children }) => {
     return () => subscriber();
   }, []);
 
-  const create = (eventObj) => {
-    setLoading(!loading);
+  const create = async (eventObj) => {
+    setLoading(true);
     try {
-      createEvent(eventObj);
-      setLoading(!loading);
+      await createEvent(eventObj);
+      setLoading(false);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
     }

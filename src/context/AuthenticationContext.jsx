@@ -35,21 +35,20 @@ const AuthenticationContextProvider = ({ children }) => {
     // unsubscribe auth listener on unmount
     return unsubscribeAuth;
   }, []);
-  const onLogin = (email, password) => {
+  const onLogin = async (email, password) => {
     setIsLoading(true);
     try {
-      loginRequest(email, password);
-      setUser(user);
+      await loginRequest(email, password);
       setIsLoading(false);
     } catch (error) {
       setError(error);
     }
   };
 
-  const onRegister = (firstName, lastName, number, email, password) => {
+  const onRegister = async (firstName, lastName, number, email, password) => {
     setIsLoading(true);
     try {
-      registerRequest(email, password, firstName, lastName, number);
+      await registerRequest(email, password, firstName, lastName, number);
       setIsLoading(false);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);

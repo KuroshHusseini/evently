@@ -4,14 +4,17 @@ import * as ImagePicker from "expo-image-picker";
 
 import moment from "moment";
 import { useValidation } from "react-native-form-validator";
-
+import CustomLoader from "./../components/CustomLoader";
 import EventForm from "../components/EventForm";
 import { AuthenticationContext } from "../context/AuthenticationContext";
-import { createEvent } from "../services/eventServices";
 import { UserContext } from "./../context/UserContext";
+import { EventContext } from "./../context/EventContext";
+
+
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
+  const { create, loading } = useContext(EventContext);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("Title");
   const [host, setHost] = useState("host");
@@ -73,7 +76,7 @@ const CreateEventModal = ({ navigation }) => {
     },
   });
 
-  const onSaveHandler = () => {
+  const onSaveHandler = async () => {
     validate({
       image: { required: true },
       title: { minlength: 3, maxLength: 30, required: true },
@@ -133,47 +136,51 @@ const CreateEventModal = ({ navigation }) => {
         validated: false,
         userID: user.uid,
       };
-      createEvent(eventObj);
+      await create(eventObj);
       navigation.navigate("Home");
     }
   };
 
   return (
     <>
-      <EventForm
-        image={image}
-        pickImage={pickImage}
-        title={title}
-        onChangeTitle={(t) => setTitle(t)}
-        host={host}
-        onChangeHost={(h) => setHost(h)}
-        details={details}
-        onChangeDetails={(d) => setDetails(d)}
-        location={location}
-        onChangeLocation={(l) => setLocation(l)}
-        cost={cost}
-        onChosenEvent={selected}
-        onChangeAllHandler={() => setSelected("Other")}
-        onPartyChangeHandler={() => setSelected("Party")}
-        onSportChangeHandler={() => setSelected("Sport")}
-        onCampusChangeHandler={() => setSelected("Campus")}
-        onPrivateChangeHandler={() => setSelected("Private")}
-        code={code}
-        onChangeCode={(pc) => setCode(pc)}
-        onChangeCost={(c) => setCost(c)}
-        startDateTimeValue={startDateTime}
-        isStartPickerVisible={isStartPickerVisible}
-        showStartDateTimePicker={() => setStartPickerVisible(true)}
-        hideStartDateTimePicker={() => setStartPickerVisible(false)}
-        handleStartDateTimeConfirm={handleStartDateTimeConfirm}
-        endDateTimeValue={endDateTime}
-        isEndPickerVisible={isEndPickerVisible}
-        showEndDateTimePicker={() => setEndPickerVisible(true)}
-        hideEndDateTimePicker={() => setEndPickerVisible(false)}
-        handleEndDateTimeConfirm={handleEndDateTimeConfirm}
-        btnTitle="create"
-        onSaveHandler={onSaveHandler}
-      />
+      {loading ? (
+        <CustomLoader />
+      ) : (
+        <EventForm
+          image={image}
+          pickImage={pickImage}
+          title={title}
+          onChangeTitle={(t) => setTitle(t)}
+          host={host}
+          onChangeHost={(h) => setHost(h)}
+          details={details}
+          onChangeDetails={(d) => setDetails(d)}
+          location={location}
+          onChangeLocation={(l) => setLocation(l)}
+          cost={cost}
+          onChosenEvent={selected}
+          onChangeAllHandler={() => setSelected("Other")}
+          onPartyChangeHandler={() => setSelected("Party")}
+          onSportChangeHandler={() => setSelected("Sport")}
+          onCampusChangeHandler={() => setSelected("Campus")}
+          onPrivateChangeHandler={() => setSelected("Private")}
+          code={code}
+          onChangeCode={(pc) => setCode(pc)}
+          onChangeCost={(c) => setCost(c)}
+          startDateTimeValue={startDateTime}
+          isStartPickerVisible={isStartPickerVisible}
+          showStartDateTimePicker={() => setStartPickerVisible(true)}
+          hideStartDateTimePicker={() => setStartPickerVisible(false)}
+          handleStartDateTimeConfirm={handleStartDateTimeConfirm}
+          endDateTimeValue={endDateTime}
+          isEndPickerVisible={isEndPickerVisible}
+          showEndDateTimePicker={() => setEndPickerVisible(true)}
+          hideEndDateTimePicker={() => setEndPickerVisible(false)}
+          handleEndDateTimeConfirm={handleEndDateTimeConfirm}
+          btnTitle="create"
+          onSaveHandler={onSaveHandler}
+        />
+      )}
     </>
   );
 };

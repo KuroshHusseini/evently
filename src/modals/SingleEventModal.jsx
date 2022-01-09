@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
 import {
   Alert,
-  TouchableWithoutFeedback,
   StyleSheet,
-  Keyboard,
   View,
-  Platform,
+  ScrollView,
 } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { Card, Title, Paragraph } from "react-native-paper";
@@ -87,16 +85,13 @@ const SingleEventModal = ({ route, navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
+    <ScrollView style={styles.container}>
+      <View>
         <Card style={styles.card}>
           <Card.Cover
             style={styles.coverStyle}
             resizeMode="stretch"
-            source={{ uri: event.image.uri }}
+            source={{ uri: event.image }}
           />
 
           <View style={styles.contentStyle}>
@@ -246,7 +241,7 @@ const SingleEventModal = ({ route, navigation }) => {
           </View>
         )}
       </View>
-    </TouchableWithoutFeedback>
+    </ScrollView>
   );
 };
 

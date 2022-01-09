@@ -2,11 +2,13 @@ import React, { useState, useEffect, createContext } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import { createEvent, updateEvent } from "./../services/eventServices";
+import { Alert } from "react-native";
 
 export const EventContext = createContext(null);
 
 const EventContextProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [event, setEvent] = useState([]);
 
   const validEvents = () =>
@@ -39,8 +41,29 @@ const EventContextProvider = ({ children }) => {
     return () => subscriber();
   }, []);
 
+  const create = (eventObj) => {
+    setLoading(!loading);
+    try {
+      createEvent(eventObj);
+      setLoading(!loading);
+    } catch (err) {
+      Alert.alert("There is something wrong!!!!", err.message);
+    }
+  };
+
+  const update = (key, eventObj) => {
+    setLoading(!loading);
+    try {
+      updateEvent(key, eventObj);
+      setLoading(!loading);
+    } catch (err) {
+      Alert.alert("There is something wrong!!!!", err.message);
+    }
+  };
   return (
-    <EventContext.Provider value={{ event, validEvents, loading }}>
+    <EventContext.Provider
+      value={{ event, validEvents, create, update, loading }}
+    >
       {children}
     </EventContext.Provider>
   );

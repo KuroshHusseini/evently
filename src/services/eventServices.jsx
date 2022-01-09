@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -5,31 +6,35 @@ import "firebase/compat/storage";
 
 //TODO: store the image and then download the image. Then save the downloaded image uri to firestore
 
-// const getPictureBlob = async (uri) => {
-//   const res = await fetch(uri);
-//   const bob = await res.blob()
-//   return;
-// };
-
 export const createEvent = async (eventObj) => {
-  let blob;
   const imageUri = eventObj.image.uri;
   const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
 
   try {
-    const res = await fetch(imageUri);
-    blob = await res.blob();
-    const ref = firebase
-      .storage()
-      .ref()
-      .child("images/" + imageRef);
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", imageUri, true);
+      xhr.send(null);
+    });
 
-    const snapshot = await ref.put(blob);
-    const imageFirebaseUri = await snapshot.ref.getDownloadURL();
+    const ref = firebase.storage().ref().child(imageRef);
+    const snapshot = ref.put(blob);
+    await snapshot;
+
+    const downloadUrl = await ref.getDownloadURL();
     await firebase
       .firestore()
       .collection("events")
-      .add({ ...eventObj, image: imageFirebaseUri });
+      .add({ ...eventObj, image: downloadUrl });
+
     blob.close();
     console.log("Event added!");
   } catch (error) {
@@ -41,12 +46,40 @@ export const createEvent = async (eventObj) => {
 };
 
 export const updateEvent = async (key, eventObj) => {
+console.log("🚀 ~ file: eventServices.jsx ~ line 51 ~ updateEvent ~ eventObj", eventObj)
+  const imageUri = eventObj.image.uri;
+  const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
   try {
-    await firebase.firestore().collection("events").doc(key).update(eventObj);
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", imageUri, true);
+      xhr.send(null);
+    });
+
+    const ref = firebase.storage().ref().child(imageRef);
+    const snapshot = ref.put(blob);
+    await snapshot;
+
+    const downloadUrl = await ref.getDownloadURL();
+    await firebase
+      .firestore()
+      .collection("events")
+      .doc(key)
+      .update({ ...eventObj, image: downloadUrl });
+
+    blob.close();
     console.log("update comeplete!");
   } catch (error) {
     console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 28 ~ update ~ error",
+      "🚀 ~ file: eventServices.jsx ~ line 97 ~ updateEvent ~ error",
       error
     );
   }

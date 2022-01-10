@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import React, { useState, useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import EventList from "../components/EventList";
 import CustomLoader from "./../components/CustomLoader";
@@ -19,7 +20,7 @@ const CreatedScreen = ({ navigation }) => {
       selected === "All" ? value : value?.type.includes(selected)
     );
 
-    //search event and show the users created ones 
+  //search event and show the users created ones
   const searchEvent = filterEvent
     .map((values) => values)
     .filter(
@@ -27,7 +28,7 @@ const CreatedScreen = ({ navigation }) => {
     );
 
   return (
-    <View style={styles.container}>
+    <>
       {loading ? (
         <View style={styles.loader}>
           <CustomLoader />
@@ -50,7 +51,7 @@ const CreatedScreen = ({ navigation }) => {
           />
         </>
       )}
-    </View>
+    </>
   );
 };
 

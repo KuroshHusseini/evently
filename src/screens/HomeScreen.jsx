@@ -1,6 +1,6 @@
+/* eslint-disable no-undef */
 import React, { useState, useContext } from "react";
-import { View, StyleSheet } from "react-native";
-import { theme } from "./../theme/index";
+import { StyleSheet, View } from "react-native";
 import CustomLoader from "../components/CustomLoader";
 import EventList from "../components/EventList";
 import { EventContext } from "./../context/EventContext";
@@ -19,18 +19,18 @@ const HomeScreen = ({ navigation }) => {
   const filterEvent = validEvents()
     .map((e) => e)
     .filter((e) => e.validated)
-    .filter((e) =>
-      selected === "All" ? e : e?.type.includes(selected)
-    );
+    .filter((e) => (selected === "All" ? e : e?.type.includes(selected)));
 
   const searchEvent = filterEvent
     .map((events) => events)
     .filter((events) => events?.title.includes(search));
 
   return (
-    <View style={styles.container}>
+    <>
       {loading ? (
-        <CustomLoader />
+        <View style={styles.loader}>
+          <CustomLoader />
+        </View>
       ) : (
         <>
           <EventList
@@ -49,7 +49,7 @@ const HomeScreen = ({ navigation }) => {
           />
         </>
       )}
-    </View>
+    </>
   );
 };
 
@@ -57,9 +57,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  segmentStyle: {
-    height: 40,
-    marginBottom: theme.space[0],
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

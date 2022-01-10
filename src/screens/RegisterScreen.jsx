@@ -9,7 +9,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  Alert,ScrollView,
+  Alert,
+  ScrollView,
   Image,
 } from "react-native";
 import { theme } from "./../theme/index";
@@ -72,63 +73,67 @@ const RegisterScreen = () => {
     }
   };
   return isLoading ? (
-    <CustomLoader />
+    <View style={styles.loader}>
+      <CustomLoader />
+    </View>
   ) : (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <View style={styles.iconContainer}>
-          <Image
-            style={styles.icon}
-            source={require("../../assets/register_logo.png")}
-          />
-        </View>
-        <ScrollView style={styles.innerContainer}>
-          <CustomTextInput
-            label="First name"
-            placeholder="Enter your first name"
-            value={firstName}
-            onChangeText={(f) => setFirstName(f)}
-          />
-          <CustomTextInput
-            label="Last name"
-            placeholder="Enter your last name"
-            value={lastName}
-            onChangeText={(l) => setLastName(l)}
-          />
-          <CustomTextInput
-            label="Phone number"
-            placeholder="Enter your number"
-            value={number}
-            keyboardType="numeric"
-            onChangeText={(n) => setNumber(n)}
-          />
-          <CustomTextInput
-            label="Email"
-            value={email}
-            onChangeText={(e) => setEmail(e)}
-          />
-          <CustomTextInput
-            label="Password"
-            value={password}
-            placeholder="Enter your password"
-            secureTextEntry
-            onChangeText={(p) => setPassword(p)}
-          />
-          <CustomTextInput
-            label="Confirm password"
-            value={repeatPassword}
-            placeholder="Repeat your password"
-            secureTextEntry
-            onChangeText={(rp) => setRepeatPassword(rp)}
-          />
-
-          <View style={styles.buttonContainer}>
-            <CustomButton title="register" onPressHandler={registerHandler} />
+        <>
+          <View style={styles.iconContainer}>
+            <Image
+              style={styles.icon}
+              source={require("../../assets/register_logo.png")}
+            />
           </View>
-        </ScrollView>
+          <ScrollView style={styles.innerContainer}>
+            <CustomTextInput
+              label="First name"
+              placeholder="Enter your first name"
+              value={firstName}
+              onChangeText={(f) => setFirstName(f)}
+            />
+            <CustomTextInput
+              label="Last name"
+              placeholder="Enter your last name"
+              value={lastName}
+              onChangeText={(l) => setLastName(l)}
+            />
+            <CustomTextInput
+              label="Phone number"
+              placeholder="Enter your number"
+              value={number}
+              keyboardType="numeric"
+              onChangeText={(n) => setNumber(n)}
+            />
+            <CustomTextInput
+              label="Email"
+              value={email}
+              onChangeText={(e) => setEmail(e)}
+            />
+            <CustomTextInput
+              label="Password"
+              value={password}
+              placeholder="Enter your password"
+              secureTextEntry
+              onChangeText={(p) => setPassword(p)}
+            />
+            <CustomTextInput
+              label="Confirm password"
+              value={repeatPassword}
+              placeholder="Repeat your password"
+              secureTextEntry
+              onChangeText={(rp) => setRepeatPassword(rp)}
+            />
+
+            <View style={styles.buttonContainer}>
+              <CustomButton title="register" onPressHandler={registerHandler} />
+            </View>
+          </ScrollView>
+        </>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -139,12 +144,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    width: "100%",
   },
   innerContainer: {
     width: "90%",
     marginBottom: theme.space[2],
   },
-  iconContainer:{
+  iconContainer: {
     height: 200,
     width: 200,
     marginVertical: theme.space[1],
@@ -152,6 +158,11 @@ const styles = StyleSheet.create({
   icon: {
     height: 200,
     width: 200,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonContainer: {
     marginTop: theme.space[1],

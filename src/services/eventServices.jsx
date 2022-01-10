@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";

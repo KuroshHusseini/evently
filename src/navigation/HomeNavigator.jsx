@@ -18,9 +18,9 @@ const Stack = createStackNavigator();
 
 const HomeNavigator = ({ navigation }) => {
   const { userInfo } = useContext(UserContext);
-
   const onCreateEventHandler = () => navigation.navigate("Create");
   const onCancelHandler = () => navigation.navigate("Home");
+
   return (
     <Stack.Navigator>
       <Stack.Screen

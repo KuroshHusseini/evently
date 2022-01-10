@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Platform, Alert } from "react-native";
+import { View, Platform, Alert, StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import moment from "moment";
@@ -143,7 +143,9 @@ const CreateEventModal = ({ navigation }) => {
   return (
     <>
       {loading ? (
-        <CustomLoader />
+        <View style={styles.loader}>
+          <CustomLoader />
+        </View>
       ) : (
         <EventForm
           image={image}
@@ -183,5 +185,13 @@ const CreateEventModal = ({ navigation }) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default CreateEventModal;

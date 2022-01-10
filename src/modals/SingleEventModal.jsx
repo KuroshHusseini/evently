@@ -18,7 +18,6 @@ const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
   const { event, screen } = route.params;
-  console.log("🚀 ~ file: SingleEventModal.jsx ~ line 21 ~ SingleEventModal ~ event", event)
   const [competent, setCompetent] = useState(false);
 
   const attendingUser = event.attending.includes(user.uid);
@@ -255,13 +254,14 @@ const styles = StyleSheet.create({
     marginHorizontal: theme.space[1],
     marginVertical: theme.space[0],
     borderRadius: theme.radius[0],
+    backgroundColor: theme.colors.main.primary,
+    elevation: theme.space[1]
   },
   coverStyle: {
     borderRadius: theme.radius[0],
     height: "35%",
   },
   contentStyle: {
-    backgroundColor: theme.colors.main.primary,
     marginBottom: theme.space[0],
     marginTop: theme.space[1],
   },

@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import React, { useState, useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import EventList from "../components/EventList";
 
@@ -28,7 +29,7 @@ const CartScreen = ({ navigation }) => {
     );
 
   return (
-    <View style={styles.container}>
+    <>
       {loading ? (
         <View style={styles.loader}>
           <CustomLoader />
@@ -51,7 +52,7 @@ const CartScreen = ({ navigation }) => {
           />
         </>
       )}
-    </View>
+    </>
   );
 };
 const styles = StyleSheet.create({

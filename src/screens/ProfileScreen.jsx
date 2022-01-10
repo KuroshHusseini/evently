@@ -64,7 +64,9 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <>
       {isLoading ? (
-        <CustomLoader />
+        <View style={styles.loader}>
+          <CustomLoader />
+        </View>
       ) : (
         <View style={styles.container}>
           <View style={styles.iconContainer}>
@@ -115,6 +117,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+
   iconContainer: {
     flex: 0.8,
     justifyContent: "center",
@@ -132,6 +135,11 @@ const styles = StyleSheet.create({
   },
   innerBtnContainer: {
     marginTop: theme.space[0],
+  },
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

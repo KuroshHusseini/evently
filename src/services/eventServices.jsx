@@ -28,7 +28,8 @@ const uploadImageAsync = async (imageUri) => {
   try {
     blob = await urlToBlob(imageUri);
     const ref = await firebase.storage().ref().child(imageRef);
-    return await ref.put(blob);
+    await ref.put(blob);
+    return await ref.getDownloadURL();
   } catch (error) {
     console.log(
       "🚀 ~ file: eventServices.jsx ~ line 33 ~ createEvent ~ error",
@@ -40,24 +41,10 @@ const uploadImageAsync = async (imageUri) => {
   }
 };
 
-const downloadImageUrl = async (imageUri) => {
-  try {
-    const ref = await uploadImageAsync(imageUri);
-    return await ref.getDownloadURL();
-  } catch (error) {
-    console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 47 ~ uploadImageAsync ~ error",
-      error
-    );
-  }
-};
-
 export const createEvent = async (eventObj) => {
   // const imageUri = eventObj.image;
-
-
-
-  
+  // const imageURI = uploadImageAsync(imageUri);
+  // console.log(imageURI);
   try {
     await firebase.firestore().collection("events").add(eventObj);
     console.log("Event added!");

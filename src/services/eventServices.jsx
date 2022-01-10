@@ -6,28 +6,64 @@ import "firebase/compat/storage";
 
 //TODO: store the image and then download the image. Then save the downloaded image uri to firestore
 
-export const createEvent = async (eventObj) => {
-  const imageUri = eventObj.image;
+const urlToBlob = async (url) => {
+  return await new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest();
+    xhr.onerror = reject;
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        resolve(xhr.response);
+      }
+    };
+    xhr.open("GET", url);
+    xhr.responseType = "blob"; // convert type
+    xhr.send();
+  });
+};
+
+const uploadImageAsync = async (imageUri) => {
+  let blob;
   const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
 
   try {
-    const blob = await fetch(imageUri);
-
-    const ref = firebase.storage().ref().child(imageRef);
-    const snapshot = ref.put(blob);
-    await snapshot;
-
-    const downloadUrl = await ref.getDownloadURL();
-    await firebase
-      .firestore()
-      .collection("events")
-      .add({ ...eventObj, image: downloadUrl });
-
+    blob = await urlToBlob(imageUri);
+    const ref = await firebase.storage().ref().child(imageRef);
+    return await ref.put(blob);
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: eventServices.jsx ~ line 33 ~ createEvent ~ error",
+      error
+    );
+  } finally {
     blob.close();
+    console.log("blob closed");
+  }
+};
+
+const downloadImageUrl = async (imageUri) => {
+  try {
+    const ref = await uploadImageAsync(imageUri);
+    return await ref.getDownloadURL();
+  } catch (error) {
+    console.log(
+      "🚀 ~ file: eventServices.jsx ~ line 47 ~ uploadImageAsync ~ error",
+      error
+    );
+  }
+};
+
+export const createEvent = async (eventObj) => {
+  // const imageUri = eventObj.image;
+
+
+
+  
+  try {
+    await firebase.firestore().collection("events").add(eventObj);
     console.log("Event added!");
   } catch (error) {
     console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 15 ~ createEvent ~ error",
+      "🚀 ~ file: eventServices.jsx ~ line 62 ~ createEvent ~ error",
       error
     );
   }

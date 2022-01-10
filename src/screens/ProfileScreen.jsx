@@ -8,11 +8,12 @@ import { UserContext } from "../context/UserContext";
 
 import CustomButton from "./../components/CustomButton";
 import UserProfileCard from "../components/UserProfileCard";
+import CustomLoader from "./../components/CustomLoader";
 const ProfileScreen = ({ navigation }) => {
   const { user, onLogout, onChangePassword } = useContext(
     AuthenticationContext
   );
-  const { userInfo, onDeleteUser } = useContext(UserContext);
+  const { isLoading, userInfo, onDeleteUser } = useContext(UserContext);
 
   const onEditProfileInfo = () =>
     navigation.navigate("EditProfileInfo", { userInfo, userId: user.uid });
@@ -61,45 +62,51 @@ const ProfileScreen = ({ navigation }) => {
   const onHandleLogout = () => onLogout();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <Image
-          style={styles.icon}
-          source={require("../../assets/profile_logo.png")}
-        />
-      </View>
-      <View style={styles.cardContainer}>
-        <UserProfileCard
-          firstName={userInfo?.firstName}
-          lastName={userInfo?.lastName}
-          email={userInfo?.email}
-          number={userInfo?.phoneNumber}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <View style={styles.innerBtnContainer}>
-          <CustomButton
-            title="edit your information"
-            onPressHandler={onEditProfileInfo}
-          />
+    <>
+      {isLoading ? (
+        <CustomLoader />
+      ) : (
+        <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Image
+              style={styles.icon}
+              source={require("../../assets/profile_logo.png")}
+            />
+          </View>
+          <View style={styles.cardContainer}>
+            <UserProfileCard
+              firstName={userInfo?.firstName}
+              lastName={userInfo?.lastName}
+              email={userInfo?.email}
+              number={userInfo?.phoneNumber}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <View style={styles.innerBtnContainer}>
+              <CustomButton
+                title="edit your information"
+                onPressHandler={onEditProfileInfo}
+              />
+            </View>
+            <View style={styles.innerBtnContainer}>
+              <CustomButton
+                title="change your password"
+                onPressHandler={onHandleNewPassword}
+              />
+            </View>
+            <View style={styles.innerBtnContainer}>
+              <CustomButton
+                title="delete your account"
+                onPressHandler={deleteHandler}
+              />
+            </View>
+            <View style={styles.innerBtnContainer}>
+              <CustomButton title="log out" onPressHandler={onHandleLogout} />
+            </View>
+          </View>
         </View>
-        <View style={styles.innerBtnContainer}>
-          <CustomButton
-            title="change your password"
-            onPressHandler={onHandleNewPassword}
-          />
-        </View>
-        <View style={styles.innerBtnContainer}>
-          <CustomButton
-            title="delete your account"
-            onPressHandler={deleteHandler}
-          />
-        </View>
-        <View style={styles.innerBtnContainer}>
-          <CustomButton title="log out" onPressHandler={onHandleLogout} />
-        </View>
-      </View>
-    </View>
+      )}
+    </>
   );
 };
 

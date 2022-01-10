@@ -19,6 +19,7 @@ const UserContextProvider = ({ children }) => {
         .doc(userId)
         .onSnapshot((documentSnapshot) => {
           setUserInfo(documentSnapshot.data());
+          setIsLoading(false);
         });
 
       // Stop listening for updates when no longer required
@@ -36,8 +37,6 @@ const UserContextProvider = ({ children }) => {
       Alert.alert("There is something wrong!!!!", err.message);
     }
   };
-
-  
 
   const onDeleteUser = (id) => deleteUser(id);
 

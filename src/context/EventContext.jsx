@@ -8,7 +8,7 @@ import { Alert } from "react-native";
 export const EventContext = createContext(null);
 
 const EventContextProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [event, setEvent] = useState([]);
 
   const validEvents = () =>
@@ -19,6 +19,7 @@ const EventContextProvider = ({ children }) => {
       );
 
   useEffect(() => {
+    setIsLoading(true)
     const subscriber = firebase
       .firestore()
       .collection("events")
@@ -34,7 +35,7 @@ const EventContextProvider = ({ children }) => {
         });
 
         setEvent(eventArray);
-        setLoading(false);
+        setIsLoading(false);
       });
 
     // Unsubscribe from events when no longer in use
@@ -42,27 +43,27 @@ const EventContextProvider = ({ children }) => {
   }, []);
 
   const create = async (eventObj) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       await createEvent(eventObj);
-      setLoading(false);
+      setIsLoading(false);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
     }
   };
 
   const update = (key, eventObj) => {
-    setLoading(!loading);
+    setIsLoading(!isLoading);
     try {
       updateEvent(key, eventObj);
-      setLoading(!loading);
+      setIsLoading(!isLoading);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
     }
   };
   return (
     <EventContext.Provider
-      value={{ event, validEvents, create, update, loading }}
+      value={{ event, validEvents, create, update, isLoading }}
     >
       {children}
     </EventContext.Provider>

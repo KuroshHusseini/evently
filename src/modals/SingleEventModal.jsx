@@ -18,6 +18,7 @@ const SingleEventModal = ({ route, navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
   const { event, screen } = route.params;
+  console.log("🚀 ~ file: SingleEventModal.jsx ~ line 21 ~ SingleEventModal ~ event", event)
   const [competent, setCompetent] = useState(false);
 
   const attendingUser = event.attending.includes(user.uid);
@@ -84,7 +85,7 @@ const SingleEventModal = ({ route, navigation }) => {
       <View>
         <View style={styles.eventImageStyle}>
           <Image
-            source={{ uri: event.image, width: "100%", height: 250 }}
+            source={{ uri: event?.image, width: "100%", height: 250 }}
             style={{ resizeMode: "stretch" }}
           />
         </View>

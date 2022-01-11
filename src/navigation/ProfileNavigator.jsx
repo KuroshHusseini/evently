@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   createStackNavigator,
   TransitionPresets,
@@ -8,10 +8,13 @@ import { theme } from "./../theme/index";
 import ProfileScreen from "./../screens/ProfileScreen";
 import EditProfileInfoModal from "./../modals/EditProfileInfoModal";
 import CustomButton from "./../components/CustomButton";
+import { AuthenticationContext } from "../context/AuthenticationContext";
 
 const Stack = createStackNavigator();
 
 const ProfileNavigator = ({ navigation }) => {
+  const { onLogout } = useContext(AuthenticationContext);
+  const onHandleLogout = () => onLogout();
   const onCancelHandler = () => navigation.navigate("Profile");
   return (
     <Stack.Navigator>
@@ -26,6 +29,9 @@ const ProfileNavigator = ({ navigation }) => {
           headerTitleStyle: {
             fontWeight: "bold",
           },
+          headerRight: () => (
+            <CustomButton onPressHandler={onHandleLogout} title="Log out" />
+          ),
         }}
       />
 
@@ -43,11 +49,7 @@ const ProfileNavigator = ({ navigation }) => {
             fontWeight: "bold",
           },
           headerLeft: () => (
-            <CustomButton
-              onPressHandler={onCancelHandler}
-              title="Back"
-              color="#fff"
-            />
+            <CustomButton onPressHandler={onCancelHandler} title="Back" />
           ),
         }}
       />

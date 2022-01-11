@@ -83,10 +83,7 @@ const SingleEventModal = ({ route, navigation }) => {
     <ScrollView style={styles.container}>
       <View>
         <View style={styles.eventImageStyle}>
-          <Image
-            source={{ uri: event?.image, width: "100%", height: 250 }}
-            style={{ resizeMode: "stretch" }}
-          />
+          <Image source={{ uri: event?.image }} style={styles.coverStyle} />
         </View>
         <Card style={styles.card}>
           <View style={styles.contentStyle}>
@@ -255,11 +252,12 @@ const styles = StyleSheet.create({
     marginVertical: theme.space[0],
     borderRadius: theme.radius[0],
     backgroundColor: theme.colors.main.primary,
-    elevation: theme.space[1]
+    elevation: theme.space[1],
   },
   coverStyle: {
-    borderRadius: theme.radius[0],
-    height: "35%",
+    resizeMode: "stretch",
+    width: "100%",
+    height: 250,
   },
   contentStyle: {
     marginBottom: theme.space[0],

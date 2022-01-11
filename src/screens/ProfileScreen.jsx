@@ -10,9 +10,7 @@ import CustomButton from "./../components/CustomButton";
 import UserProfileCard from "../components/UserProfileCard";
 import CustomLoader from "./../components/CustomLoader";
 const ProfileScreen = ({ navigation }) => {
-  const { user, onLogout, onChangePassword } = useContext(
-    AuthenticationContext
-  );
+  const { user, onChangePassword } = useContext(AuthenticationContext);
   const { isLoading, userInfo, onDeleteUser } = useContext(UserContext);
 
   const onEditProfileInfo = () =>
@@ -59,8 +57,6 @@ const ProfileScreen = ({ navigation }) => {
     );
   };
 
-  const onHandleLogout = () => onLogout();
-
   return (
     <>
       {isLoading ? (
@@ -101,9 +97,6 @@ const ProfileScreen = ({ navigation }) => {
                 title="delete your account"
                 onPressHandler={deleteHandler}
               />
-            </View>
-            <View style={styles.innerBtnContainer}>
-              <CustomButton title="log out" onPressHandler={onHandleLogout} />
             </View>
           </View>
         </View>

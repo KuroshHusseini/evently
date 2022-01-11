@@ -65,7 +65,6 @@ const HomeNavigator = ({ navigation }) => {
             <CustomButton
               onPressHandler={onCancelHandler}
               title="Back"
-              color="#fff"
             />
           ),
         }}
@@ -87,7 +86,6 @@ const HomeNavigator = ({ navigation }) => {
             <CustomButton
               onPressHandler={onCancelHandler}
               title="Back"
-              color="#fff"
             />
           ),
         }}
@@ -107,7 +105,6 @@ const HomeNavigator = ({ navigation }) => {
             <CustomButton
               onPressHandler={onCancelHandler}
               title="Cancel"
-              color="#fff"
             />
           ),
         }}

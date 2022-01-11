@@ -56,8 +56,14 @@ const AuthenticationContextProvider = ({ children }) => {
   };
 
   const onLogout = async () => {
-    await firebase.auth().signOut();
-    setUser(null);
+    setIsLoading(true);
+    try {
+      await firebase.auth().signOut();
+      setUser(null);
+      setIsLoading(false);
+    } catch (err) {
+      Alert.alert("There is something wrong!!!!", err.message);
+    }
   };
 
   const onChangePassword = (password) => {

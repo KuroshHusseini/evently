@@ -72,33 +72,45 @@ export const createEvent = async (eventObj) => {
 
 export const updateEvent = async (key, eventObj) => {
   const imageRef = eventObj.image.substring(eventObj.image.lastIndexOf("/"));
-  try {
-    const blob = await imageToBlob(eventObj.image);
-    const ref = firebase.storage().ref().child(imageRef);
-    const snapshot = ref.put(blob);
+  const ifImageAlreadyUploaded = eventObj.image.includes(
+    "firebasestorage.googleapis.com"
+  );
 
-    snapshot.on(
-      firebase.storage.TaskEvent.STATE_CHANGED,
-      () => {
-        console.log("loading...");
-      },
-      (error) => {
-        Alert.alert("Line 49", error);
-        blob.close();
-        return;
-      },
-      async () => {
-        const downloadedImage = await snapshot.snapshot.ref.getDownloadURL();
-        await blob.close();
-        await firebase
-          .firestore()
-          .collection("events")
-          .doc(key)
-          .update({ ...eventObj, image: downloadedImage });
-      }
-    );
-  } catch (error) {
-    Alert.alert("event services line 101", error);
+  if (!ifImageAlreadyUploaded) {
+    try {
+      const blob = await imageToBlob(eventObj.image);
+      const ref = firebase.storage().ref().child(imageRef);
+      const snapshot = ref.put(blob);
+
+      snapshot.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        () => {
+          console.log("loading...");
+        },
+        (error) => {
+          Alert.alert("Line 49", error);
+          blob.close();
+          return;
+        },
+        async () => {
+          const downloadedImage = await snapshot.snapshot.ref.getDownloadURL();
+          await blob.close();
+          await firebase
+            .firestore()
+            .collection("events")
+            .doc(key)
+            .update({ ...eventObj, image: downloadedImage });
+        }
+      );
+    } catch (error) {
+      Alert.alert("event services line 101", error);
+    }
+  } else {
+    try {
+      await firebase.firestore().collection("events").doc(key).update(eventObj);
+    } catch (error) {
+      Alert.alert("event services line 101", error);
+    }
   }
 };
 

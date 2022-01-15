@@ -49,16 +49,18 @@ const EventContextProvider = ({ children }) => {
       setIsLoading(false);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
+      setIsLoading(false)
     }
   };
 
   const update = (key, eventObj) => {
-    setIsLoading(!isLoading);
+    setIsLoading(true);
     try {
       updateEvent(key, eventObj);
-      setIsLoading(!isLoading);
+      setIsLoading(false);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
+      setIsLoading(false)
     }
   };
   return (

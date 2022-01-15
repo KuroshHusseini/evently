@@ -27,13 +27,43 @@ const SingleEventModal = ({ route, navigation }) => {
   };
 
   const onCancelAttendanceHandler = () => {
-    cancelAttendEvent(event.key, user.uid);
-    navigation.navigate(screen);
+    Alert.alert(
+      "Cancel attendant!",
+      "Are you sure you want to skip this event?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            cancelAttendEvent(event.key, user.uid);
+            navigation.navigate(screen);
+          },
+        },
+      ]
+    );
   };
 
   const onDeleteHandler = () => {
-    deleteEvent(event.key, user.uid);
-    navigation.navigate(screen);
+    Alert.alert(
+      "Delete Event!",
+      "Are you sure you want to delete this event?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Delete",
+          onPress: () => {
+            deleteEvent(event.key, user.uid);
+            navigation.navigate(screen);
+          },
+        },
+      ]
+    );
   };
 
   const onAttendHandler = () => {

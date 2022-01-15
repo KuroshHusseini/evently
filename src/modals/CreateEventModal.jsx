@@ -13,7 +13,7 @@ import { EventContext } from "./../context/EventContext";
 const CreateEventModal = ({ navigation }) => {
   const { user } = useContext(AuthenticationContext);
   const { userInfo } = useContext(UserContext);
-  const { create, loading } = useContext(EventContext);
+  const { create, isLoading } = useContext(EventContext);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("Title");
   const [host, setHost] = useState("host");
@@ -142,7 +142,7 @@ const CreateEventModal = ({ navigation }) => {
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <View style={styles.loader}>
           <CustomLoader />
         </View>

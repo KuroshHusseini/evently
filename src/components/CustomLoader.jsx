@@ -9,9 +9,9 @@ const CustomLoader = () => {
       <AnimatedLoader
         visible={true}
         overlayColor="rgba(255,255,255,0.45)"
-        source={require("../../loader.json")}
+        source={require("../../loader")}
         animationStyle={styles.lottie}
-        speed={1}
+        speed={2}
       />
     </View>
   );
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   lottie: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
   },
 });
 

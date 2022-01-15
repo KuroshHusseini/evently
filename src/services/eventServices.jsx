@@ -1,70 +1,104 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+import { Alert } from "react-native";
 
 //TODO: store the image and then download the image. Then save the downloaded image uri to firestore
+// const imageToBlob = async (imageUri) => {
+//   let blob;
+//   const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
 
-const urlToBlob = async (url) => {
+//   try {
+//     blob = await urlToBlob(imageUri);
+//     const ref = await firebase.storage().ref().child(imageRef);
+//     await ref.put(blob);
+//     return await ref.getDownloadURL();
+//   } catch (error) {
+//   } finally {
+//     blob.close();
+//     console.log("blob closed");
+//   }
+
+const imageToBlob = async (uri) => {
   return await new Promise((resolve, reject) => {
-    var xhr = new XMLHttpRequest();
-    xhr.onerror = reject;
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        resolve(xhr.response);
-      }
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
     };
-    xhr.open("GET", url);
-    xhr.responseType = "blob"; // convert type
-    xhr.send();
+    xhr.onerror = function (e) {
+      console.log(e);
+      reject(new TypeError("Network request failed"));
+    };
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
+    xhr.send(null);
   });
 };
 
-const uploadImageAsync = async (imageUri) => {
-  let blob;
-  const imageRef = imageUri.substring(imageUri.lastIndexOf("/"));
-
-  try {
-    blob = await urlToBlob(imageUri);
-    const ref = await firebase.storage().ref().child(imageRef);
-    await ref.put(blob);
-    return await ref.getDownloadURL();
-  } catch (error) {
-    console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 33 ~ createEvent ~ error",
-      error
-    );
-  } finally {
-    blob.close();
-    console.log("blob closed");
-  }
-};
-
 export const createEvent = async (eventObj) => {
-  // const imageUri = eventObj.image;
-  // const imageURI = uploadImageAsync(imageUri);
-  // console.log(imageURI);
+  const imageRef = eventObj.image.substring(eventObj.image.lastIndexOf("/"));
   try {
-    await firebase.firestore().collection("events").add(eventObj);
+    const blob = await imageToBlob(eventObj.image);
+    const ref = firebase.storage().ref().child(imageRef);
+    const snapshot = ref.put(blob);
+
+    snapshot.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      () => {
+        console.log("loading...");
+      },
+      (error) => {
+        Alert.alert("Line 49", error);
+        blob.close();
+        return;
+      },
+      async () => {
+        const downloadedImage = await snapshot.snapshot.ref.getDownloadURL();
+        await blob.close();
+        await firebase
+          .firestore()
+          .collection("events")
+          .add({ ...eventObj, image: downloadedImage });
+      }
+    );
+
     console.log("Event added!");
   } catch (error) {
-    console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 62 ~ createEvent ~ error",
-      error
-    );
+    Alert.alert("event services line 69", error);
   }
 };
 
 export const updateEvent = async (key, eventObj) => {
+  const imageRef = eventObj.image.substring(eventObj.image.lastIndexOf("/"));
   try {
-    await firebase.firestore().collection("events").doc(key).update(eventObj);
-  } catch (error) {
-    console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 97 ~ updateEvent ~ error",
-      error
+    const blob = await imageToBlob(eventObj.image);
+    const ref = firebase.storage().ref().child(imageRef);
+    const snapshot = ref.put(blob);
+
+    snapshot.on(
+      firebase.storage.TaskEvent.STATE_CHANGED,
+      () => {
+        console.log("loading...");
+      },
+      (error) => {
+        Alert.alert("Line 49", error);
+        blob.close();
+        return;
+      },
+      async () => {
+        const downloadedImage = await snapshot.snapshot.ref.getDownloadURL();
+        await blob.close();
+        await firebase
+          .firestore()
+          .collection("events")
+          .doc(key)
+          .update({ ...eventObj, image: downloadedImage });
+      }
     );
+  } catch (error) {
+    Alert.alert("event services line 101", error);
   }
 };
 
@@ -73,10 +107,7 @@ export const deleteEvent = async (event) => {
     await firebase.firestore().collection("events").doc(event).delete();
     console.log("delete comeplete!");
   } catch (error) {
-    console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 40 ~ deleteEvent ~ error",
-      error
-    );
+    Alert.alert("event services line 63", error);
   }
 };
 export const attendEvent = async (key, attendantID) => {
@@ -87,10 +118,7 @@ export const attendEvent = async (key, attendantID) => {
     });
     console.log("added attending users id to the list");
   } catch (error) {
-    console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 53 ~ attendEvent ~ error",
-      error
-    );
+    Alert.alert("event services line 72", error);
   }
 };
 export const cancelAttendEvent = async (key, attendantID) => {
@@ -101,9 +129,6 @@ export const cancelAttendEvent = async (key, attendantID) => {
     });
     console.log("removed attending users id from the list");
   } catch (error) {
-    console.log(
-      "🚀 ~ file: eventServices.jsx ~ line 53 ~ attendEvent ~ error",
-      error
-    );
+    Alert.alert("event services line 81", error);
   }
 };

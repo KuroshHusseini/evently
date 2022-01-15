@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Platform, Alert } from "react-native";
+import { View, Platform, Alert, StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import CustomLoader from "./../components/CustomLoader";
 import { useValidation } from "react-native-form-validator";
@@ -9,7 +9,7 @@ import EventForm from "../components/EventForm";
 import { EventContext } from "./../context/EventContext";
 
 const EditEventModal = ({ route, navigation }) => {
-  const { update, loading } = useContext(EventContext);
+  const { update, isLoading } = useContext(EventContext);
   const { event, screen } = route.params;
   const [image, setImage] = useState(event.image);
   const [title, setTitle] = useState(event.title);
@@ -139,8 +139,10 @@ const EditEventModal = ({ route, navigation }) => {
 
   return (
     <>
-      {loading ? (
-        <CustomLoader />
+      {isLoading ? (
+        <View style={styles.loader}>
+          <CustomLoader />
+        </View>
       ) : (
         <EventForm
           image={image}
@@ -180,5 +182,13 @@ const EditEventModal = ({ route, navigation }) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  loader: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default EditEventModal;

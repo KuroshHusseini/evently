@@ -15,13 +15,11 @@ const CreateEventModal = ({ navigation }) => {
   const { userInfo } = useContext(UserContext);
   const { create, isLoading } = useContext(EventContext);
   const [image, setImage] = useState(null);
-  const [title, setTitle] = useState("Title");
-  const [host, setHost] = useState("host");
-  const [details, setDetails] = useState(
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia"
-  );
-  const [location, setLocation] = useState("Nicosia");
-  const [cost, setCost] = useState("12");
+  const [title, setTitle] = useState("");
+  const [host, setHost] = useState("");
+  const [details, setDetails] = useState("");
+  const [location, setLocation] = useState("");
+  const [cost, setCost] = useState("");
   const [selected, setSelected] = useState("");
   const [code, setCode] = useState("");
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);

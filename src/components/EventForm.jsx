@@ -52,7 +52,6 @@ const EventForm = (props) => {
             onChangeText={props.onChangeDetails}
             keyboardAppearance="dark"
             multiline={true}
-            numberOfLines={4}
             underlineColor={theme.colors.main.secondary}
           />
           <View style={styles.innerInputContainer}>

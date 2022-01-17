@@ -21,11 +21,13 @@ const AuthenticationContextProvider = ({ children }) => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = firebase
       .auth()
-      .onAuthStateChanged(async (authenticatedUser) => {
+      .onAuthStateChanged((authenticatedUser) => {
         try {
-          await (authenticatedUser
-            ? setUser(authenticatedUser)
-            : setUser(null));
+          if (authenticatedUser) {
+            setUser(authenticatedUser);
+          } else {
+            setUser(null);
+          }
           setIsLoading(false);
         } catch (error) {
           setIsLoading(false);

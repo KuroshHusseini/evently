@@ -17,8 +17,8 @@ const EditEventModal = ({ route, navigation }) => {
   const [details, setDetails] = useState(event.details);
   const [location, setLocation] = useState(event.location);
   const [cost, setCost] = useState(event.cost);
-  const [selected, setSelected] = useState(event.type);
-  const [code, setCode] = useState(event.privateCode);
+  const [selected, setSelected] = useState(event.type );
+  const [code, setCode] = useState(event.privateCode ? event.privateCode : "");
   const [isStartPickerVisible, setStartPickerVisible] = useState(false);
   const [startDateTime, setStartDateTime] = useState(event.startDateTime);
   const [isEndPickerVisible, setEndPickerVisible] = useState(false);

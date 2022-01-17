@@ -21,12 +21,12 @@ import CustomTextInput from "../components/CustomTextInput";
 import { AuthenticationContext } from "../context/AuthenticationContext";
 
 const RegisterScreen = () => {
-  const [firstName, setFirstName] = useState("Kurosh");
-  const [lastName, setLastName] = useState("Husseini");
-  const [number, setNumber] = useState("0456925222");
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("Admin123#");
-  const [repeatPassword, setRepeatPassword] = useState("Admin123#");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [number, setNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
 
   const { onRegister, isLoading } = useContext(AuthenticationContext);
 
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     width: "90%",
+
     marginBottom: theme.space[2],
   },
   iconContainer: {

@@ -10,7 +10,9 @@ import CustomButton from "./../components/CustomButton";
 import UserProfileCard from "../components/UserProfileCard";
 import CustomLoader from "./../components/CustomLoader";
 const ProfileScreen = ({ navigation }) => {
-  const { user, onChangePassword } = useContext(AuthenticationContext);
+  const { user, onChangePassword, onLogout } = useContext(
+    AuthenticationContext
+  );
   const { isLoading, userInfo, onDeleteUser } = useContext(UserContext);
 
   const onEditProfileInfo = () =>
@@ -29,6 +31,7 @@ const ProfileScreen = ({ navigation }) => {
           text: "Delete",
           onPress: () => {
             onDeleteUser(user.uid);
+            onLogout();
           },
         },
       ]

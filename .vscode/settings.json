@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["firestore", "minlength", "Searchbar", "unhighlight"]
+  "cSpell.words": [
+    "firebasestorage",
+    "firestore",
+    "minlength",
+    "Searchbar",
+    "unhighlight"
+  ]
 }

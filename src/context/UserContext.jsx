@@ -27,10 +27,10 @@ const UserContextProvider = ({ children }) => {
     }, [userId]);
   };
 
-  const onUserUpdate = (userId, userObj) => {
+  const onUserUpdate = async (userId, userObj) => {
     setIsLoading(true);
     try {
-      updateUserInfo(userId, userObj);
+      await updateUserInfo(userId, userObj);
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
@@ -38,7 +38,9 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
-  const onDeleteUser = (id) => deleteUser(id);
+  const onDeleteUser = async (id) => {
+    await deleteUser(id);
+  };
 
   return (
     <UserContext.Provider

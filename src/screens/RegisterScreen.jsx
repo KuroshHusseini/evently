@@ -111,6 +111,7 @@ const RegisterScreen = () => {
             />
             <CustomTextInput
               label="Email"
+              placeholder="Enter your email"
               value={email}
               onChangeText={(e) => setEmail(e)}
             />

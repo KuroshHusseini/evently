@@ -25,15 +25,15 @@ export const registerRequest = async (
   try {
     await firebase.auth().createUserWithEmailAndPassword(rEmail, rPassword);
     const currentUser = firebase.auth().currentUser;
-
     await firebase.firestore().collection("users").doc(currentUser.uid).set({
       email: currentUser.email,
       lastName: lastName,
       firstName: firstName,
       phoneNumber: number,
-      maintainer: false
+      maintainer: false,
     });
     console.log("User Created");
+    return currentUser;
   } catch (error) {
     Alert.alert(
       "Authentication Error",

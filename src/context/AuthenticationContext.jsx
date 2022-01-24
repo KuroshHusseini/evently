@@ -17,12 +17,11 @@ const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  
   const onLogin = async (email, password) => {
     setIsLoading(true);
     try {
       const loginUser = await loginRequest(email, password);
-      setUser(loginUser.user);
+      loginUser && setUser(loginUser.user);
       setIsLoading(false);
     } catch (error) {
       setError(error);
@@ -39,7 +38,7 @@ const AuthenticationContextProvider = ({ children }) => {
         lastName,
         number
       );
-      setUser(registeredUser);
+      registeredUser && setUser(registeredUser);
       setIsLoading(false);
     } catch (err) {
       Alert.alert("There is something wrong!!!!", err.message);
